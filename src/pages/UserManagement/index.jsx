@@ -8,6 +8,7 @@ function Index() {
     // Sample data object with row names and corresponding values
     const userId = useSelector(state => state.authentication.userId);
     const [data, setData] = useState([]);
+    const [fetchUser, setFetchUser] = useState(false);
 
     useEffect(() => {
         try {
@@ -18,14 +19,29 @@ function Index() {
             }).then((res) => {
                 // console.log(res);
                 const updatedData = res.data?.map((Item) => {
-                    return { name: Item.name, email: Item.email, phoneNumber: Item.phoneNumber, access: Item.access, pages: Item.pages }
+                    return { _id: Item._id, name: Item.name, email: Item.email, phoneNumber: Item.phoneNumber, access: Item.access, pages: Item.pages, blocked: Item.blocked }
                 })
                 setData(updatedData);
             })
         } catch (error) {
             console.error("error");
         }
-    }, [])
+    }, [fetchUser])
+
+
+    const blockAndUnblockUser = async (id, action) => {
+        try {
+            const response = await axios.patch(`${process.env.REACT_APP_BACKEND_PORT}/auth/block/${id}/${action}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            setFetchUser(prev => !prev);
+        } catch (error) {
+            console.error("Error managing user:", error);
+        }
+    };
+
 
     const columns = [
         "Name",
@@ -74,9 +90,18 @@ function Index() {
                             onChange={() => handleChange(row._id)}
                             inputProps={{ 'aria-label': 'controlled' }}
                         />
-                        <button className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl border-2 border-indigo-400 border-solid">
-                            Blocked
-                        </button>
+
+                        {
+                            row.blocked ? (
+                                <button onClick={() => blockAndUnblockUser(row._id, 'unblock')} className="p-2.5 font-semibold text-white bg-indigo-400 border-2 border-indigo-400 rounded-xl">
+                                    Unblock
+                                </button>
+                            ) : (
+                                <button onClick={() => blockAndUnblockUser(row._id, 'block')} className="p-2.5 font-semibold text-black border-2 border-indigo-400 bg-white rounded-xl">
+                                    Block
+                                </button>
+                            )
+                        }
                     </div>
                 ))}
             </div>

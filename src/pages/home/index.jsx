@@ -28,9 +28,9 @@ const Index = () => {
                         every aspect of your restaurant's online presence for maximum impact and
                         success
                     </div>
-                    <div onClick={() => { Navigate('/demo') }} className="justify-center px-8 py-4 text-base font-medium leading-5 text-center text-white bg-indigo-400 rounded w-[200px] text-md mt-10">
+                    <button onClick={() => { Navigate('/demo') }} className="justify-center px-8 py-4 text-base font-medium leading-5 text-center text-white bg-indigo-400 rounded w-[200px] text-md mt-10">
                         Book a Demo
-                    </div>
+                    </button>
 
                 </div>
                 <div className="flex-1 relative flex justify-center">

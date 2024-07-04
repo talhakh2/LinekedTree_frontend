@@ -22,6 +22,7 @@ export default function GameManagement() {
         ownerId: userId,
         brandName: '',
         resturantName: '',
+        resturantAddress: '',
         logo: '',
         options: {
             option1: '',
@@ -178,7 +179,7 @@ export default function GameManagement() {
                                         <div className="flex mt-4 gap-5 max-md:flex-col max-md:gap-0">
                                             <div className="mt-4 text-base font-medium leading-5 text-black w-full">
                                                 Resturant Address
-                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, resturantName: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter Resturant Address`} value={gameFormat.resturantName} />
+                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, resturantAddress: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter Resturant Address`} value={gameFormat.resturantAddress} />
                                             </div>
                                         </div>
 
@@ -206,9 +207,9 @@ export default function GameManagement() {
                                                     gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <div className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" />
                                                 }
                                                 <div className="flex flex-row ml-5 w-[16%] max-md:ml-0 max-md:w-full">
-                                                    <div className="justify-center self-stretch px-0.5 py-2.5 my-auto w-full text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl max-md:mt-10">
+                                                    <div className="justify-center self-stretch px-0.5 py-2.5 my-auto w-full text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 hover:bg-indigo-500 cursor-pointer rounded-xl max-md:mt-10">
                                                         <input onChange={ImageUpload} type="file" id="uploadFileInput" style={{ display: "none" }} />
-                                                        <label htmlFor="uploadFileInput">Upload</label>
+                                                        <label htmlFor="uploadFileInput" className="cursor-pointer">Upload</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -453,10 +454,14 @@ export default function GameManagement() {
                         )
                     }
                     <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
-                        <div onClick={createLandingPage} className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl max-md:mt-10">
-                            <label htmlFor="uploadFileInput">{`${id ? 'Update Landing Page' : 'Create Landing Page'}`}</label>
+                        <div
+                            onClick={createLandingPage}
+                            className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
+                        >
+                            <label className="cursor-pointer" >{`${id ? 'Update Landing Page' : 'Create Landing Page'}`}</label>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

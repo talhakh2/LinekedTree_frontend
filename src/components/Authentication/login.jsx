@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useSearchParams } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import VerifyEmailPopup from "../VerifyEmailPopup";
+import BlockedPopup from "../BlockedPopup";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../store/features/AuthenticationSlice";
 
@@ -12,9 +13,11 @@ export default function Login() {
     const dispatch = useDispatch();
     const Navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
+    const [openBlocked, setOpenBlocked] = React.useState(false);
 
-    const [searchParams] = useSearchParams();
-    const paymentType = searchParams.get('payment');
+    const location = useLocation();
+    const { paymentType, amount, landingPages } = location.state || {};
+
 
     const handleSubmit = async () => {
         const userData = {
@@ -27,6 +30,11 @@ export default function Login() {
                     'Content-Type': 'application/json'
                 },
             }).then(async (res) => {
+                if (res.data.blocked){
+                    console.log('blocked');
+                    setOpenBlocked(true)
+                    return
+                }
                 if(!res.data.isVerified){
                     setOpen(true);
                 }
@@ -35,14 +43,18 @@ export default function Login() {
                         Navigate('/pricing')
                     }else{
                         if(paymentType.toLowerCase() === 'monthly'){
-                            await axios.get(`${process.env.REACT_APP_BACKEND_PORT}/checkout/monthly?userId=${res.data.userId}`).then((res) => {
+                            await axios.get(`${process.env.REACT_APP_BACKEND_PORT}/checkout/monthly?userId=${res.data.userId}&amount=${amount}&landingPages=${landingPages}`).then((res) => {
                                 window.open(res.data.session.url)
+                                
                             })
                         }else{
-                            await axios.get(`${process.env.REACT_APP_BACKEND_PORT}/checkout/yearly?userId=${res.data.userId}`).then((res) => {
+                            await axios.get(`${process.env.REACT_APP_BACKEND_PORT}/checkout/yearly?userId=${res.data.userId}&amount=${amount}&landingPages=${landingPages}`).then((res) => {
                                 window.open(res.data.session.url)
+                            
                             })
                         }
+                        
+
                     }
                 }else{
                     dispatch(registerUser({
@@ -63,7 +75,7 @@ export default function Login() {
                 console.error(err)
             })
         } catch (error) {
-            console.error("Error registering user:", error);
+            console.error("Error signing in user:", error);
         }
     };
 
@@ -132,6 +144,7 @@ export default function Login() {
                 </div>
             </div>
             <VerifyEmailPopup open={open} setOpen={setOpen} email={emailRef?.current?.value}/>
+            <BlockedPopup open={openBlocked} setOpen={setOpenBlocked} email={emailRef?.current?.value}/>
         </div>
     );
 }

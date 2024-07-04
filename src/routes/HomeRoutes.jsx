@@ -44,6 +44,7 @@ const Index = () => {
           <Route path="/faqs" element={!userId ? <Faqs /> : <GameManagement />} />
           <Route path="/register" element={!userId ? <Register /> : <GameManagement />} />
           <Route path="/demo" element={!userId ? <BookADemo /> : <GameManagement />} />
+          <Route path="/register" element={!userId ? <Register /> : <GameManagement />} />
           <Route path="/login" element={!userId ? <Login /> : <GameManagement />} />
 
           <Route path="/game" element={userId ? accountType === 'main' ? <GameManagement /> : <AllLandingPages /> : <Home />} />

@@ -158,7 +158,7 @@ const User = () => {
                                 </div>
                             </div>
                             <div className="flex flex-col items-center justify-center p-4 h-[220px] w-[200px] max-md:flex-col shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] max-md:gap-0">
-                                <p className='font-semibold pb-3' style={{ margin: "3px 0", fontSize: "18px", color: "#000" }}>Tik Tok</p>
+                                <p className='font-semibold pb-3' style={{ margin: "3px 0", fontSize: "18px", color: "#000" }}>Twitter</p>
                                 <div className="container-goal">
                                     <div className="circular-progress2" style={{ backgroundColor: "#FDFDAF" }}>
                                         <div className="value-container">{`${((data.twitterCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0}%`}</div>

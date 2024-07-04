@@ -23,8 +23,9 @@ export default function Register() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-            }).then(()=>{
+            }).then((res)=>{
                 setOpen(true);
+                console.log(res);
             })
         } catch (error) {
             console.error("Error registering user:", error);

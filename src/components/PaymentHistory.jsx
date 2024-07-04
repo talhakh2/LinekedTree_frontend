@@ -4,46 +4,42 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 function PaymentHistory() {
-    // Sample data object with row names and corresponding values
     const userId = useSelector(state => state.authentication.userId);
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        try {
-            axios.get(`${process.env.REACT_APP_BACKEND_PORT}/payment/history/${userId}`, {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            }).then((res) => {
-                const updatedData = res.data.data?.map((Item) => {
-                    return { plan: Item.plan, ammount: `${Item.amount}$`, Date: Item.plan.slice(0, 10), method: Item.paymentMethod }
-                })
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_BACKEND_PORT}/payment/history/${userId}`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                const updatedData = res.data.data?.map((item) => {
+                    return {
+                        plan: item.plan,
+                        amount: `€${item.amount}`,
+                        landingPages: item.landingPages,
+                        date: item.expiryDate.slice(0, 10) ,
+                        method: item.paymentMethod
+                    }
+                });
                 setData(updatedData);
-                console.log(res.data.data);
-            })
-        } catch (error) {
-            console.error("error");
-        }
-    }, [])
+            } catch (error) {
+                console.error("Error fetching payment history:", error);
+            }
+        };
 
-
-    // const data = [
-    //     { plan: "Yearly", ammount: "$988", Date: "2024-03-06", method: "Stripe" },
-    //     { plan: "Monthly", ammount: "$98", Date: "2024-03-06", method: "Stripe" },
-    //     { plan: "Monthly", ammount: "$98", Date: "2024-03-06", method: "Stripe" },
-    //     { plan: "Monthly", ammount: "$98", Date: "2024-03-06", method: "Stripe" },
-    //     { plan: "Monthly", ammount: "$98", Date: "2024-03-06", method: "Stripe" },
-    //     { plan: "Monthly", ammount: "$98", Date: "2024-03-06", method: "Stripe" },
-    //     { plan: "Monthly", ammount: "$98", Date: "2024-03-06", method: "Stripe" },
-    //     // Add more objects as needed
-    // ];
+        fetchData();
+    }, [userId]);
 
     const columns = [
         "Subscription Plan",
-        "Ammount",
-        "Date",
-        "Payment Method",
-    ]
+        "Amount",
+        "Landing Pages",
+        "Expiry Date",
+        "Payment Method"
+    ];
 
     return (
         <div className="flex mb-20">
@@ -56,16 +52,18 @@ function PaymentHistory() {
                 </div>
                 <div className="w-[900px] m-auto">
                     <div className="min-w-0 flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto">
-                        {columns?.map((key, idx) => (
-                            <div key={idx} className="font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{key}</div>
+                        {columns.map((column, idx) => (
+                            <div key={idx} className="font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">
+                                {column}
+                            </div>
                         ))}
                     </div>
 
-                    {data?.map((row, index) => (
+                    {data.map((row, index) => (
                         <div key={index} className="flex gap-5 justify-between items-center p-5 mt-5 bg-white max-md:flex-wrap shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                            {Object.keys(row).map((key, idx) => (
-                                <div className={`w-[80px] md:w-[70px] ${idx === 0 && 'md:w-[200px] mr-16'} ${idx === 1 && 'md:w-[80px]'} flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis`} key={idx}>
-                                    {row[key]}
+                            {Object.values(row).map((value, idx) => (
+                                <div className={`w-[80px] md:w-[70px] ${idx === 0 && 'md:w-[50px] mr-14'} ${idx === 1 && 'md:w-[40px]'} ${idx === 3 && 'md:w-[40px] mr-16'} flex-shrink-0 whitespace-nowrap text-ellipsis`} key={idx}>
+                                    {value}
                                 </div>
                             ))}
                         </div>

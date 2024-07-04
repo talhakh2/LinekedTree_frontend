@@ -183,14 +183,14 @@ const AsideHeader = () => {
                                 </div>
                             }
                         </div>
-                        <div onClick={logout} className="flex gap-3 p-2.5 mt-2.5 ml-3 whitespace-nowrap">
+                        <button onClick={logout} className="flex gap-3 p-2.5 mt-2.5 ml-3 whitespace-nowrap">
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/a34cdd663df3ea160a5e3efb6d2b67c3621b6cb392ffec29be33774096da946f?apiKey=cf358c329e0d49a792d02d32277323ef&"
                                 className="shrink-0 aspect-square w-[18px]"
                             />
                             <div className="my-auto">Logout</div>
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>

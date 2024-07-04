@@ -42,9 +42,9 @@ function AccountManagement() {
             <div className="w-full mt-6 mx-5">
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between">
                     <div className="justify-center self-start p-2.5 mt-6 text-lg font-medium tracking-wide leading-6 text-blue-950">
-                        Account Management
+                        Sub-Account Management
                     </div>
-                    <div className="flex gap-px p-2.5 text-base font-bold tracking-tight text-white bg-indigo-400 rounded-md h-[46px] w-[200px] mt-5 md:mt-0 text-center justify-center">
+                    <div className="cursor-pointer flex gap-px p-2.5 text-base font-bold tracking-tight text-white bg-indigo-400 rounded-md h-[46px] w-[200px] mt-5 md:mt-0 text-center justify-center">
                         <div onClick={() => setOpen(!open)} className="cursor-pointer">Add new account</div>
                     </div>
                 </div>
