@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import SpinDesign from "../../components/SpinDesign.jsx";
 
 export default function GameManagement() {
     const [selectedRow, setSelectedRow] = useState(1);
@@ -42,6 +43,11 @@ export default function GameManagement() {
             option7frequency: '',
             option8frequency: ''
         },
+        wheelColorPair: {
+            color1: '#8497FC',
+            color2: '#FDFDAF'
+        },
+        buttonColor: '#8497FC',
         instagram: '',
         tiktok: '',
         facebook: '',
@@ -49,16 +55,31 @@ export default function GameManagement() {
         twitter: '',
         content: '',
     });
-    const [options, setOptions] = useState({
-        option1: '',
-        option2: '',
-        option3: '',
-        option4: '',
-        option5: '',
-        option6: '',
-        option7: '',
-        option8: '',
-    })
+
+    const [selectedPair, setSelectedPair] = useState(1);
+    const [selectedButtonColor, setSelectedButtonColor] = useState(1);
+
+    const handlePairClick = (pairId, color1, color2) => {
+        setSelectedPair(pairId);
+        setGameFormate({
+            ...gameFormat,
+            wheelColorPair: {
+                color1: color1,
+                color2: color2
+            }
+        });
+        
+    };
+
+    const handleButtonColorClick = (pairId, color1) => {
+        setSelectedButtonColor(pairId);
+        setGameFormate({
+            ...gameFormat, 
+            buttonColor: color1
+        });
+        
+    };
+
     useEffect((Item) => {
         if (id) {
             try {
@@ -74,6 +95,7 @@ export default function GameManagement() {
             }
         }
     }, [id])
+
     const optionsArray = Array.from({ length: 100 }, (_, i) => i + 1);
     const createLandingPage = () => {
         if (id) {
@@ -142,6 +164,39 @@ export default function GameManagement() {
             reader.readAsDataURL(file);
         }
     };
+
+    function ColorPair({ id, color1, label1, color2, label2, isSelected, onClick }) {
+        return (
+            <div
+                className={`cursor-pointer p-2 rounded-lg inline-block ${isSelected ? 'bg-black bg-opacity-10' : 'hover:bg-black hover:bg-opacity-10'}`}
+                onClick={() => onClick(id, color1, color2)}
+            >
+                <div className="flex gap-2 justify-start">
+                    <div className="w-[20px] h-[20px]" style={{ backgroundColor: color1 }}></div>
+                    <label className="my-auto">{label1}</label>
+                </div>
+                <div className="flex gap-2 justify-start mt-1.5">
+                    <div className="w-[20px] h-[20px]" style={{ backgroundColor: color2 }}></div>
+                    <label className="my-auto">{label2}</label>
+                </div>
+            </div>
+        );
+    }
+
+    function ButtonColor({ id, color1, label1, isSelected, onClick }) {
+        return (
+            <div
+                className={`cursor-pointer p-2 rounded-lg inline-block ${isSelected ? 'bg-black bg-opacity-10' : 'hover:bg-black hover:bg-opacity-10'}`}
+                onClick={() => onClick(id, color1)}
+            >
+                <div className="flex gap-2 justify-start">
+                    <div className="w-[20px] h-[20px]" style={{ backgroundColor: color1 }}></div>
+                    <label className="my-auto">{label1}</label>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="flex mb-20">
             <AsideHeader />
@@ -165,6 +220,7 @@ export default function GameManagement() {
                 </div>
 
                 <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
+                
                     {
                         selectedRow === 1 && (
                             <>
@@ -173,7 +229,7 @@ export default function GameManagement() {
                                         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                                             <div className="mt-4 text-base font-medium leading-5 text-black w-full">
                                                 Resturant Name
-                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, resturantName: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter your Brand Name`} value={gameFormat.resturantName} />
+                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, resturantName: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter your Brand Name`} value={gameFormat.resturantName} required />
                                             </div>
                                         </div>
                                         <div className="flex mt-4 gap-5 max-md:flex-col max-md:gap-0">
@@ -281,36 +337,18 @@ export default function GameManagement() {
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* <div className="container mt-10">
-                                    <div className="spinBtn" onClick={spinedClick}></div>
-                                    <div className="wheel">
-                                        <div className="number" style={{ '--i': 1, '--clr': '#8497FC' }}>
-                                            <span>{gameFormat.options.option1 || 'option 1'}</span>
-                                        </div>
-                                        <div className="number" style={{ '--i': 2, '--clr': '#FDFDAF' }}>
-                                            <span>{gameFormat.options.option2 || 'option 2'}</span>
-                                        </div>
-                                        <div className="number" style={{ '--i': 3, '--clr': '#8497FC' }}>
-                                            <span>{gameFormat.options.option3 || 'option 3'}</span>
-                                        </div>
-                                        <div className="number" style={{ '--i': 4, '--clr': '#FDFDAF' }}>
-                                            <span>{gameFormat.options.option4 || 'option 4'}</span>
-                                        </div>
-                                        <div className="number" style={{ '--i': 5, '--clr': '#8497FC' }}>
-                                            <span>{gameFormat.options.option5 || 'option 5'}</span>
-                                        </div>
-                                        <div className="number" style={{ '--i': 6, '--clr': '#FDFDAF' }}>
-                                            <span>{gameFormat.options.option6 || 'option 6'}</span>
-                                        </div>
-                                        <div className="number" style={{ '--i': 7, '--clr': '#8497FC' }}>
-                                            <span>{gameFormat.options.option7 || 'option 7'}</span>
-                                        </div>
-                                        <div className="number" style={{ '--i': 8, '--clr': '#FDFDAF' }}>
-                                            <span>{gameFormat.options.option8 || 'option 8'}</span>
-                                        </div>
+                                <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
+                                    <div
+                                        onClick={() => {
+                                            setSelectedRow(2);
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        }}
+                                        className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
+                                    >
+                                        <label className="cursor-pointer" >Design</label>
                                     </div>
-                                </div> */}
+                                </div>
+
                             </>
                         )
                     }
@@ -318,62 +356,157 @@ export default function GameManagement() {
                     {
                         selectedRow === 2 && (
                             <>
-                                <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                    <div className="text-2xl max-md:max-w-full">Wheel Color</div>
-                                    <div className="flex gap-3 justify-start mt-4">
-                                        <div className="w-[20px] h-[20px] bg-[#8497FC]"></div>
-                                        <label htmlFor="uploadLogo" className="my-auto">Blue</label>
+                                <div className="flex flex-wrap p-5 font-medium text-black bg-white leading-[140%] shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
+                                    
+                                    <div className="text-2xl max-md:max-w-full w-full mb-4">Wheel Color</div>
+                                    
+                                    <div className="flex gap-[2vw] flex-wrap">
+                                        {/* Color pair components */}
+                                        <ColorPair
+                                            id={1}
+                                            color1="#8497FC"
+                                            label1="Blue"
+                                            color2="#FDFDAF"
+                                            label2="Yellow"
+                                            isSelected={selectedPair === 1}
+                                            onClick={handlePairClick}
+                                        />
+                                        <ColorPair
+                                            id={2}
+                                            color1="#FFB703"
+                                            label1="Mango"
+                                            color2="#FB8500"
+                                            label2="Orange"
+                                            isSelected={selectedPair === 2}
+                                            onClick={handlePairClick}
+                                        />
+                                        <ColorPair
+                                            id={3}
+                                            color1="#C1121F"
+                                            label1="Ruby"
+                                            color2="#FDF0D5"
+                                            label2="Coffee cream"
+                                            isSelected={selectedPair === 3}
+                                            onClick={handlePairClick}
+                                        />
+                                        <ColorPair
+                                            id={4}
+                                            color1="#386641"
+                                            label1="Hunter green"
+                                            color2="#A7C957"
+                                            label2="Sweet midori"
+                                            isSelected={selectedPair === 4}
+                                            onClick={handlePairClick}
+                                        />
+                                        <ColorPair
+                                            id={5}
+                                            color1="#E3F2FD"
+                                            label1="Alice blue"
+                                            color2="#DB5461"
+                                            label2="Mandy"
+                                            isSelected={selectedPair === 5}
+                                            onClick={handlePairClick}
+                                        />
+                                        <ColorPair
+                                            id={6}
+                                            color1="#5D2E8C"
+                                            label1="Purple"
+                                            color2="#CCFF66"
+                                            label2="Canary"
+                                            isSelected={selectedPair === 6}
+                                            onClick={handlePairClick}
+                                        />
+                                        <ColorPair
+                                            id={7}
+                                            color1="#C80036"
+                                            label1="Monza"
+                                            color2="#FDFDAF"
+                                            label2="Yellow"
+                                            isSelected={selectedPair === 7}
+                                            onClick={handlePairClick}
+                                        />
                                     </div>
-                                    <div className="flex gap-3 justify-start mt-1.5">
-                                        <div className="w-[20px] h-[20px] bg-[#FDFDAF]"></div>
-                                        <label htmlFor="enterBrandName" className="my-auto">Yellow</label>
-                                    </div>
+
                                 </div>
 
-
-                                <div className="flex flex-col mt-10 p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                    <div className="text-2xl max-md:max-w-full">Page Color</div>
-                                    <div className="flex gap-3 justify-start mt-4">
-                                        <div className="w-[20px] h-[20px] bg-[#fff]" style={{ border: "1px solid #ccc" }}></div>
-                                        <label htmlFor="uploadLogo" className="my-auto">White</label>
+                                <div className="flex flex-wrap p-5 font-medium text-black bg-white leading-[140%] shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] mt-7">
+                                    
+                                    <div className="text-2xl max-md:max-w-full mb-4">Button Color</div>
+                                    <div className="flex gap-[2vw] flex-wrap">
+                                        {/* ButtonColor components */}
+                                        <ButtonColor
+                                            id={1}
+                                            color1="#8497FC"
+                                            label1="Blue"
+                                            
+                                            isSelected={selectedButtonColor === 1}
+                                            onClick={handleButtonColorClick}
+                                        />
+                                        <ButtonColor
+                                            id={2}
+                                            color1="#FFB703"
+                                            label1="Mango"
+                                            
+                                            isSelected={selectedButtonColor === 2}
+                                            onClick={handleButtonColorClick}
+                                        />
+                                        <ButtonColor
+                                            id={3}
+                                            color1="#C1121F"
+                                            label1="Ruby"
+                                            
+                                            isSelected={selectedButtonColor === 3}
+                                            onClick={handleButtonColorClick}
+                                        />
+                                        <ButtonColor
+                                            id={4}
+                                            color1="#386641"
+                                            label1="Hunter green"
+                                            
+                                            isSelected={selectedButtonColor === 4}
+                                            onClick={handleButtonColorClick}
+                                        />
+                                        <ButtonColor
+                                            id={5}
+                                            color1="#E3F2FD"
+                                            label1="Alice blue"
+                                            
+                                            isSelected={selectedButtonColor === 5}
+                                            onClick={handleButtonColorClick}
+                                        />
+                                        <ButtonColor
+                                            id={6}
+                                            color1="#5D2E8C"
+                                            label1="Purple"
+                                            
+                                            isSelected={selectedButtonColor === 6}
+                                            onClick={handleButtonColorClick}
+                                        />
+                                        <ButtonColor
+                                            id={7}
+                                            color1="#C80036"
+                                            label1="Monza"
+                                            
+                                            isSelected={selectedButtonColor === 7}
+                                            onClick={handleButtonColorClick}
+                                        />
                                     </div>
+
                                 </div>
 
-                                <div className="flex flex-col items-center mt-20 pt-8 pb-2 bg-white shadow-sm max-w-[722px]">
-                                    <img
-                                        loading="lazy"
-                                        srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/8669bf69e13c31c7393cd2bffae76e00d4bf176564e064b80a017f38623d8955?apiKey=cf358c329e0d49a792d02d32277323ef&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/8669bf69e13c31c7393cd2bffae76e00d4bf176564e064b80a017f38623d8955?apiKey=cf358c329e0d49a792d02d32277323ef&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/8669bf69e13c31c7393cd2bffae76e00d4bf176564e064b80a017f38623d8955?apiKey=cf358c329e0d49a792d02d32277323ef&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/8669bf69e13c31c7393cd2bffae76e00d4bf176564e064b80a017f38623d8955?apiKey=cf358c329e0d49a792d02d32277323ef&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/8669bf69e13c31c7393cd2bffae76e00d4bf176564e064b80a017f38623d8955?apiKey=cf358c329e0d49a792d02d32277323ef&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/8669bf69e13c31c7393cd2bffae76e00d4bf176564e064b80a017f38623d8955?apiKey=cf358c329e0d49a792d02d32277323ef&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/8669bf69e13c31c7393cd2bffae76e00d4bf176564e064b80a017f38623d8955?apiKey=cf358c329e0d49a792d02d32277323ef&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/8669bf69e13c31c7393cd2bffae76e00d4bf176564e064b80a017f38623d8955?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                        className="self-stretch w-full aspect-[1.47] max-md:max-w-full"
-                                        alt=""
-                                    />
-                                    <div className="flex gap-2 justify-between pr-3 mt-20 ml-16 max-md:mt-10">
-                                        <img
-                                            loading="lazy"
-                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/09923380b2cf92c7af98f537f3b12d5be8700c253ddfb790781d9d8ae18e083a?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                            className="shrink-0 w-3 aspect-square"
-                                            alt=""
-                                        />
-                                        <img
-                                            loading="lazy"
-                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/5f03689dd694571b2ab72fa555b6452258c8c545c9423f29744481b208431a64?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                            className="shrink-0 w-3 aspect-square"
-                                            alt=""
-                                        />
-                                        <img
-                                            loading="lazy"
-                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/d1197ebe75a39d3255ddb89ec9c333c50ee053aad5aad94a85e44cfa92f92ee8?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                            className="shrink-0 aspect-[1.09] w-[13px]"
-                                            alt=""
-                                        />
-                                        <img
-                                            loading="lazy"
-                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/8a60c44158bfb1f23e8e72c732fc861feb2cf3250b04e7eae73cd5e4c87d38b5?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                            className="shrink-0 aspect-[1.09] w-[13px]"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div className="mt-3.5 ml-12 text-xs leading-3 text-slate-800">
-                                        © 2024 Company name . All rights reserved.
+                                <div className="flex flex-col items-center mt-20 pt-8 pb-4 bg-white leading-[140%] shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
+                                    <SpinDesign gameFormat={gameFormat} />
+                                </div>
+
+                                <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
+                                    <div
+                                        onClick={() => {
+                                            setSelectedRow(3);
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        }}
+                                        className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
+                                    >
+                                        <label className="cursor-pointer" >Social Media links</label>
                                     </div>
                                 </div>
 
@@ -395,12 +528,12 @@ export default function GameManagement() {
                                                 <input onChange={(e) => setGameFormate({ ...gameFormat, instagram: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter link`} value={gameFormat.instagram} />
                                             </div>
                                         </div>
-                                        <div className="flex flex-col mt-3.5 max-md:max-w-full">
+                                        {/* <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
                                                 TikTok
                                                 <input onChange={(e) => setGameFormate({ ...gameFormat, tiktok: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter link`} value={gameFormat.tiktok} />
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
                                                 Facebook
@@ -444,23 +577,32 @@ export default function GameManagement() {
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
                                                 Content
-                                                <textarea onChange={(e) => setGameFormate({ ...gameFormat, content: e.target.value })} rows="6" cols="30" className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter content`} value={gameFormat.content} />
+                                                <textarea onChange={(e) => setGameFormate({ ...gameFormat, content: e.target.value })} rows="6" cols="30" className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter content`} value={`Bravo, vous avez gagné ${gameFormat.resturantName}!
+Pour bénéficier pleinement de votre cadeau, nous vous invitons à vous rendre à l'adresse suivante, à la date de votre choix, et de présenter ce mail: 
+
+${gameFormat.resturantName}
+${gameFormat.resturantAddress}
+
+Attention, votre cadeau n'est disponible que pendant une durée limitée de <strong>10 days</strong> jours à partir de demain ! Ne laissez pas cette occasion exceptionnelle vous échapper, saisissez-la dès maintenant et profitez-en au maximum! 
+Un minimum d’achat de 10 € est requis pour récupérer le cadeau.
+
+This is an automated message, please do not reply.`} />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+                                <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
+                                    <div
+                                        onClick={createLandingPage}
+                                        className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
+                                    >
+                                        <label className="cursor-pointer" >{`${id ? 'Update Landing Page' : 'Create Landing Page'}`}</label>
+                                    </div>
+                                </div>
                             </>
                         )
                     }
-                    <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
-                        <div
-                            onClick={createLandingPage}
-                            className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
-                        >
-                            <label className="cursor-pointer" >{`${id ? 'Update Landing Page' : 'Create Landing Page'}`}</label>
-                        </div>
-                    </div>
+
 
                 </div>
             </div>
