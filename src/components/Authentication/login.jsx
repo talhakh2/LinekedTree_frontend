@@ -35,9 +35,6 @@ export default function Login() {
                     setOpenBlocked(true)
                     return
                 }
-                if(!res.data.isVerified){
-                    setOpen(true);
-                }
                 if(!res.data.payment && !res.data.isTrial){
                     if(!paymentType){
                         Navigate('/pricing')
@@ -57,15 +54,21 @@ export default function Login() {
 
                     }
                 }else{
+                    if(!res.data.isVerified){
+                        console.log('not verified');
+                        setOpen(true);
+                        return
+                    }
                     dispatch(registerUser({
                         userId: res.data.userId,
                         name: res.data.name,
                         jwtToken: res.data.token,
                         ownerId: res.data.ownerId,
                         accountType: res.data.accountType,
-                        isAdmin: res.data.name === 'Admin' ? true : false
+                        isAdmin: res.data.isAdmin
                     }))
-                    if(res.data.name === 'Admin'){
+                    if(res.data.isAdmin){
+                        console.log(res.data.isAdmin);
                         Navigate('/admin/dashboard')
                     }else{
                         Navigate('/dashboard')

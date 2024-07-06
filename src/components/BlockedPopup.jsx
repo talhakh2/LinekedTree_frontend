@@ -35,7 +35,7 @@ export default function VerifyEmailPopup({ open, setOpen, email }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-center mt-2.5 max-w-full text-base font-medium tracking-normal leading-6 text-white w-[152px]">
+                        <div className="flex flex-col justify-center mt-2.5 max-w-full text-base font-medium tracking-normal leading-6 text-white w-[252px]">
                             <button onClick={()=>{Navigate('/')}} className="justify-center px-6 py-3 bg-indigo-400 rounded-md border border-gray-300 border-solid">
                                 Back to home
                             </button>

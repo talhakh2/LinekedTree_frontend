@@ -24,10 +24,15 @@ export default function Register() {
                     'Content-Type': 'application/json'
                 },
             }).then((res)=>{
-                setOpen(true);
-                console.log(res);
+                
+                if(userData.isTrial){
+                    alert('Trial Request Sent')
+                }else{
+                    setOpen(true);
+                }
             })
         } catch (error) {
+            alert(error)
             console.error("Error registering user:", error);
         }
     };

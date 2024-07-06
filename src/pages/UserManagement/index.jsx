@@ -5,10 +5,10 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 function Index() {
-    // Sample data object with row names and corresponding values
     const userId = useSelector(state => state.authentication.userId);
     const [data, setData] = useState([]);
     const [fetchUser, setFetchUser] = useState(false);
+    const [checkedStates, setCheckedStates] = useState([]);
 
     useEffect(() => {
         try {
@@ -17,21 +17,20 @@ function Index() {
                     'Content-Type': 'application/json'
                 },
             }).then((res) => {
-                // console.log(res);
                 const updatedData = res.data?.map((Item) => {
-                    return { _id: Item._id, name: Item.name, email: Item.email, phoneNumber: Item.phoneNumber, access: Item.access, pages: Item.pages, blocked: Item.blocked }
-                })
+                    return { _id: Item._id, name: Item.name, email: Item.email, phoneNumber: Item.phoneNumber, access: Item.access, pages: Item.pages, blocked: Item.blocked, isToggle: Item.isToggle }
+                });
                 setData(updatedData);
+                setCheckedStates(updatedData.map(item => item.isToggle));
             })
         } catch (error) {
-            console.error("error");
+            console.error("Error fetching data:", error);
         }
-    }, [fetchUser])
-
+    }, [fetchUser]);
 
     const blockAndUnblockUser = async (id, action) => {
         try {
-            const response = await axios.patch(`${process.env.REACT_APP_BACKEND_PORT}/auth/block/${id}/${action}`, {
+            const response = await axios.patch(`${process.env.REACT_APP_BACKEND_PORT}/auth/block/${id}/${action}`, {}, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -42,6 +41,25 @@ function Index() {
         }
     };
 
+    const HandleToggle = async (id, action) => {
+        try {
+            await axios.patch(`${process.env.REACT_APP_BACKEND_PORT}/auth/toggle/${id}/${action}`, {}, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            setFetchUser(prev => !prev);
+        } catch (error) {
+            console.error("Error managing user:", error);
+        }
+    };
+
+    const handleChange = (index, id) => {
+        const newCheckedStates = [...checkedStates];
+        newCheckedStates[index] = !newCheckedStates[index];
+        setCheckedStates(newCheckedStates);
+        HandleToggle(id, newCheckedStates[index]);
+    };
 
     const columns = [
         "Name",
@@ -50,17 +68,6 @@ function Index() {
         "Access Level",
         "Restaurant Pages"
     ];
-
-    // State to store the checked state for each row
-    const [checkedStates, setCheckedStates] = useState(data.map(() => true));
-
-    const handleChange = (index) => {
-        setCheckedStates(prevStates => {
-            const newStates = [...prevStates];
-            newStates[index] = !newStates[index];
-            return newStates;
-        });
-    };
 
     return (
         <div className="flex mb-20">
@@ -71,28 +78,26 @@ function Index() {
                         User Management
                     </div>
                 </div>
-                <div className="min-w-0 flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto">
+                <div className="grid grid-cols-6 gap-5 mt-10 p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                     {columns.map((key, idx) => (
-                        <div key={idx} className="font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{key}</div>
+                        <div key={idx} className="font-bold text-center">{key}</div>
                     ))}
-                    <div className="w-[60px]"></div>
                 </div>
 
                 {data.map((row, index) => (
-                    <div key={index} className="min-w-0 flex gap-5 mt-5 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto w-full">
-                        <div className="w-[100px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.name}</div>
-                        <div className="w-[180px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.email}</div>
-                        <div className="w-[140px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.phoneNumber || '-'}</div>
-                        <div className="w-[170px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.access || '-'}</div>
-                        <div className="w-[10px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.pages || '-'}</div>
-                        <Switch
-                            checked={checkedStates[index]}
-                            onChange={() => handleChange(row._id)}
-                            inputProps={{ 'aria-label': 'controlled' }}
-                        />
-
-                        {
-                            row.blocked ? (
+                    <div key={index} className="grid grid-cols-6 gap-5 mt-5 p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] items-center">
+                        <div className="text-center">{row.name}</div>
+                        <div className="text-center">{row.email}</div>
+                        <div className="text-center">{row.phoneNumber || '-'}</div>
+                        <div className="text-center">{row.access || '-'}</div>
+                        <div className="text-center">{row.pages || '-'}</div>
+                        <div className="flex items-center justify-center">
+                            <Switch 
+                                checked={checkedStates[index]}
+                                onChange={() => handleChange(index, row._id)}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                            {row.blocked ? (
                                 <button onClick={() => blockAndUnblockUser(row._id, 'unblock')} className="p-2.5 font-semibold text-white bg-indigo-400 border-2 border-indigo-400 rounded-xl">
                                     Unblock
                                 </button>
@@ -100,8 +105,8 @@ function Index() {
                                 <button onClick={() => blockAndUnblockUser(row._id, 'block')} className="p-2.5 font-semibold text-black border-2 border-indigo-400 bg-white rounded-xl">
                                     Block
                                 </button>
-                            )
-                        }
+                            )}
+                        </div>
                     </div>
                 ))}
             </div>
