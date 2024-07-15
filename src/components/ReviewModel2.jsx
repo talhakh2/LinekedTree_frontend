@@ -2,20 +2,16 @@ import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import { useNavigate } from 'react-router-dom';
-import blockedIcon from '../assets/blocked.png' 
+import blockedIcon from '../assets/blocked.png'
 
-export default function BlockPopup({ open, setOpen, email }) {
+export default function ReviewModel({ reviewModel2, setReviewModel2, url, followOrReview }) {
     const Navigate = useNavigate()
-    const handleClose = () => {
-        setOpen(false);
-    };
-
 
     return (
         <React.Fragment>
             <Dialog
-                open={open}
-                onClose={handleClose}
+                open={reviewModel2}
+                // onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className='rounded-lg shadow-xl'
@@ -31,13 +27,21 @@ export default function BlockPopup({ open, setOpen, email }) {
                         <div className="flex flex-col justify-center self-stretch p-2.5 mt-2.5 text-base leading-5 text-black">
                             <div className="flex flex-col">
                                 <div className="text-lg font-medium text-zinc-800">
-                                    Your Account <span className='font-bold'>{email}</span> is Blocked By Admin
+                                    {followOrReview === 'instagram' ? (
+                                        <p>Follow the instagram page, then you will be able to spin the wheel</p>
+                                    ): (
+                                        <p>Drop the Review on google, then you will be able to spin the wheel</p>
+                                    )}
+                                    
                                 </div>
                             </div>
                         </div>
                         <div className="flex flex-col justify-center mt-2.5 max-w-full text-base font-medium tracking-normal leading-6 text-white w-[252px]">
-                            <button onClick={()=>{Navigate('/')}} className="justify-center px-6 py-3 bg-indigo-400 rounded-md border border-gray-300 border-solid">
-                                Back to home
+                            <button onClick={() => {
+                                window.open(url, '_blank');
+                                setReviewModel2(false)
+                            }} className="justify-center px-6 py-3 bg-indigo-400 rounded-md border border-gray-300 border-solid">
+                                <label className="cursor-pointer" >{`${followOrReview === 'instagram' ? 'Follow' : 'Review'}`}</label>
                             </button>
                         </div>
                     </div>

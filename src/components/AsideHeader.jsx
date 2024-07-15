@@ -80,7 +80,7 @@ const AsideHeader = () => {
                                         <div className="flex-auto my-auto">Landing Pages</div>
                                     </div>
                                     {
-                                        accountType === 'main' && <div className="flex gap-3 p-2.5 mt-3.5">
+                                        accountType === 'main' && <div onClick={() => { Navigate('/flyer') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/flyer' && 'bg-[#8497FC] bg-opacity-25'}`}>
                                             <img
                                                 loading="lazy"
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/cfe905d3fddf8af89b233e4ae1f7f3edf0f522538d19de6bffa145b688697ee2?apiKey=cf358c329e0d49a792d02d32277323ef&"

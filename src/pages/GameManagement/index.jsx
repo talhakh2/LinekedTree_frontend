@@ -16,7 +16,7 @@ export default function GameManagement() {
 
     const Navigate = useNavigate();
     const userId = useSelector(state => state.authentication.userId);
-    const [data, setData] = useState(new Array(8).fill(temp))
+    const [data, setData] = useState(new Array(5).fill(temp))
     const [uploadLogo, setUploadLogo] = useState(true);
     const [total, setTotal] = useState(100);
     const [gameFormat, setGameFormate] = useState({
@@ -48,11 +48,13 @@ export default function GameManagement() {
             color2: '#FDFDAF'
         },
         buttonColor: '#8497FC',
+        buttonColorID: '',
         instagram: '',
         tiktok: '',
         facebook: '',
         googleMaps: '',
         twitter: '',
+        followOrReview: 'instagram',
         content: '',
     });
 
@@ -64,20 +66,22 @@ export default function GameManagement() {
         setGameFormate({
             ...gameFormat,
             wheelColorPair: {
+                id: pairId,
                 color1: color1,
                 color2: color2
             }
         });
-        
+
     };
 
     const handleButtonColorClick = (pairId, color1) => {
         setSelectedButtonColor(pairId);
         setGameFormate({
-            ...gameFormat, 
-            buttonColor: color1
+            ...gameFormat,
+            buttonColor: color1, 
+            buttonColorID: pairId
         });
-        
+
     };
 
     useEffect((Item) => {
@@ -89,6 +93,9 @@ export default function GameManagement() {
                     },
                 }).then((res) => {
                     setGameFormate(res.data)
+                    setSelectedPair(res.data.wheelColorPair.id)
+                    setSelectedButtonColor(res.data.buttonColorID)
+
                 })
             } catch (error) {
                 console.error("Error sending email");
@@ -220,7 +227,7 @@ export default function GameManagement() {
                 </div>
 
                 <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
-                
+
                     {
                         selectedRow === 1 && (
                             <>
@@ -357,9 +364,9 @@ export default function GameManagement() {
                         selectedRow === 2 && (
                             <>
                                 <div className="flex flex-wrap p-5 font-medium text-black bg-white leading-[140%] shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                    
+
                                     <div className="text-2xl max-md:max-w-full w-full mb-4">Wheel Color</div>
-                                    
+
                                     <div className="flex gap-[2vw] flex-wrap">
                                         {/* Color pair components */}
                                         <ColorPair
@@ -430,7 +437,7 @@ export default function GameManagement() {
                                 </div>
 
                                 <div className="flex flex-wrap p-5 font-medium text-black bg-white leading-[140%] shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] mt-7">
-                                    
+
                                     <div className="text-2xl max-md:max-w-full mb-4">Button Color</div>
                                     <div className="flex gap-[2vw] flex-wrap">
                                         {/* ButtonColor components */}
@@ -438,7 +445,7 @@ export default function GameManagement() {
                                             id={1}
                                             color1="#8497FC"
                                             label1="Blue"
-                                            
+
                                             isSelected={selectedButtonColor === 1}
                                             onClick={handleButtonColorClick}
                                         />
@@ -446,7 +453,7 @@ export default function GameManagement() {
                                             id={2}
                                             color1="#FFB703"
                                             label1="Mango"
-                                            
+
                                             isSelected={selectedButtonColor === 2}
                                             onClick={handleButtonColorClick}
                                         />
@@ -454,7 +461,7 @@ export default function GameManagement() {
                                             id={3}
                                             color1="#C1121F"
                                             label1="Ruby"
-                                            
+
                                             isSelected={selectedButtonColor === 3}
                                             onClick={handleButtonColorClick}
                                         />
@@ -462,7 +469,7 @@ export default function GameManagement() {
                                             id={4}
                                             color1="#386641"
                                             label1="Hunter green"
-                                            
+
                                             isSelected={selectedButtonColor === 4}
                                             onClick={handleButtonColorClick}
                                         />
@@ -470,7 +477,7 @@ export default function GameManagement() {
                                             id={5}
                                             color1="#E3F2FD"
                                             label1="Alice blue"
-                                            
+
                                             isSelected={selectedButtonColor === 5}
                                             onClick={handleButtonColorClick}
                                         />
@@ -478,7 +485,7 @@ export default function GameManagement() {
                                             id={6}
                                             color1="#5D2E8C"
                                             label1="Purple"
-                                            
+
                                             isSelected={selectedButtonColor === 6}
                                             onClick={handleButtonColorClick}
                                         />
@@ -486,7 +493,7 @@ export default function GameManagement() {
                                             id={7}
                                             color1="#C80036"
                                             label1="Monza"
-                                            
+
                                             isSelected={selectedButtonColor === 7}
                                             onClick={handleButtonColorClick}
                                         />
@@ -555,19 +562,41 @@ export default function GameManagement() {
                                     </div>
                                 </div>
 
-                                {/* <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
+
+                                <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
                                     <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                         <div className="text-2xl font-medium leading-8 text-black max-md:max-w-full">
-                                            Unique URL for Landing Page
+                                            Get Follow or Review
                                         </div>
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
-                                                Landing Page URL
-                                                <input className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter link`} />
+                                                <label className="flex items-center mt-3">
+                                                    <input
+                                                        className="mr-2"
+                                                        type="radio"
+                                                        name="option"
+                                                        value="instagram"
+                                                        checked={gameFormat.followOrReview === 'instagram'}
+                                                        onChange={(e) => setGameFormate({ ...gameFormat, followOrReview: e.target.value })}
+                                                    />
+                                                    Instagram Follow
+                                                </label>
+                                                <label className="flex items-center mt-3">
+                                                    <input
+                                                        className="mr-2"
+                                                        type="radio"
+                                                        name="option"
+                                                        value="google"
+                                                        checked={gameFormat.followOrReview === 'google'}
+                                                        onChange={(e) => setGameFormate({ ...gameFormat, followOrReview: e.target.value })}
+                                                    />
+                                                    Google Review
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
-                                </div> */}
+                                </div>
+
 
                                 <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
                                     <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">

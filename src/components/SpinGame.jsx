@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ReviewModel from './ReviewModel';
+import ReviewModel2 from './ReviewModel2';
 
 const Picker = require('random-picker').Picker;
 
@@ -16,8 +17,12 @@ const SpinGame = () => {
     const [reviewModel, setReviewModel] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
 
+    const [reviewModel2, setReviewModel2] = useState(true);
+    const [url, setUrl] = useState('');
+
     const [textColor, setTextColor] = useState('text-white')
     const [render, setRender] = useState(false)
+
 
     useEffect(() => {
         if (id) {
@@ -28,6 +33,11 @@ const SpinGame = () => {
                     },
                 }).then((res) => {
                     setGameFormate(res.data);
+                    if(res.data.followOrReview === 'instagram'){
+                        setUrl(res.data.instagram)
+                    } else if (res.data.followOrReview === 'google') {
+                        setUrl(res.data.googleMaps)
+                    }
                     setRender(true)
                 });
             } catch (error) {
@@ -52,16 +62,27 @@ const SpinGame = () => {
                     setIsSpined(true);
                     const wheel = document.querySelector('.wheel');
                     const picker = new Picker();
-                    picker.option(0, gameFormat.options.option1frequency);
-                    picker.option(45, gameFormat.options.option8frequency);
-                    picker.option(90, gameFormat.options.option7frequency);
-                    picker.option(135, gameFormat.options.option6frequency);
-                    picker.option(180, gameFormat.options.option5frequency);
-                    picker.option(225, gameFormat.options.option4frequency);
-                    picker.option(270, gameFormat.options.option3frequency);
-                    picker.option(315, gameFormat.options.option2frequency);
+                    picker.option(0, gameFormat.options.option6frequency); //try again 6
+
+                    picker.option(45, gameFormat.options.option5frequency); //option 5
+                    picker.option(90, gameFormat.options.option4frequency); //option 4
+
+                    picker.option(135, gameFormat.options.option7frequency); //try again 7
+
+                    picker.option(180, gameFormat.options.option3frequency); //option 3
+                    picker.option(225, gameFormat.options.option2frequency); //option 2
+
+                    picker.option(270, gameFormat.options.option8frequency); //try again 8
+
+                    picker.option(315, gameFormat.options.option1frequency); //option 1
+
+                    
                     const selectedOption = picker.pick();
-                    setSelectedIndex(selectedOption === 0 ? 1 : selectedOption === 45 ? 8 : selectedOption === 90 ? 7 : selectedOption === 90 ? 7 : selectedOption === 135 ? 6 : selectedOption === 180 ? 5 : selectedOption === 225 ? 4 : selectedOption === 270 ? 3 : 2);
+                    const selected = selectedOption === 0 ? 'try again' : selectedOption === 45 ? 5 : selectedOption === 90 ? 4 : selectedOption === 135 ? 'try again' : selectedOption === 180 ? 3 : selectedOption === 225 ? 2 : selectedOption === 270 ? 'try again' : selectedOption === 315 ? 1 : 'try again'
+                    console.log(selected);
+
+                    setSelectedIndex(selected);
+
                     wheel.style.transition = 'transform 5s ease-in-out';
                     wheel.style.transform = `rotate(${360 * 3 + selectedOption}deg)`;
                 })
@@ -75,7 +96,7 @@ const SpinGame = () => {
 
     const sendEmail = () => {
 
-        if (selectedIndex !== -1 && email) {
+        if (selectedIndex !== -1 && selectedIndex !== 'try again' && email) {
             try {
                 axios.post(`${process.env.REACT_APP_BACKEND_PORT}/result`, {
                     email: email,
@@ -118,33 +139,33 @@ const SpinGame = () => {
                         }
                     </div>
                     <div className='flex flex-col md:flex-row max-w-[900px] justify-between mx-auto items-center mt-10'>
-                    <div className="container mt-10 mr-10 mb-0 md:mb-0">
+                        <div className="container mt-10 mr-10 mb-0 md:mb-0">
 
                             <div className="spinBtn" onClick={() => spinedClick(gameFormat)}></div>
                             <div className="wheel">
                                 <div className="number" style={{ '--i': 1, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
-                                    <span className=' text-white'>{gameFormat?.options?.option1 || 'option 1'}</span>
+                                    <span className=' text-white'>try again</span>
                                 </div>
                                 <div className="number" style={{ '--i': 2, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
-                                    <span>{gameFormat?.options?.option2 || 'option 2'}</span>
+                                    <span>{gameFormat?.options?.option1 || 'option 1'}</span>
                                 </div>
                                 <div className="number" style={{ '--i': 3, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
-                                    <span>{gameFormat?.options?.option3 || 'option 3'}</span>
+                                    <span className=' text-white'>try again</span>
                                 </div>
                                 <div className="number" style={{ '--i': 4, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
-                                    <span>{gameFormat?.options?.option4 || 'option 4'}</span>
+                                    <span>{gameFormat?.options?.option2 || 'option 2'}</span>
                                 </div>
                                 <div className="number" style={{ '--i': 5, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
-                                    <span>{gameFormat?.options?.option5 || 'option 5'}</span>
+                                    <span>{gameFormat?.options?.option3 || 'option 3'}</span>
                                 </div>
                                 <div className="number" style={{ '--i': 6, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
-                                    <span>{gameFormat?.options?.option6 || 'option 6'}</span>
+                                    <span className=' text-white'>try again</span>
                                 </div>
                                 <div className="number" style={{ '--i': 7, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
-                                    <span>{gameFormat?.options?.option7 || 'option 7'}</span>
+                                    <span>{gameFormat?.options?.option4 || 'option 4'}</span>
                                 </div>
                                 <div className="number" style={{ '--i': 8, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
-                                    <span>{gameFormat?.options?.option8 || 'option 8'}</span>
+                                    <span>{gameFormat?.options?.option5 || 'option 5'}</span>
                                 </div>
                             </div>
                         </div>
@@ -180,32 +201,36 @@ const SpinGame = () => {
                     <div className="flex gap-4 justify-center mt-32">
                         <a onClick={() => {
                             const data = { ...gameFormat, instagramClicks: gameFormat.instagramClicks + 1 };
+
                             updateGame(data)
-                        }} href={gameFormat?.instagram} target="_blank"><img
+                        }} href={gameFormat?.instagram}  ><img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/357f101341ddf98f66af8d3f23083bbaca5abcfd9acc131ab16b4f86548f66e9?apiKey=cf358c329e0d49a792d02d32277323ef&"
                                 className="shrink-0 aspect-square w-[25px]"
                             /></a>
                         <a onClick={() => {
                             const data = { ...gameFormat, facebookClicks: gameFormat.facebookClicks + 1 };
+
                             updateGame(data)
-                        }} href={gameFormat?.facebook} target="_blank"><img
+                        }} href={gameFormat?.facebook}  ><img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/3bf7478fb7f2a263892712e4aa14999672df84ec24dda36a9b73c6b87ab35cfa?apiKey=cf358c329e0d49a792d02d32277323ef&"
                                 className="shrink-0 aspect-square w-[25px]"
                             /></a>
                         <a onClick={() => {
                             const data = { ...gameFormat, twitterClicks: gameFormat.twitterClicks + 1 };
+
                             updateGame(data)
-                        }} href={gameFormat?.twitter} target="_blank"><img
+                        }} href={gameFormat?.twitter}  ><img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/981bbe54100ad5fb3359a76a6d80f34022804d47da69407e294c32b6b305e5f3?apiKey=cf358c329e0d49a792d02d32277323ef&"
                                 className="shrink-0 aspect-square w-[25px]"
                             /></a>
                         <a onClick={() => {
                             const data = { ...gameFormat, googleMapsClicks: gameFormat.googleMapsClicks + 1 };
+
                             updateGame(data)
-                        }} href={gameFormat?.googleMaps} target="_blank"><img
+                        }} href={gameFormat?.googleMaps}  ><img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/ad647feebebd6e3ac712531bcfe244603e99a1e02f585c4702345d935b2f1dd6?apiKey=cf358c329e0d49a792d02d32277323ef&"
                                 className="shrink-0 aspect-square w-[25px]"
@@ -215,6 +240,7 @@ const SpinGame = () => {
                         © 2024 Company name . All rights reserved.
                     </div>
                     <ReviewModel open={reviewModel} setOpen={setReviewModel} gameFormat={gameFormat} sendEmail={sendEmail} />
+                    <ReviewModel2 reviewModel2={reviewModel2} setReviewModel2={setReviewModel2} url={url} followOrReview={gameFormat.followOrReview}/>
                 </div>
             )}
         </>

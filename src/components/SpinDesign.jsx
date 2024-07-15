@@ -25,28 +25,28 @@ export default function SpinDesign({ gameFormat }) {
                         <div className="spinBtn"></div>
                         <div className="wheel">
                             <div className="number" style={{ '--i': 1, '--clr': gameFormat.wheelColorPair.color1 }}>
-                                <span>{gameFormat.options.option1 || 'option 1'}</span>
+                                <span className=' text-white'>try again</span>
                             </div>
                             <div className="number" style={{ '--i': 2, '--clr': gameFormat.wheelColorPair.color2 }}>
-                                <span>{gameFormat.options.option2 || 'option 2'}</span>
+                                <span>{gameFormat.options.option1 || 'option 2'}</span>
                             </div>
                             <div className="number" style={{ '--i': 3, '--clr': gameFormat.wheelColorPair.color1 }}>
-                                <span>{gameFormat.options.option3 || 'option 3'}</span>
+                                <span className=' text-white'>try again</span>  
                             </div>
                             <div className="number" style={{ '--i': 4, '--clr': gameFormat.wheelColorPair.color2 }}>
-                                <span>{gameFormat.options.option4 || 'option 4'}</span>
+                                <span>{gameFormat.options.option2 || 'option 4'}</span>
                             </div>
                             <div className="number" style={{ '--i': 5, '--clr': gameFormat.wheelColorPair.color1 }}>
-                                <span>{gameFormat.options.option5 || 'option 5'}</span>
+                                <span>{gameFormat.options.option3 || 'option 5'}</span>
                             </div>
                             <div className="number" style={{ '--i': 6, '--clr': gameFormat.wheelColorPair.color2 }}>
-                                <span>{gameFormat.options.option6 || 'option 6'}</span>
+                                <span className=' text-white'>try again</span>
                             </div>
                             <div className="number" style={{ '--i': 7, '--clr': gameFormat.wheelColorPair.color1 }}>
-                                <span>{gameFormat.options.option7 || 'option 7'}</span>
+                                <span>{gameFormat.options.option4 || 'option 7'}</span>
                             </div>
                             <div className="number" style={{ '--i': 8, '--clr': gameFormat.wheelColorPair.color2 }}>
-                                <span>{gameFormat.options.option8 || 'option 8'}</span>
+                                <span>{gameFormat.options.option5 || 'option 8'}</span>
                             </div>
                         </div>
                     </div>

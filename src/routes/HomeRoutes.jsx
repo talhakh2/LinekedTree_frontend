@@ -8,6 +8,8 @@ import Login from '../components/Authentication/login';
 import Register from '../components/Authentication/Register';
 import SpinningWheel from '../components/wheel';
 import GameManagement from '../pages/GameManagement';
+import FlyerCustomization from '../pages/FlyerCustomization';
+
 import CustomerReviews from '../pages/Reviews';
 import Faqs from '../pages/faqs';
 import Settings from '../pages/Settings';
@@ -48,6 +50,7 @@ const Index = () => {
           <Route path="/login" element={!userId ? <Login /> : <GameManagement />} />
 
           <Route path="/game" element={userId ? accountType === 'main' ? <GameManagement /> : <AllLandingPages /> : <Home />} />
+          <Route path="/flyer" element={userId ? accountType === 'main' ? <FlyerCustomization /> : <AllLandingPages /> : <Home />} />
           <Route path="/landing-pages" element={userId ? <AllLandingPages /> : <Home />} />
           <Route path="/game/:id" element={userId ? <GameManagement /> : <Home />} />
           <Route path="/spin/game/:id" element={<SpinGame />} />

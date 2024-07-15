@@ -36,6 +36,11 @@ export default function Login() {
                     return
                 }
                 if(!res.data.payment && !res.data.isTrial){
+                    if(!res.data.isVerified){
+                        console.log('not verified');
+                        setOpen(true);
+                        return
+                    }
                     if(!paymentType){
                         Navigate('/pricing')
                     }else{
@@ -54,11 +59,6 @@ export default function Login() {
 
                     }
                 }else{
-                    if(!res.data.isVerified){
-                        console.log('not verified');
-                        setOpen(true);
-                        return
-                    }
                     dispatch(registerUser({
                         userId: res.data.userId,
                         name: res.data.name,
@@ -75,6 +75,7 @@ export default function Login() {
                     }
                 }
             }).catch((err) => {
+                alert('Invalid email or password')
                 console.error(err)
             })
         } catch (error) {
