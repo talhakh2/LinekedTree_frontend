@@ -1,17 +1,46 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import VerifyEmailPopup from "../VerifyEmailPopup";
+import MessageModal from "../MessageModal";
 
 export default function Register() {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const nameRef = useRef(null);
     const Navigate = useNavigate();
-    const [open, setOpen] = React.useState(false);
-    const [isTrial, setIsTrial] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [isTrial, setIsTrial] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [emailExist, setEmailExist] = useState(false)
+
+    const [openMessage, setOpenMessage] = useState(false);
+
+
+    const validateForm = () => {
+        const newErrors = {};
+        if (!nameRef.current.value) {
+            newErrors.name = "Name is required";
+        }
+        if (!emailRef.current.value) {
+            newErrors.email = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(emailRef.current.value)) {
+            newErrors.email = "Email is invalid";
+        }
+        if (!passwordRef.current.value) {
+            newErrors.password = "Password is required";
+        } else if (passwordRef.current.value.length < 8) {
+            newErrors.password = "Password must be at least 8 characters long";
+        }
+        return newErrors;
+    };
 
     const registerUser = async () => {
+        const newErrors = validateForm();
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
         const userData = {
             name: nameRef.current.value,
             email: emailRef.current.value,
@@ -19,20 +48,18 @@ export default function Register() {
             isTrial: isTrial
         };
         try {
-            axios.post(`${process.env.REACT_APP_BACKEND_PORT}/auth`, userData, {
+            const res = await axios.post(`${process.env.REACT_APP_BACKEND_PORT}/auth`, userData, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-            }).then((res)=>{
-                
-                if(userData.isTrial){
-                    alert('Trial Request Sent')
-                }else{
-                    setOpen(true);
-                }
-            })
+            });
+            if (userData.isTrial) {
+                setOpenMessage(true)
+            } else {
+                setOpen(true);
+            }
         } catch (error) {
-            alert(error)
+            setEmailExist(true)
             console.error("Error registering user:", error);
         }
     };
@@ -59,6 +86,7 @@ export default function Register() {
                                         Name
                                     </div>
                                     <input ref={nameRef} className="flex flex-col justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm" type="text" placeholder="Enter your name" />
+                                    {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center">
@@ -67,6 +95,8 @@ export default function Register() {
                                         Email
                                     </div>
                                     <input ref={emailRef} className="flex flex-col justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm" type="email" placeholder="Enter your email" />
+                                    {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
+                                    {emailExist && <span className="text-red-500 text-sm">Email already exists!</span>}
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center mt-4 whitespace-nowrap">
@@ -74,18 +104,23 @@ export default function Register() {
                                     <div className="text-sm font-medium leading-5 text-black">
                                         Password
                                     </div>
+
                                     <input ref={passwordRef} className="flex flex-col justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm" type="password" placeholder="••••••••" />
+                                    {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
+                                    <div className="flex gap-0 pr-2 mt-2 text-sm leading-5 justify-between items-center text-gray-600" >
+                                        <p>Must be at least 8 characters.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <label className="text-sm font-medium leading-5 text-black mt-4">Registering for Trial or Pay First</label>
                     <div className="flex mt-2">
-                        <div onClick={()=>{setIsTrial(false)}} className="mr-7 flex items-center">
-                            <input type='radio' id="pay" name="paymentType"/>
+                        <div onClick={() => { setIsTrial(false) }} className="mr-7 flex items-center">
+                            <input type='radio' id="pay" name="paymentType" />
                             <label htmlFor="pay" className="text-sm font-medium leading-5 text-black ml-2">Pay First</label>
                         </div>
-                        <div onClick={()=>{setIsTrial(true)}} className="flex items-center">
+                        <div onClick={() => { setIsTrial(true) }} className="flex items-center">
                             <input type='radio' id="trial" name="paymentType" />
                             <label htmlFor="trial" className="text-sm font-medium leading-5 text-black ml-2">Trial</label>
                         </div>
@@ -99,13 +134,14 @@ export default function Register() {
                         <div onClick={registerUser} className="cursor-pointer justify-center text-center items-center px-5 py-2.5 text-white bg-indigo-400 rounded-lg shadow-sm">
                             Confirm
                         </div>
-                        <div className="justify-center text-center items-center px-5 py-2.5 mt-3 text-black bg-white rounded-lg border border-gray-300 border-solid shadow-sm">
+                        <div onClick={() => Navigate('/login') } className="cursor-pointer justify-center text-center items-center px-5 py-2.5 mt-3 text-black bg-white rounded-lg border border-gray-300 border-solid shadow-sm">
                             Cancel
                         </div>
                     </div>
                 </div>
             </div>
-            <VerifyEmailPopup open={open} setOpen={setOpen} email={emailRef?.current?.value}/>
+            <VerifyEmailPopup open={open} setOpen={setOpen} email={emailRef?.current?.value} />
+            {openMessage && <MessageModal open={openMessage} setOpen={setOpenMessage} message={'Trial Request Send'} ButtonText={"Login"} link={"/login"}/>}
         </div>
     );
 }

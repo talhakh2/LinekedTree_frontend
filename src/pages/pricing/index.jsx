@@ -2,11 +2,11 @@ import React from 'react'
 import PricingHeader from '../../components/pricingHeader'
 import PricingPlan from '../../components/plans'
 
-const index = () => {
+const index = ({userId}) => {
     return (
         <div>
             <PricingHeader/>
-            <PricingPlan/>
+            <PricingPlan userId={userId}/>
         </div>
     )
 }

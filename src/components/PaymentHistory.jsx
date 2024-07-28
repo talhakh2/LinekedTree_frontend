@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import AsideHeader from "./AsideHeader";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { format, parseISO } from 'date-fns';
 
 function PaymentHistory() {
     const userId = useSelector(state => state.authentication.userId);
     const [data, setData] = useState([]);
+    const [isExpired, setIsExpired] = useState(true);
+    const Navigate = useNavigate();
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -15,15 +20,32 @@ function PaymentHistory() {
                         'Content-Type': 'application/json'
                     },
                 });
+
+                const currentDate = new Date(); // Get the current date
+
                 const updatedData = res.data.data?.map((item) => {
+                    const expiryDate = new Date(item.expiryDate);
+                    const isExpiredHistory = expiryDate < currentDate;
+
+                    const expiryDateUser = new Date(item.expiryDateUser);
+                    const isExpired = expiryDateUser < currentDate;
+                    setIsExpired(isExpired)
+
+                    const landingPagesDisplay = item.landingPagesCount > item.landingPages
+                    ? `${item.landingPages}/${item.landingPages}`
+                    : `${item.landingPagesCount}/${item.landingPages}`;
+
                     return {
                         plan: item.plan,
                         amount: `€${item.amount}`,
-                        landingPages: item.landingPages,
-                        date: item.expiryDate.slice(0, 10) ,
-                        method: item.paymentMethod
+                        landingPages: landingPagesDisplay,
+                        date: format(expiryDate, 'yyyy-MM-dd'),
+                        method: item.paymentMethod,
+                        status: isExpiredHistory ? 'Expired' : 'Active',
+                        isExpired,
                     }
                 });
+
                 setData(updatedData);
             } catch (error) {
                 console.error("Error fetching payment history:", error);
@@ -38,8 +60,17 @@ function PaymentHistory() {
         "Amount",
         "Landing Pages",
         "Expiry Date",
-        "Payment Method"
+        "Payment Method",
+        "Status"
     ];
+
+    const handleRenew = () => {
+        // Handle renew logic here, using planId or other identifiers if necessary
+        console.log(`Renew button clicked for plan:`);
+        Navigate(`/pricing`)
+
+
+    };
 
     return (
         <div className="flex mb-20">
@@ -51,6 +82,18 @@ function PaymentHistory() {
                     </div>
                 </div>
                 <div className="w-[900px] m-auto">
+                    {isExpired && (
+                        <div className="flex justify-end">
+                            <button
+                                className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 mt-7 rounded-xl border-2 border-indigo-400 border-solid hover:opacity-65 transition-all "
+                                onClick={() => handleRenew()} // Pass a unique identifier if necessary
+                            >
+                                Subscribe Plan
+                            </button>
+                        </div>
+
+                    )}
+
                     <div className="min-w-0 flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto">
                         {columns.map((column, idx) => (
                             <div key={idx} className="font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">
@@ -61,13 +104,15 @@ function PaymentHistory() {
 
                     {data.map((row, index) => (
                         <div key={index} className="flex gap-5 justify-between items-center p-5 mt-5 bg-white max-md:flex-wrap shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                            {Object.values(row).map((value, idx) => (
+                            {Object.values(row).slice(0, -1).map((value, idx) => (
                                 <div className={`w-[80px] md:w-[70px] ${idx === 0 && 'md:w-[50px] mr-14'} ${idx === 1 && 'md:w-[40px]'} ${idx === 3 && 'md:w-[40px] mr-16'} flex-shrink-0 whitespace-nowrap text-ellipsis`} key={idx}>
                                     {value}
                                 </div>
                             ))}
                         </div>
                     ))}
+
+
                 </div>
             </div>
         </div>

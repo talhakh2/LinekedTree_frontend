@@ -5,6 +5,9 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import SpinDesign from "../../components/SpinDesign.jsx";
+import { useDispatch } from 'react-redux';
+
+import MessageModal from "../../components/MessageModal";
 
 export default function GameManagement() {
     const [selectedRow, setSelectedRow] = useState(1);
@@ -19,6 +22,15 @@ export default function GameManagement() {
     const [data, setData] = useState(new Array(5).fill(temp))
     const [uploadLogo, setUploadLogo] = useState(true);
     const [total, setTotal] = useState(100);
+
+    const [openMessage, setOpenMessage] = useState(false);
+    const [message, setMessage] = useState("");
+
+    const [link, setLink] = useState("");
+    const [buttonText, setbuttonText] = useState("");
+
+
+
     const [gameFormat, setGameFormate] = useState({
         ownerId: userId,
         brandName: '',
@@ -49,17 +61,19 @@ export default function GameManagement() {
         },
         buttonColor: '#8497FC',
         buttonColorID: '',
-        instagram: '',
-        tiktok: '',
-        facebook: '',
-        googleMaps: '',
-        twitter: '',
+        instagram: 'https://',
+        tiktok: 'https://',
+        facebook: 'https://',
+        googleMaps: 'https://',
+        twitter: 'https://',
         followOrReview: 'instagram',
         content: '',
     });
 
     const [selectedPair, setSelectedPair] = useState(1);
     const [selectedButtonColor, setSelectedButtonColor] = useState(1);
+
+    const dispatch = useDispatch();
 
     const handlePairClick = (pairId, color1, color2) => {
         setSelectedPair(pairId);
@@ -78,7 +92,7 @@ export default function GameManagement() {
         setSelectedButtonColor(pairId);
         setGameFormate({
             ...gameFormat,
-            buttonColor: color1, 
+            buttonColor: color1,
             buttonColorID: pairId
         });
 
@@ -126,7 +140,20 @@ export default function GameManagement() {
                 }).then((res) => {
                     Navigate('/landing-pages')
                 }).catch((err) => {
-                    alert(err.response.data.message)
+                    // Navigate(`/pricing/:${userId}`)
+                    if (err.response.data.message !== "Please wait for adnin approval" && err.response.data.message !== "You are restricted from admin to create landing page") {
+                        setLink("/pricing")
+                        setbuttonText("Upgrade Plan")
+                    }
+                    else{
+                        setLink("/game")
+                        setbuttonText("Okay")
+                    }
+                        
+
+                    setMessage(err.response.data.message)
+                    setOpenMessage(true)
+
                 })
             } catch (error) {
                 console.error("Error sending email");
@@ -635,6 +662,7 @@ This is an automated message, please do not reply.`} />
 
                 </div>
             </div>
+            {openMessage && <MessageModal open={openMessage} setOpen={setOpenMessage} message={message} ButtonText={buttonText} link={link} />}
         </div>
     );
 }

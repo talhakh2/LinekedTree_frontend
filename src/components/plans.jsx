@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from 'axios'
 import EditPlan from './EditPlan';
@@ -11,7 +11,10 @@ import EditPlan from './EditPlan';
 //  	Number of restaurants : 1 restaurant = 49 € , 2 to 4 = 44€ per restaurant (cross out the original price) and 
 //      5+ = 39€ per restaurant (cross out the original price)
 
-export default function PricingPlan() {
+export default function PricingPlan({userId}) {
+
+    // const { userId } = useParams();
+    
     const Navigate = useNavigate();
     const isAdmin = useSelector(state => state.authentication.isAdmin);
 
@@ -113,6 +116,51 @@ export default function PricingPlan() {
     const handleEditClick = (Time) => {
         Time === 'Monthly' ? setShowMonthEditPlan(true) : setShowYearEditPlan(true);
     }
+
+
+    const handleMonthClick = async () => {
+        const amount = priceData.monthlyPlan.price;
+        const landingPages = number;
+    
+        if (userId) {
+            console.log(userId);
+          try {
+            const res = await axios.get(
+              `${process.env.REACT_APP_BACKEND_PORT}/checkout/monthly?userId=${userId}&amount=${amount}&landingPages=${landingPages}`
+              
+            );
+            window.open(res.data.session.url);
+          } catch (error) {
+            console.error("Error initiating checkout:", error);
+          }
+        } else {
+          Navigate('/login', {
+            state: { paymentType: 'Monthly', amount, landingPages },
+          });
+        }
+      };
+
+      const handleYearClick = async () => {
+        const amount = priceData.yearlyPlan.price;
+        const landingPages = yearNumber;
+    
+        if (userId) {
+            console.log(userId);
+          try {
+            const res = await axios.get(
+              `${process.env.REACT_APP_BACKEND_PORT}/checkout/yearly?userId=${userId}&amount=${amount}&landingPages=${landingPages}`
+              
+            );
+            window.open(res.data.session.url);
+          } catch (error) {
+            console.error("Error initiating checkout:", error);
+          }
+        } else {
+          Navigate('/login', {
+            state: { paymentType: 'Yearly', amount, landingPages },
+          });
+        }
+      };
 
 
     return (
@@ -223,9 +271,13 @@ export default function PricingPlan() {
                                         Edit
                                     </button>
                                 ) : (
-                                    <button onClick={() => Navigate('/login', { state: { paymentType: 'Monthly', amount: priceData.monthlyPlan.price, landingPages: number } })} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
+                                    // <button onClick={() => Navigate('/login', { state: { paymentType: 'Monthly', amount: priceData.monthlyPlan.price, landingPages: number } })} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
+                                    //     Subscribe Now
+                                    // </button>
+                                    <button onClick={handleMonthClick} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
                                         Subscribe Now
                                     </button>
+                                    
                                 )}
 
 
@@ -334,9 +386,13 @@ export default function PricingPlan() {
                                         Edit
                                     </button>
                                 ) : (
-                                    <button onClick={() => Navigate('/login', { state: { paymentType: 'Yearly', amount: priceData.yearlyPlan.price, landingPages: yearNumber } })} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
+                                    // <button onClick={() => Navigate('/login', { state: { paymentType: 'Yearly', amount: priceData.yearlyPlan.price, landingPages: yearNumber } })} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
+                                    //     Subscribe Now
+                                    // </button>
+                                    <button onClick={handleYearClick}  className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
                                         Subscribe Now
                                     </button>
+
                                 )}
                             </div>
                         </div>

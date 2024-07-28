@@ -8,6 +8,19 @@
     align-items: center;
 }
 
+
+/* Media Query for devices less than 500px wide */
+@media (max-width: 499px) {
+    .container {
+        width: 300px;
+        height: 300px;
+    }
+    body {
+        padding: 30px;
+    }
+}
+
+
 .spinBtn {
     position: absolute;
     width: 60px;
@@ -26,6 +39,7 @@
     cursor: pointer;
     user-select: none;
 }
+
 .container .spinBtn::before {
     content: '';
     position: absolute;
@@ -37,39 +51,36 @@
 }
 
 
-.container .wheel
-{
+.container .wheel {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height:100%;
+    height: 100%;
     background: #333;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 0 0 5px #333,
-                0 0 0 15px #fff,
-                0 0 0 18px #111;
+        0 0 0 15px #fff,
+        0 0 0 18px #111;
     transition: transform 5s ease-in-out;
 }
 
-.container .wheel .number
-{
+.container .wheel .number {
     position: absolute;
     width: 50%;
     height: 50%;
     background: var(--clr);
     transform-origin: bottom right;
     transform: rotate(calc(45deg * var(--i)));
-    clip-path: polygon(0 0,59% 0, 100% 100%, 0 59%);
+    clip-path: polygon(0 0, 59% 0, 100% 100%, 0 59%);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
 
-.container .wheel .number span
-{
+.container .wheel .number span {
     position: relative;
     transform: rotate(45deg);
     font-size: 18px;
@@ -78,8 +89,7 @@
     /* text-shadow: 3px 5px 2px rgba(0, 0, 0, 0.15); */
 }
 
-.container .wheel .number span::after
-{
+.container .wheel .number span::after {
     content: '';
     position: absolute;
     font-size: 0.75em;
@@ -96,6 +106,5 @@
     height: 230px;
     border-radius: 50%;
     margin: auto;
-    
-}
 
+}

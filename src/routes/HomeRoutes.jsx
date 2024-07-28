@@ -29,6 +29,8 @@ import User from '../pages/Dashboards/User';
 import AdminDashboard from '../pages/Dashboards/Admin';
 import { useState } from 'react';
 import BookADemo from '../pages/Demo';
+import ForgotPass from '../components/Authentication/ForgotPass';
+import ResetPassword from '../components/Authentication/ResetPassword';
 
 const Index = () => {
   const userId = useSelector(state => state.authentication.userId);
@@ -42,12 +44,19 @@ const Index = () => {
         <Routes>
           <Route path="/" element={!userId ? <Home /> : <GameManagement />} />
           <Route path="/about" element={!userId ? <About /> : <GameManagement />} />
-          <Route path="/pricing" element={!userId ? <Pricing /> : <GameManagement />} />
+
+          {/* <Route path="/pricing" element={!userId ? <Pricing /> : <GameManagement />} /> */}
+          {/* <Route path="/pricing/:userId" element={<Pricing />} /> */}
+          <Route path="/pricing" element={!userId ? <Pricing /> : <Pricing userId={userId}/>} /> 
+
           <Route path="/faqs" element={!userId ? <Faqs /> : <GameManagement />} />
           <Route path="/register" element={!userId ? <Register /> : <GameManagement />} />
           <Route path="/demo" element={!userId ? <BookADemo /> : <GameManagement />} />
           <Route path="/register" element={!userId ? <Register /> : <GameManagement />} />
+
           <Route path="/login" element={!userId ? <Login /> : <GameManagement />} />
+          <Route path="/forgot" element={!userId ? <ForgotPass /> : <GameManagement />} />
+          <Route path="/reset-password/:token" element={!userId ? <ResetPassword /> : <GameManagement />} />
 
           <Route path="/game" element={userId ? accountType === 'main' ? <GameManagement /> : <AllLandingPages /> : <Home />} />
           <Route path="/flyer" element={userId ? accountType === 'main' ? <FlyerCustomization /> : <AllLandingPages /> : <Home />} />

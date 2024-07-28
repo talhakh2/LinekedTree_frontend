@@ -3,13 +3,21 @@ import AsideHeader from "./AsideHeader";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import MessageModal from "./MessageModal";
 
 function AllLandingPages() {
     // Sample data object with row names and corresponding values
     const userId = useSelector(state => state.authentication.userId);
     const ownerId = useSelector(state => state.authentication.ownerId);
     const [data, setData] = useState();
+    const [userData, setUserData] = useState(); // State for user data
     const Navigate = useNavigate();
+
+    const [openMessage, setOpenMessage] = useState(false);
+    const [messageModal, setMessageModal] = useState("");
+
+    const [link, setLink] = useState("");
+    const [buttonText, setbuttonText] = useState("");
 
     useEffect(() => {
         try {
@@ -28,6 +36,53 @@ function AllLandingPages() {
             console.error("error");
         }
     }, [])
+
+    // Fetch user data
+    useEffect(() => {
+        console.log(userId);
+        if (userId) {
+            axios
+                .get(`${process.env.REACT_APP_BACKEND_PORT}/auth/${userId}`)
+                .then((res) => {
+                    setUserData(res.data);
+                    console.log(res.data);
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data:", error);
+                });
+        }
+    }, []);
+
+    // // Function to handle link copying
+    // const handleCopyLink = (itemId) => {
+    //     const currentDate = new Date();
+    //     const expiryDate = new Date(userData.expiryDate); // Assuming expiryDate is a property of userData
+
+    //     if (expiryDate > currentDate) {
+    //         navigator.clipboard.writeText(`${window.location.origin}/spin/game/${itemId}/No`);
+    //     } else {
+    //         navigator.clipboard.writeText(`${window.location.origin}/spin/game/${itemId}/Yes`);
+    //         alert("The link is expired and cannot be copied.");
+    //     }
+    // };
+
+    const handleCopyLink = (itemId) => {
+        const currentDate = new Date();
+        const expiryDate = new Date(userData.expiryDate); // Assuming expiryDate is a property of userData
+
+        const isExpired = expiryDate < currentDate ? "Yes" : "No";
+
+        if (isExpired === "Yes") {
+            setMessageModal('Subcription expired, Please renew!')
+            setLink('/pricing')
+            setbuttonText('Renew')
+            setOpenMessage(true)
+        } else {
+            navigator.clipboard.writeText(`${window.location.origin}/spin/game/${itemId}`);
+        }
+    };
+
+
 
 
     // const data = [
@@ -71,13 +126,14 @@ function AllLandingPages() {
                             <button onClick={() => { Navigate(`/game/${item.id}`) }} className="justify-center self-stretch p-2.5 font-semibold text-center text-black whitespace-nowrap rounded-xl mr-6 border-2 border-indigo-400 border-solid bg-white">
                                 Edit
                             </button>
-                            <button onClick={() => { navigator.clipboard.writeText(`${window.location.origin}/spin/game/${item.id}`) }} className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 mr-6 rounded-xl border-2 border-indigo-400 border-solid hover:opacity-65 transition-all ">
+                            <button onClick={() => handleCopyLink(item.id)} className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 mr-6 rounded-xl border-2 border-indigo-400 border-solid hover:opacity-65 transition-all ">
                                 Copy Link
                             </button>
                         </div>
                     ))}
                 </div>
             </div>
+            {openMessage && <MessageModal open={openMessage} setOpen={setOpenMessage} message={messageModal} ButtonText={buttonText} link={link} />}
         </div>
     );
 }

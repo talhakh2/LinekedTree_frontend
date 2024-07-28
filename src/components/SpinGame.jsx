@@ -10,6 +10,8 @@ const Picker = require('random-picker').Picker;
 
 const SpinGame = () => {
     const { id } = useParams();
+
+
     const [gameFormat, setGameFormate] = useState([]);
     const [isSpined, setIsSpined] = useState(false);
     const [email, setEmail] = useState('');
@@ -23,6 +25,7 @@ const SpinGame = () => {
     const [textColor, setTextColor] = useState('text-white')
     const [render, setRender] = useState(false)
 
+    const [isExpired, setIsExpired] = useState(false)
 
     useEffect(() => {
         if (id) {
@@ -38,7 +41,15 @@ const SpinGame = () => {
                     } else if (res.data.followOrReview === 'google') {
                         setUrl(res.data.googleMaps)
                     }
-                    setRender(true)
+
+                    const currentDate = new Date();
+                    const expiryDate = new Date(res.data.expiryDate);
+
+                    if (expiryDate < currentDate){
+                        setIsExpired(true)
+                    }else{
+                        setRender(true)
+                    }
                 });
             } catch (error) {
                 console.log(error);
@@ -129,17 +140,23 @@ const SpinGame = () => {
 
     return (
         <>
-            {!render ? (
+        {
+            isExpired ? (
+                <div>Page is Expired!</div>
+            ):(
+        
+            !render ? (
                 <div>Loading...</div>
             ) : (
+                
                 <div>
                     <div className='flex justify-center mt-3'>
                         {
                             gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-2xl italic'>{gameFormat?.brandName}</h1>
                         }
                     </div>
-                    <div className='flex flex-col md:flex-row max-w-[900px] justify-between mx-auto items-center mt-10'>
-                        <div className="container mt-10 mr-10 mb-0 md:mb-0">
+                    <div className='flex flex-col md:flex-row gap-11 max-w-[900px] justify-between mx-auto items-center mt-10'>
+                        <div className="container mt-10 mb-0 md:mb-0">
 
                             <div className="spinBtn" onClick={() => spinedClick(gameFormat)}></div>
                             <div className="wheel">
@@ -237,12 +254,14 @@ const SpinGame = () => {
                             /></a>
                     </div>
                     <div className="flex justify-center mt-5 text-sm text-slate-800">
-                        © 2024 Company name . All rights reserved.
+                        © 2024 {gameFormat.brandName} . All rights reserved.
                     </div>
                     <ReviewModel open={reviewModel} setOpen={setReviewModel} gameFormat={gameFormat} sendEmail={sendEmail} />
                     <ReviewModel2 reviewModel2={reviewModel2} setReviewModel2={setReviewModel2} url={url} followOrReview={gameFormat.followOrReview}/>
                 </div>
-            )}
+            ))
+        
+        }
         </>
     );
 };
