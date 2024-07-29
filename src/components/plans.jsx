@@ -27,6 +27,11 @@ export default function PricingPlan({userId}) {
     const [showMonthEditPlan, setShowMonthEditPlan] = useState(false);
     const [showYearEditPlan, setShowYearEditPlan] = useState(false);
 
+    const [discountMonthly, setDiscountMonthly] = useState(0);
+    const [discountYearly, setDiscountYearly] = useState(0);
+
+
+
     useEffect(() => {
         fetchPriceData();
     }, []);
@@ -36,7 +41,14 @@ export default function PricingPlan({userId}) {
             const res = await axios.get(`${process.env.REACT_APP_BACKEND_PORT}/price/`, {
                 headers: { 'Content-Type': 'application/json' },
             });
+            console.log(res.data[0]);
+            
             setPriceData(res.data[0]);
+
+            setDiscountMonthly(res.data[0].monthlyPlan.discount)
+            setDiscountYearly(res.data[0].yearlyPlan.discount)
+
+
             setOriginalPriceData(res.data[0]);
         } catch (error) {
             console.error("Error fetching price data");
@@ -44,6 +56,7 @@ export default function PricingPlan({userId}) {
     }
 
     function calculateAmount(plan, quantity) {
+    
         if (quantity === 1) {
             return plan.price * quantity;
         } else if (quantity >= 2 && quantity <= 4) {
@@ -52,6 +65,7 @@ export default function PricingPlan({userId}) {
             return plan.for_5_Plus * quantity;
         }
     }
+    
 
     function updateMonthAmount(quantity) {
         setOriginalAmount(originalPriceData.monthlyPlan.price * quantity);
@@ -119,7 +133,7 @@ export default function PricingPlan({userId}) {
 
 
     const handleMonthClick = async () => {
-        const amount = priceData.monthlyPlan.price;
+        const amount = priceData.monthlyPlan.price * (100 - discountMonthly) / 100;
         const landingPages = number;
     
         if (userId) {
@@ -141,7 +155,7 @@ export default function PricingPlan({userId}) {
       };
 
       const handleYearClick = async () => {
-        const amount = priceData.yearlyPlan.price;
+        const amount = priceData.yearlyPlan.price * (100 - discountYearly) / 100;
         const landingPages = yearNumber;
     
         if (userId) {
@@ -262,9 +276,16 @@ export default function PricingPlan({userId}) {
                                             €{originalAmount}
                                         </span>
                                     )}
-                                    <span className=""> €{priceData.monthlyPlan.price}</span>
+                                    <span className=""> €{priceData.monthlyPlan.price * (100 - discountMonthly) / 100}</span>
                                     <span className="text-lg  text-gray-950">/month</span>
+
                                 </div>
+
+                                {
+                                    discountMonthly !== 0 && (
+                                        <span className="text-lg text-center text-green-400">{discountMonthly}% Off</span>
+                                    )
+                                }
 
                                 {isAdmin ? (
                                     <button onClick={() => { handleEditClick('Monthly') }} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
@@ -377,9 +398,15 @@ export default function PricingPlan({userId}) {
                                             €{originalAmountYearly}
                                         </span>
                                     )}
-                                    <span className=""> €{priceData.yearlyPlan.price}</span>
+                                    <span className=""> €{priceData.yearlyPlan.price * (100 - discountYearly) / 100}</span>
                                     <span className="text-lg  text-gray-950">/year</span>
                                 </div>
+
+                                {
+                                    discountYearly !== 0 && (
+                                        <span className="text-lg text-center text-green-400">{discountYearly}% Off</span>
+                                    )
+                                }
 
                                 {isAdmin ? (
                                     <button onClick={() => { handleEditClick('Yearly') }} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">

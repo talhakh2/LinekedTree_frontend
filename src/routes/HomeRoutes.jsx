@@ -35,6 +35,7 @@ import ResetPassword from '../components/Authentication/ResetPassword';
 const Index = () => {
   const userId = useSelector(state => state.authentication.userId);
   const accountType = useSelector(state => state.authentication.accountType);
+  const isAdmin = useSelector(state => state.authentication.isAdmin);
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -42,7 +43,7 @@ const Index = () => {
       {
         !open &&
         <Routes>
-          <Route path="/" element={!userId ? <Home /> : <GameManagement />} />
+          <Route path="/" element={userId ? isAdmin ? <AdminDashboard /> : <User />  : <Home />} />
           <Route path="/about" element={!userId ? <About /> : <GameManagement />} />
 
           {/* <Route path="/pricing" element={!userId ? <Pricing /> : <GameManagement />} /> */}

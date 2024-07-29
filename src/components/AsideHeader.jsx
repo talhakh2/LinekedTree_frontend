@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 import { Menu } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../store/features/AuthenticationSlice';
+import ego from '../assets/ego_withoutBG.png'
 
 const AsideHeader = () => {
     const Location = useLocation();
@@ -27,16 +28,20 @@ const AsideHeader = () => {
                 <div className="flex flex-col px-5 pt-5 pb-20 w-full bg-gray-100">
                     <div className='flex justify-between items-center'>
                         <div className="flex gap-2 self-start ml-5 text-xs font-bold whitespace-nowrap">
-                            <div className="flex justify-center items- w-6 py-1 text-white rounded-full bg-[linear-gradient(90deg,#F6F7FC_0%,#4F5A96_100%)]">
-                                E
-                            </div>
-                            <div className="my-auto tracking-wide bg-clip-text bg-[linear-gradient(90deg,#F6F7FC_0%,#4F5A96_100%)]">
+                            {/* <div className="flex justify-center items- w-6 py-1 text-white rounded-full bg-[linear-gradient(90deg,#F6F7FC_0%,#4F5A96_100%)]">
+                                
+                            </div> */}
+                            <img src={ego}
+                                alt=""
+                                width={'25%'}
+                            />
+                            {/* <div className="my-auto tracking-wide bg-clip-text bg-[linear-gradient(90deg,#F6F7FC_0%,#4F5A96_100%)]">
                                 EGO
-                            </div>
+                            </div> */}
                         </div>
-                        <X onClick={() => setOpen(!open)} className='md:hidden'/>
+                        <X onClick={() => setOpen(!open)} className='md:hidden' />
                     </div>
-                    <div className="flex flex-col justify-center mt-12">
+                    <div className="flex flex-col justify-center mt-5">
                         <div className="justify-center p-2.5 text-xs tracking-wider whitespace-nowrap text-teal-950">
                             MENU
                         </div>

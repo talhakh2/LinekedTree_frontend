@@ -61,11 +61,11 @@ export default function GameManagement() {
         },
         buttonColor: '#8497FC',
         buttonColorID: '',
-        instagram: 'https://',
-        tiktok: 'https://',
-        facebook: 'https://',
-        googleMaps: 'https://',
-        twitter: 'https://',
+        instagram: 'https://www.instagram.com/',
+        tiktok: 'https://www.tiktok.com/',
+        facebook: 'https://www.facebook.com/',
+        googleMaps: 'https://www.google.com/maps/',
+        twitter: 'https://www.twitter.com/',
         followOrReview: 'instagram',
         content: '',
     });
@@ -141,7 +141,7 @@ export default function GameManagement() {
                     Navigate('/landing-pages')
                 }).catch((err) => {
                     // Navigate(`/pricing/:${userId}`)
-                    if (err.response.data.message !== "Please wait for adnin approval" && err.response.data.message !== "You are restricted from admin to create landing page") {
+                    if (err.response.data.message !== "Please wait for admin approval" && err.response.data.message !== "You are restricted from admin to create landing page") {
                         setLink("/pricing")
                         setbuttonText("Upgrade Plan")
                     }
@@ -639,7 +639,7 @@ Pour bénéficier pleinement de votre cadeau, nous vous invitons à vous rendre 
 ${gameFormat.resturantName}
 ${gameFormat.resturantAddress}
 
-Attention, votre cadeau n'est disponible que pendant une durée limitée de <strong>10 days</strong> jours à partir de demain ! Ne laissez pas cette occasion exceptionnelle vous échapper, saisissez-la dès maintenant et profitez-en au maximum! 
+Attention, votre cadeau n'est disponible que pendant une durée limitée de 10 days jours à partir de demain ! Ne laissez pas cette occasion exceptionnelle vous échapper, saisissez-la dès maintenant et profitez-en au maximum! 
 Un minimum d’achat de 10 € est requis pour récupérer le cadeau.
 
 This is an automated message, please do not reply.`} />

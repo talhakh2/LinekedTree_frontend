@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import MessageModal from "../../components/MessageModal";
 
 export default function BookADemo() {
     const [email, setEmail] = useState("");
@@ -9,6 +10,13 @@ export default function BookADemo() {
     const [subject, setSubject] = useState("");
     const [body, setBody] = useState("");
     const [requestDemo, setRequestDemo] = useState(false);
+
+    const [openMessage, setOpenMessage] = useState(false);
+    const [messageModal, setMessageModal] = useState("");
+
+    const [link, setLink] = useState("");
+    const [buttonText, setbuttonText] = useState("");
+
     const Navigate = useNavigate();
 
    const handleFormSubmit = async (e) => {
@@ -27,8 +35,10 @@ export default function BookADemo() {
                 },
             }).then((response)=>{
                 console.log("Response from server:", response.data);
-                alert('Request Sent Successfully for Demo')
-                Navigate('/')
+                setMessageModal(`Request successfully sent for demo.`)
+                setbuttonText('Okay')
+                setLink('/')
+                setOpenMessage(true)
             })
         } catch (error) {
             console.error("Error while sending:", error);
@@ -125,6 +135,7 @@ export default function BookADemo() {
                     </div>
                 </form>
             </div>
+            {openMessage && <MessageModal open={openMessage} setOpen={setOpenMessage} message={messageModal} ButtonText={buttonText} link={link} />}
         </div>
     );
 }

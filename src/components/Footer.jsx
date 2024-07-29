@@ -1,6 +1,7 @@
 import * as React from "react";
 import Logo from "../assets/logo.png"
 import Shape from "../assets/Shape.png"
+import ego from '../assets/ego_withoutBG.png'
 
 export default function Footer() {
   return (
@@ -10,7 +11,10 @@ export default function Footer() {
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col max-md:mt-10">
               <div className="text-3xl font-semibold text-black">
-                EGO
+                <img src={ego}
+                  alt=""
+                  width={'20%'}
+                />
               </div>
               <div className="mt-10 text-sm text-neutral-600 max-md:mt-10">
                 Lorem ipsum dolor sit amet consectetur. Mi nibh venenatis in

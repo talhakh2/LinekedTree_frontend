@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import ReviewModel from './ReviewModel';
 import ReviewModel2 from './ReviewModel2';
 
+import MessageModal from "./MessageModal";
+import ego from '../assets/ego_withoutBG.png'
+
 const Picker = require('random-picker').Picker;
 
 const SpinGame = () => {
@@ -25,7 +28,11 @@ const SpinGame = () => {
     const [textColor, setTextColor] = useState('text-white')
     const [render, setRender] = useState(false)
 
-    const [isExpired, setIsExpired] = useState(false)
+    const [openMessage, setOpenMessage] = useState(false);
+    const [messageModal, setMessageModal] = useState("");
+
+    const [link, setLink] = useState("");
+    const [buttonText, setbuttonText] = useState("Okay");
 
     useEffect(() => {
         if (id) {
@@ -36,7 +43,7 @@ const SpinGame = () => {
                     },
                 }).then((res) => {
                     setGameFormate(res.data);
-                    if(res.data.followOrReview === 'instagram'){
+                    if (res.data.followOrReview === 'instagram') {
                         setUrl(res.data.instagram)
                     } else if (res.data.followOrReview === 'google') {
                         setUrl(res.data.googleMaps)
@@ -45,9 +52,12 @@ const SpinGame = () => {
                     const currentDate = new Date();
                     const expiryDate = new Date(res.data.expiryDate);
 
-                    if (expiryDate < currentDate){
-                        setIsExpired(true)
-                    }else{
+                    if (expiryDate < currentDate) {
+                        setMessageModal("Page is expired!")
+                        setbuttonText("Home Page")
+                        setLink("/")
+                        setOpenMessage(true)
+                    } else {
                         setRender(true)
                     }
                 });
@@ -87,7 +97,7 @@ const SpinGame = () => {
 
                     picker.option(315, gameFormat.options.option1frequency); //option 1
 
-                    
+
                     const selectedOption = picker.pick();
                     const selected = selectedOption === 0 ? 'try again' : selectedOption === 45 ? 5 : selectedOption === 90 ? 4 : selectedOption === 135 ? 'try again' : selectedOption === 180 ? 3 : selectedOption === 225 ? 2 : selectedOption === 270 ? 'try again' : selectedOption === 315 ? 1 : 'try again'
                     console.log(selected);
@@ -98,10 +108,14 @@ const SpinGame = () => {
                     wheel.style.transform = `rotate(${360 * 3 + selectedOption}deg)`;
                 })
                 .catch((err) => {
-                    alert(err.response.data.message);
+                    setMessageModal(err.response.data.message)
+                    setOpenMessage(true)
+
                 });
         } else {
-            alert("Enter Email First to Spin")
+            setMessageModal("Enter Email First to Spin")
+            setOpenMessage(true)
+
         }
     };
 
@@ -120,8 +134,8 @@ const SpinGame = () => {
                         'Content-Type': 'application/json',
                     },
                 }).then((res) => {
-
-                    alert(res.data.message);
+                    setMessageModal(res.data.message)
+                    setOpenMessage(true)
                 });
             } catch (error) {
                 console.error("Error sending email")
@@ -140,128 +154,136 @@ const SpinGame = () => {
 
     return (
         <>
-        {
-            isExpired ? (
-                <div>Page is Expired!</div>
-            ):(
-        
-            !render ? (
-                <div>Loading...</div>
-            ) : (
-                
-                <div>
-                    <div className='flex justify-center mt-3'>
-                        {
-                            gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-2xl italic'>{gameFormat?.brandName}</h1>
-                        }
-                    </div>
-                    <div className='flex flex-col md:flex-row gap-11 max-w-[900px] justify-between mx-auto items-center mt-10'>
-                        <div className="container mt-10 mb-0 md:mb-0">
+            {
 
-                            <div className="spinBtn" onClick={() => spinedClick(gameFormat)}></div>
-                            <div className="wheel">
-                                <div className="number" style={{ '--i': 1, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
-                                    <span className=' text-white'>try again</span>
-                                </div>
-                                <div className="number" style={{ '--i': 2, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
-                                    <span>{gameFormat?.options?.option1 || 'option 1'}</span>
-                                </div>
-                                <div className="number" style={{ '--i': 3, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
-                                    <span className=' text-white'>try again</span>
-                                </div>
-                                <div className="number" style={{ '--i': 4, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
-                                    <span>{gameFormat?.options?.option2 || 'option 2'}</span>
-                                </div>
-                                <div className="number" style={{ '--i': 5, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
-                                    <span>{gameFormat?.options?.option3 || 'option 3'}</span>
-                                </div>
-                                <div className="number" style={{ '--i': 6, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
-                                    <span className=' text-white'>try again</span>
-                                </div>
-                                <div className="number" style={{ '--i': 7, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
-                                    <span>{gameFormat?.options?.option4 || 'option 4'}</span>
-                                </div>
-                                <div className="number" style={{ '--i': 8, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
-                                    <span>{gameFormat?.options?.option5 || 'option 5'}</span>
-                                </div>
-                            </div>
+                !render ? (
+                    <div>Loading...</div>
+                ) : (
+
+                    <div>
+                        <div className='flex justify-center mt-3'>
+                            {
+                                gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-2xl italic'>{gameFormat?.brandName}</h1>
+                            }
                         </div>
-                        <div className="flex flex-col font-medium text-black leading-[140%] max-w-[454px]">
-                            <div className="w-full text-3xl font-bold text-center">
-                                Try Your Luck for a Reward!
+                        <div className='flex flex-col md:flex-row gap-11 max-w-[900px] justify-between mx-auto items-center mt-10'>
+                            <div className="container mt-10 mb-0 md:mb-0">
+
+                                <div className="spinBtn" onClick={() => spinedClick(gameFormat)}></div>
+                                <div className="wheel">
+                                    <div className="number" style={{ '--i': 1, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
+                                        <span className=' text-white'>try again</span>
+                                    </div>
+                                    <div className="number" style={{ '--i': 2, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
+                                        <span>{gameFormat?.options?.option1 || 'option 1'}</span>
+                                    </div>
+                                    <div className="number" style={{ '--i': 3, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
+                                        <span className=' text-white'>try again</span>
+                                    </div>
+                                    <div className="number" style={{ '--i': 4, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
+                                        <span>{gameFormat?.options?.option2 || 'option 2'}</span>
+                                    </div>
+                                    <div className="number" style={{ '--i': 5, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
+                                        <span>{gameFormat?.options?.option3 || 'option 3'}</span>
+                                    </div>
+                                    <div className="number" style={{ '--i': 6, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
+                                        <span className=' text-white'>try again</span>
+                                    </div>
+                                    <div className="number" style={{ '--i': 7, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
+                                        <span>{gameFormat?.options?.option4 || 'option 4'}</span>
+                                    </div>
+                                    <div className="number" style={{ '--i': 8, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
+                                        <span>{gameFormat?.options?.option5 || 'option 5'}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="mt-8 w-full text-xl text-center">
-                                Get Spinning: Drop Your Email!
-                            </div>
-                            <div className="mt-8 w-full text-sm leading-5">Email</div>
-                            <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder='Enter your email' className="justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400" value={email} />
-                            <div onClick={() => {
-                                if (email && reviewModel) {
-                                    console.log("mail");
-                                    sendEmail();
-                                } else {
-                                    if (isSpined) {
-                                        setReviewModel(true)
+                            <div className="flex flex-col font-medium text-black leading-[140%] max-w-[454px]">
+                                <div className="w-full text-3xl font-bold text-center">
+                                    Try Your Luck for a Reward!
+                                </div>
+                                <div className="mt-8 w-full text-xl text-center">
+                                    Get Spinning: Drop Your Email!
+                                </div>
+                                <div className="mt-8 w-full text-sm leading-5">Email</div>
+                                <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder='Enter your email' className="justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400" value={email} />
+                                <div onClick={() => {
+                                    if (email && reviewModel) {
+                                        console.log("mail");
+                                        sendEmail();
                                     } else {
-                                        alert("Spin the wheel to confirm")
+                                        if (isSpined) {
+                                            setReviewModel(true)
+                                        } else {
+                                            setMessageModal('Spin the wheel first.')
+                                            setOpenMessage(true)
+                                        }
                                     }
-                                }
-                            }} className={`justify-center cursor-pointer items-center px-3 py-2.5 mt-8 w-full text-base font-semibold leading-6 ${textColor} whitespace-nowrap text-center rounded-lg shadow-sm`}
-                                style={{ backgroundColor: gameFormat?.buttonColor ? gameFormat?.buttonColor : '#4F46E5' }}>
-                                Confirm
-                            </div>
-                            <div className="mt-8 w-full text-xl text-center">
-                                Note: One Spin per Participant Only
+                                }} className={`justify-center cursor-pointer items-center px-3 py-2.5 mt-8 w-full text-base font-semibold leading-6 ${textColor} whitespace-nowrap text-center rounded-lg shadow-sm`}
+                                    style={{ backgroundColor: gameFormat?.buttonColor ? gameFormat?.buttonColor : '#4F46E5' }}>
+                                    Confirm
+                                </div>
+                                <div className="mt-8 w-full text-xl text-center">
+                                    Note: One Spin per Participant Only
+                                </div>
                             </div>
                         </div>
+                        <div className='flex justify-center items-center mt-28'>
+                            <img src={ego}
+                                alt="logo"
+                                width={'7%'}
+                                onClick={() => { Navigate('/') }}
+                                className='cursor-pointer'
+                            />
+                        </div>
+                        <div className="flex gap-4 justify-center">
+                            <a onClick={() => {
+                                const data = { ...gameFormat, instagramClicks: gameFormat.instagramClicks + 1 };
+
+                                updateGame(data)
+                            }} href={gameFormat?.instagram}  ><img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/357f101341ddf98f66af8d3f23083bbaca5abcfd9acc131ab16b4f86548f66e9?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                    className="shrink-0 aspect-square w-[25px]"
+                                /></a>
+                            <a onClick={() => {
+                                const data = { ...gameFormat, facebookClicks: gameFormat.facebookClicks + 1 };
+
+                                updateGame(data)
+                            }} href={gameFormat?.facebook}  ><img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/3bf7478fb7f2a263892712e4aa14999672df84ec24dda36a9b73c6b87ab35cfa?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                    className="shrink-0 aspect-square w-[25px]"
+                                /></a>
+                            <a onClick={() => {
+                                const data = { ...gameFormat, twitterClicks: gameFormat.twitterClicks + 1 };
+
+                                updateGame(data)
+                            }} href={gameFormat?.twitter}  ><img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/981bbe54100ad5fb3359a76a6d80f34022804d47da69407e294c32b6b305e5f3?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                    className="shrink-0 aspect-square w-[25px]"
+                                /></a>
+                            <a onClick={() => {
+                                const data = { ...gameFormat, googleMapsClicks: gameFormat.googleMapsClicks + 1 };
+
+                                updateGame(data)
+                            }} href={gameFormat?.googleMaps}  ><img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/ad647feebebd6e3ac712531bcfe244603e99a1e02f585c4702345d935b2f1dd6?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                    className="shrink-0 aspect-square w-[25px]"
+                                /></a>
+                        </div>
+                        <div className="flex justify-center mt-2 text-sm text-slate-800 mb-5">
+                            © 2024 {gameFormat.brandName} . All rights reserved.
+                        </div>
+
+                        <ReviewModel open={reviewModel} setOpen={setReviewModel} gameFormat={gameFormat} sendEmail={sendEmail} />
+                        <ReviewModel2 reviewModel2={reviewModel2} setReviewModel2={setReviewModel2} url={url} followOrReview={gameFormat.followOrReview} />
+
                     </div>
-                    <div className="flex gap-4 justify-center mt-32">
-                        <a onClick={() => {
-                            const data = { ...gameFormat, instagramClicks: gameFormat.instagramClicks + 1 };
-
-                            updateGame(data)
-                        }} href={gameFormat?.instagram}  ><img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/357f101341ddf98f66af8d3f23083bbaca5abcfd9acc131ab16b4f86548f66e9?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                className="shrink-0 aspect-square w-[25px]"
-                            /></a>
-                        <a onClick={() => {
-                            const data = { ...gameFormat, facebookClicks: gameFormat.facebookClicks + 1 };
-
-                            updateGame(data)
-                        }} href={gameFormat?.facebook}  ><img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3bf7478fb7f2a263892712e4aa14999672df84ec24dda36a9b73c6b87ab35cfa?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                className="shrink-0 aspect-square w-[25px]"
-                            /></a>
-                        <a onClick={() => {
-                            const data = { ...gameFormat, twitterClicks: gameFormat.twitterClicks + 1 };
-
-                            updateGame(data)
-                        }} href={gameFormat?.twitter}  ><img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/981bbe54100ad5fb3359a76a6d80f34022804d47da69407e294c32b6b305e5f3?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                className="shrink-0 aspect-square w-[25px]"
-                            /></a>
-                        <a onClick={() => {
-                            const data = { ...gameFormat, googleMapsClicks: gameFormat.googleMapsClicks + 1 };
-
-                            updateGame(data)
-                        }} href={gameFormat?.googleMaps}  ><img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ad647feebebd6e3ac712531bcfe244603e99a1e02f585c4702345d935b2f1dd6?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                className="shrink-0 aspect-square w-[25px]"
-                            /></a>
-                    </div>
-                    <div className="flex justify-center mt-5 text-sm text-slate-800">
-                        © 2024 {gameFormat.brandName} . All rights reserved.
-                    </div>
-                    <ReviewModel open={reviewModel} setOpen={setReviewModel} gameFormat={gameFormat} sendEmail={sendEmail} />
-                    <ReviewModel2 reviewModel2={reviewModel2} setReviewModel2={setReviewModel2} url={url} followOrReview={gameFormat.followOrReview}/>
-                </div>
-            ))
-        
-        }
+                )
+            }
+            {openMessage && <MessageModal open={openMessage} setOpen={setOpenMessage} message={messageModal} ButtonText={buttonText} link={link} />}
         </>
     );
 };

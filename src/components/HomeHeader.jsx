@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from 'lucide-react';
+import ego from '../assets/ego_withoutBG.png'
 
 export default function Header({open, setOpen}) {
 
@@ -23,14 +24,15 @@ export default function Header({open, setOpen}) {
         <div className={`flex gap-5 max-md:flex-wrap px-10 mt-2 w-full ${open ? 'bg-white min-h-[100vh] justify-start items-start' : 'justify-between'}`}>
             <div className="flex gap-5 justify-between md:px-5 my-auto whitespace-nowrap max-md:flex-wrap w-full">
                 <div className="flex gap-5 justify-between w-full items-center">
-                    <div className="my-auto text-2xl font-semibold text-center text-black">
-                        EGO
-                    </div>
+                    <img src={ego} 
+                        alt="" 
+                        width={'15%'}
+                        />
                     {
                         open ? <X className="block md:hidden" onClick={() => setOpen(!open)}/> : <Menu className="block md:hidden" onClick={() => setOpen(!open)} />
                     }
                 </div>
-                <div className={`${open ? 'flex flex-col mt-10 pt-6' : 'hidden'} gap-10 justify-between text-xl font-normal leading-8 text-zinc-800 max-md:flex-wrap max-md:max-w-full md:flex`}>
+                <div className={`${open ? 'flex flex-col mt-10 pt-6' : 'hidden'} gap-10 justify-between items-center text-xl font-normal leading-8 text-zinc-800 max-md:flex-wrap max-md:max-w-full md:flex`}>
                     <div className="md:ml-4">
                         <Link to='/'>Home</Link>
                     </div>
@@ -43,10 +45,10 @@ export default function Header({open, setOpen}) {
                     <Link to='/faqs'>FAQs</Link>
                 </div>
             </div>
-            <div className={`${open ? 'flex flex-col mt-10' : 'hidden'} md:flex gap-5 justify-between md:px-5 text-xl font-medium leading-8`}>
+            <div className={`${open ? 'flex flex-col mt-10' : 'hidden'} md:flex gap-5 justify-between items-center md:px-5 text-xl font-medium leading-8`}>
                 <a href="/login" className="my-auto text-zinc-800">Login</a>
                 <a href="/register" className="my-auto text-zinc-800">Register</a>
-                <a href="/demo" className="justify-center px-6 py-2 text-center text-white bg-indigo-400 rounded max-md:px-5 w-[180px]">
+                <a href="/demo" className="justify-center px-6 py-1 text-center text-white bg-indigo-400 rounded-2xl max-md:px-5 h-[40px] w-[180px]">
                     Book a Demo
                 </a>
             </div>

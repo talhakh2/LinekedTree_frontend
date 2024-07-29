@@ -64,6 +64,8 @@ export default function Login() {
     };
 
     const handleSubmit = async () => {
+        setPasswordError('')
+        setEmailError('')
         if (!validateForm()) {
             return;
         }
@@ -131,13 +133,22 @@ export default function Login() {
                         Navigate('/dashboard')
                     }
                 }
-            }).catch((err) => {
-                if (err.response.data.message === "Invalid password")
-                    setPasswordError('Incorrect Password')
-                else if (err.response.data.message === "Invalid email")
-                    setEmailError('Invalid email')
+                setPasswordError('')
+                setEmailError('')
 
+
+            }).catch((err) => {
+                if (err.response.data.message === 'Invalid password'){
+                    setPasswordError('Incorrect Password')
+                }
+                    
+                else if (err.response.data.message === 'Invalid email'){
+                    setEmailError('Invalid email')
+                }
+                    
                 console.error(err.response.data.message)
+
+               
             })
         } catch (error) {
             console.error("Error signing in user:", error);

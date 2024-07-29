@@ -36,6 +36,9 @@ export default function Register() {
     };
 
     const registerUser = async () => {
+        setEmailExist(false)
+        setErrors({})
+
         const newErrors = validateForm();
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
@@ -117,7 +120,7 @@ export default function Register() {
                     <label className="text-sm font-medium leading-5 text-black mt-4">Registering for Trial or Pay First</label>
                     <div className="flex mt-2">
                         <div onClick={() => { setIsTrial(false) }} className="mr-7 flex items-center">
-                            <input type='radio' id="pay" name="paymentType" />
+                            <input type='radio' id="pay" name="paymentType"/>
                             <label htmlFor="pay" className="text-sm font-medium leading-5 text-black ml-2">Pay First</label>
                         </div>
                         <div onClick={() => { setIsTrial(true) }} className="flex items-center">
