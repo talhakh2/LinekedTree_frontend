@@ -81,7 +81,7 @@ const Index = () => {
             <AsideHeader />
             <div className="flex w-full flex-col items-center mt-4 max-md:mt-10 max-md:max-w-full">
                 <div className="justify-center text-center self-start p-2.5 mt-6 text-lg font-medium tracking-wide leading-6 text-blue-950">
-                    Customer Reviews
+                Paramètres
                 </div>
                 <div className="pr-6 mt-10 bg-white shadow-sm w-full max-md:pr-5 ">
                     <div className="flex flex-col items-start gap-5 max-md:flex-col shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] max-md:gap-0">
@@ -89,18 +89,18 @@ const Index = () => {
                             <div className="flex flex-col max-md:ml-0 w-full">
                                 <div className="flex flex-col grow p-6 w-full bg-white max-md:px-5 max-md:mt-10 max-md:max-w-full">
                                     <div className="text-2xl font-semibold text-center text-black max-md:max-w-full">
-                                        Basic Information
+                                        Informations de base
                                     </div>
                                     <div className="flex flex-col mt-5 w-full">
                                         <div className="flex w-full flex-col justify-center max-md:max-w-full">
                                             <div className="flex flex-col max-md:max-w-full">
                                                 <div className="text-sm font-medium leading-5 text-slate-700 max-md:max-w-full">
-                                                    Name*
+                                                    Nom*
                                                 </div>
                                                 <div className="flex flex-col justify-center mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm max-md:max-w-full">
                                                     <input onChange={(event) => {
                                                         setProfile({ ...profile, name: event.target.value })
-                                                    }} placeholder='Enter your name' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" value={profile?.name} />
+                                                    }} placeholder='Entrez votre nom' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" value={profile?.name} />
                                                 </div>
                                             </div>
                                         </div>
@@ -112,29 +112,29 @@ const Index = () => {
                                                 <div className="flex flex-col justify-center mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm max-md:max-w-full">
                                                     <input onChange={(event) => {
                                                         setProfile({ ...profile, email: event.target.value })
-                                                    }} placeholder='Enter your email' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" value={profile?.email} />
+                                                    }} placeholder='Entrez votre email' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" value={profile?.email} />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="flex flex-col justify-center mt-4 max-md:max-w-full">
                                             <div className="flex flex-col max-md:max-w-full">
                                                 <div className="text-sm font-medium leading-5 text-slate-700 max-md:max-w-full">
-                                                    Phone Number*
+                                                    Numéro de téléphone*
                                                 </div>
                                                 <div className="flex flex-col justify-center mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm max-md:max-w-full">
                                                     <input onChange={(event) => {
                                                         setProfile({ ...profile, phoneNumber: event.target.value })
-                                                    }} placeholder='Enter your phone number' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" value={profile?.phoneNumber} />
+                                                    }} placeholder='Entrez votre numéro de téléphone' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" value={profile?.phoneNumber} />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="flex flex-col justify-center mt-4 max-md:max-w-full">
                                             <div className="flex flex-col max-md:max-w-full">
                                                 <div className="text-sm font-medium leading-5 text-slate-700 max-md:max-w-full">
-                                                    Username
+                                                    Nom d'utilisateur
                                                 </div>
                                                 <div className="flex flex-col justify-center mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm max-md:max-w-full">
-                                                    <input placeholder='Enter Username' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" disabled value={`${profile?.name}-${profile?._id}`} />
+                                                    <input placeholder='Entrez un nom dutilisateur' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" disabled value={`${profile?.name}-${profile?._id}`} />
                                                 </div>
                                             </div>
                                         </div>
@@ -144,7 +144,7 @@ const Index = () => {
                             <div className="flex flex-col ml-5 max-w-full md:max-w-[300px] w-full max-md:ml-0 max-md:w-full">
                                 <div className="flex flex-col self-stretch my-auto text-center max-md:mt-10">
                                     <div className="text-2xl font-semibold text-black">
-                                        Profile Picture
+                                        Photo de profil
                                     </div>
                                     {
                                         profile?.profilePicture ? <img className="mt-6 rounded-full bg-zinc-300 h-[198px] w-[198px] mx-auto object-cover object-center" src={profile?.profilePicture} alt='' /> : <div className="shrink-0 mt-6 rounded-full bg-zinc-300 h-[198px] w-[198px] mx-auto" />
@@ -161,70 +161,71 @@ const Index = () => {
                                             className="self-center px-6 py-4 mt-6 text-base font-bold leading-4 text-white whitespace-nowrap cursor-pointer mb-2 bg-indigo-400 rounded-xl max-md:px-5 justify-end"
                                             onClick={handleButtonClick}
                                         >
-                                            Upload
+                                            Parcourir
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div className="flex flex-col mt-10 mr-2 bg-white w-full max-md:px-5">
-                    <div className='p-6 md:mx-5 w-full md:w-auto shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]'>
-                        <div className="text-2xl font-semibold text-black max-md:max-w-full">
-                            Change password
-                        </div>
-                        <div className="flex flex-col mt-5 max-md:max-w-full">
-                            <div className="flex flex-col justify-center max-md:max-w-full">
-                                <div className="flex flex-col max-md:max-w-full">
-
-                                    <div className="text-sm font-medium leading-5 text-slate-700 max-md:max-w-full">
-                                        Current Password*
-                                    </div>
-                                    <div className="flex flex-col justify-center mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm max-md:max-w-full">
-                                        <input type="password" placeholder='Enter your current password' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" />
-                                    </div>
-                                    <div className="flex flex-col mt-1.5 max-md:max-w-full">
-                                        <div className="flex flex-col max-md:max-w-full">
-                                            <div className="text-sm font-medium leading-5 text-slate-700 max-md:max-w-full">
-                                                New Password*
+    
+                    <div className="flex flex-col mt-10 mr-2 bg-white w-full max-md:px-5">
+                        <div className='p-6 md:mx-5 w-full md:w-auto shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]'>
+                            <div className="text-2xl font-semibold text-black max-md:max-w-full">
+                                Changer le mot de passe
+                            </div>
+                            <div className="flex flex-col mt-5 max-md:max-w-full">
+                                <div className="flex flex-col justify-center max-md:max-w-full">
+                                    <div className="flex flex-col max-md:max-w-full">
+    
+                                        <div className="text-sm font-medium leading-5 text-slate-700 max-md:max-w-full">
+                                            Mot de passe actuel*
+                                        </div>
+                                        <div className="flex flex-col justify-center mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm max-md:max-w-full">
+                                            <input type="password" placeholder='Entrez votre mot de passe actuel' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" />
+                                        </div>
+                                        <div className="flex flex-col mt-1.5 max-md:max-w-full">
+                                            <div className="flex flex-col max-md:max-w-full">
+                                                <div className="text-sm font-medium leading-5 text-slate-700 max-md:max-w-full">
+                                                    Nouveau mot de passe*
+                                                </div>
+                                                <div className="flex flex-col justify-center mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm max-md:max-w-full">
+                                                    <input type="password" placeholder='Créer un nouveau mot de passe' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" />
+                                                </div>
                                             </div>
-                                            <div className="flex flex-col justify-center mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm max-md:max-w-full">
-                                                <input type="password" placeholder='Create a new password' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" />
+                                            <div className="mt-1.5 text-sm leading-5 text-slate-600 max-md:max-w-full">
+                                                Doit contenir au moins 8 caractères.
                                             </div>
-                                        </div>
-                                        <div className="mt-1.5 text-sm leading-5 text-slate-600 max-md:max-w-full">
-                                            Must be at least 8 characters.
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="flex flex-col justify-center mt-4 max-md:max-w-full">
-                                <div className="flex flex-col max-md:max-w-full">
-                                    <div className="text-sm font-medium leading-5 text-slate-700 max-md:max-w-full">
-                                        Confirm Password*
-                                    </div>
-                                    <div className="flex flex-col justify-center mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm max-md:max-w-full">
-                                        <input type="password" placeholder='Enter password to confirm' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" />
+                                <div className="flex flex-col justify-center mt-4 max-md:max-w-full">
+                                    <div className="flex flex-col max-md:max-w-full">
+                                        <div className="text-sm font-medium leading-5 text-slate-700 max-md:max-w-full">
+                                            Confirmer le mot de passe*
+                                        </div>
+                                        <div className="flex flex-col justify-center mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm max-md:max-w-full">
+                                            <input type="password" placeholder='Entrez le mot de passe pour confirmer' className="outline-none px-3.5 py-2.5 justify-center max-md:max-w-full" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className='flex justify-end w-full mt-10 md:mt-4 mr-10'>
-                    <div onClick={updateProfile}
-                        className="ml-7 px-6 py-4 mt-2 mb-6 text-base font-bold leading-4 text-white whitespace-nowrap cursor-pointer bg-indigo-400 rounded-xl max-md:px-5 justify-end"
-                    >
-                        Update Profile
+                    <div className='flex justify-end w-full mt-10 md:mt-4 mr-10'>
+                        <div onClick={updateProfile}
+                            className="ml-7 px-6 py-4 mt-2 mb-6 text-base font-bold leading-4 text-white whitespace-nowrap cursor-pointer bg-indigo-400 rounded-xl max-md:px-5 justify-end"
+                        >
+                            Mettre à jour le profil
+                        </div>
                     </div>
                 </div>
+    
+    
             </div>
-
-
         </div>
-    )
+        )
+    
 }
 
 export default Index

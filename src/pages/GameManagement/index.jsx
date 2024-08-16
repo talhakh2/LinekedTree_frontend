@@ -141,15 +141,17 @@ export default function GameManagement() {
                     Navigate('/landing-pages')
                 }).catch((err) => {
                     // Navigate(`/pricing/:${userId}`)
-                    if (err.response.data.message !== "Please wait for admin approval" && err.response.data.message !== "You are restricted from admin to create landing page") {
-                        setLink("/pricing")
-                        setbuttonText("Upgrade Plan")
-                    }
-                    else{
-                        setLink("/game")
-                        setbuttonText("Okay")
-                    }
-                        
+                    // if (err.response.data.message !== "Please wait for admin approval" && err.response.data.message !== "You are restricted from admin to create landing page") {
+                    //     setLink("/landing-pages")
+                    //     setbuttonText("Okay")
+                    // }
+                    // else {
+                    //     setLink("/game")
+                    //     setbuttonText("Okay")
+                    // }
+                    setLink("/game")
+                    setbuttonText("D'accord")
+
 
                     setMessage(err.response.data.message)
                     setOpenMessage(true)
@@ -257,158 +259,186 @@ export default function GameManagement() {
 
                     {
                         selectedRow === 1 && (
-                            <>
-                                <div className="flex flex-col my-5 w-full max-w-[1050px] max-md:max-w-full">
-                                    <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                                            <div className="mt-4 text-base font-medium leading-5 text-black w-full">
-                                                Resturant Name
-                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, resturantName: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter your Brand Name`} value={gameFormat.resturantName} required />
-                                            </div>
-                                        </div>
-                                        <div className="flex mt-4 gap-5 max-md:flex-col max-md:gap-0">
-                                            <div className="mt-4 text-base font-medium leading-5 text-black w-full">
-                                                Resturant Address
-                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, resturantAddress: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter Resturant Address`} value={gameFormat.resturantAddress} />
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                        <>
+                            <div className="flex flex-col my-5 w-full max-w-[1050px] max-md:max-w-full">
                                 <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                    <div className="text-2xl max-md:max-w-full">Brand Name</div>
-                                    <div className="flex flex-col items-start pr-20 mt-3.5 text-base max-md:pr-5 max-md:max-w-full ">
-                                        <div onClick={() => { setUploadLogo(true); setGameFormate({ ...gameFormat, logo: '', brandName: '' }) }} className="flex gap-3 justify-center">
-                                            <input type='radio' className="w-[20px] ml-1" id="uploadLogo" name="selection" checked={uploadLogo} />
-                                            <label htmlFor="uploadLogo" id="uploadLogo" className="my-auto">Upload logo</label>
+                                    <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                                        <div className="mt-4 text-base font-medium leading-5 text-black w-full">
+                                            Nom du Restaurant
+                                            <input 
+                                                onChange={(e) => setGameFormate({ ...gameFormat, resturantName: e.target.value })} 
+                                                className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" 
+                                                type="text" 
+                                                placeholder="Entrez le nom de votre marque" 
+                                                value={gameFormat.resturantName} 
+                                                required 
+                                            />
                                         </div>
-                                        <div onClick={() => { setUploadLogo(false); setGameFormate({ ...gameFormat, logo: '', brandName: '' }) }} className="flex gap-3 justify-center mt-1.5">
-                                            <input type='radio' className="w-[20px] ml-1" id="enterBrandName" name="selection" checked={!uploadLogo} />
-                                            <label htmlFor="enterBrandName" id="enterBrandName" className="my-auto">Enter brand name</label>
+                                    </div>
+                                    <div className="flex mt-4 gap-5 max-md:flex-col max-md:gap-0">
+                                        <div className="mt-4 text-base font-medium leading-5 text-black w-full">
+                                            Adresse du Restaurant
+                                            <input 
+                                                onChange={(e) => setGameFormate({ ...gameFormat, resturantAddress: e.target.value })} 
+                                                className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" 
+                                                type="text" 
+                                                placeholder="Entrez l'adresse du restaurant" 
+                                                value={gameFormat.resturantAddress} 
+                                            />
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
+                                <div className="text-2xl max-md:max-w-full">Nom de Marque</div>
+                                <div className="flex flex-col items-start pr-20 mt-3.5 text-base max-md:pr-5 max-md:max-w-full ">
+                                    <div 
+                                        onClick={() => { setUploadLogo(true); setGameFormate({ ...gameFormat, logo: '', brandName: '' }) }} 
+                                        className="flex gap-3 justify-center"
+                                    >
+                                        <input type='radio' className="w-[20px] ml-1" id="uploadLogo" name="selection" checked={uploadLogo} />
+                                        <label htmlFor="uploadLogo" id="uploadLogo" className="my-auto">Charger le logo</label>
+                                    </div>
+                                    <div 
+                                        onClick={() => { setUploadLogo(false); setGameFormate({ ...gameFormat, logo: '', brandName: '' }) }} 
+                                        className="flex gap-3 justify-center mt-1.5"
+                                    >
+                                        <input type='radio' className="w-[20px] ml-1" id="enterBrandName" name="selection" checked={!uploadLogo} />
+                                        <label htmlFor="enterBrandName" id="enterBrandName" className="my-auto">Entrer le nom de la marque</label>
+                                    </div>
+                                </div>
+                            </div>
 
-                                {
-                                    uploadLogo ? (<div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
+                            {
+                                uploadLogo ? (
+                                    <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
                                         <div className="flex flex-row md:flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                             <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                                                 {
-                                                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <div className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" />
+                                                    gameFormat.logo ? 
+                                                    <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : 
+                                                    <div className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" />
                                                 }
                                                 <div className="flex flex-row ml-5 w-[16%] max-md:ml-0 max-md:w-full">
                                                     <div className="justify-center self-stretch px-0.5 py-2.5 my-auto w-full text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 hover:bg-indigo-500 cursor-pointer rounded-xl max-md:mt-10">
                                                         <input onChange={ImageUpload} type="file" id="uploadFileInput" style={{ display: "none" }} />
-                                                        <label htmlFor="uploadFileInput" className="cursor-pointer">Upload</label>
+                                                        <label htmlFor="uploadFileInput" className="cursor-pointer">Charger</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>) : (<div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
                                         <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                             <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                                                 <div className="mt-4 text-base font-medium leading-5 text-black w-full">
-                                                    Brand Name
-                                                    <input onChange={(e) => { setGameFormate({ ...gameFormat, brandName: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter your Brand Name`} value={gameFormat.brandName} />
+                                                    Nom de Marque
+                                                    <input 
+                                                        onChange={(e) => setGameFormate({ ...gameFormat, brandName: e.target.value })} 
+                                                        className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" 
+                                                        type="text" 
+                                                        placeholder="Entrez le nom de votre marque" 
+                                                        value={gameFormat.brandName} 
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>)
-                                }
-                                <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
-                                    <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                        <div className="text-2xl font-medium leading-8 text-black max-md:max-w-full">
-                                            Options for the fortune wheel
-                                        </div>
-                                        <div className="flex flex-col mt-3.5 max-md:max-w-full">
-                                            {
-                                                data.map((Item, index) => (
-                                                    <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full" key={index}>
-                                                        Option {index + 1}
-                                                        <div className="flex">
-                                                            <input
-                                                                onChange={(e) => {
-                                                                    setGameFormate({
-                                                                        ...gameFormat,
-                                                                        options: { ...gameFormat.options, [`option${index + 1}`]: e.target.value }
-                                                                    })
-                                                                }}
-                                                                className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full"
-                                                                type="text"
-                                                                placeholder={`Enter your option ${index + 1}`}
-                                                                value={gameFormat.options[`option${index + 1}`]}
-                                                            />
-                                                            <select
-                                                                onChange={(e) => {
-                                                                    const selectedValue = Number(e.target.value);
-                                                                    const previousValue = gameFormat.options[`option${index + 1}frequency`] || 0;
+                                    </div>
+                                )
+                            }
+                            <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
+                                <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
+                                    <div className="text-2xl font-medium leading-8 text-black max-md:max-w-full">
+                                        Options pour la roue de la fortune
+                                    </div>
+                                    <div className="flex flex-col mt-3.5 max-md:max-w-full">
+                                        {
+                                            data.map((Item, index) => (
+                                                <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full" key={index}>
+                                                    Option {index + 1}
+                                                    <div className="flex">
+                                                        <input
+                                                            onChange={(e) => {
+                                                                setGameFormate({
+                                                                    ...gameFormat,
+                                                                    options: { ...gameFormat.options, [`option${index + 1}`]: e.target.value }
+                                                                })
+                                                            }}
+                                                            className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full"
+                                                            type="text"
+                                                            placeholder={`Entrez votre option ${index + 1}`}
+                                                            value={gameFormat.options[`option${index + 1}`]}
+                                                        />
+                                                        <select
+                                                            onChange={(e) => {
+                                                                const selectedValue = Number(e.target.value);
+                                                                const previousValue = gameFormat.options[`option${index + 1}frequency`] || 0;
 
-                                                                    // Calculate new total
-                                                                    const newTotal = total + previousValue - selectedValue;
+                                                                // Calculate new total
+                                                                const newTotal = total + previousValue - selectedValue;
 
-                                                                    setTotal(newTotal);
-                                                                    setGameFormate({
-                                                                        ...gameFormat,
-                                                                        options: { ...gameFormat.options, [`option${index + 1}frequency`]: selectedValue }
-                                                                    });
-                                                                }}
-                                                                className="md:ml-2 flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-[100px]"
-                                                                value={gameFormat.options[`option${index + 1}frequency`] || ''}
-                                                            >
-                                                                <option disabled value="">Select</option>
-                                                                {
-                                                                    new Array(total + (gameFormat.options[`option${index + 1}frequency`] || 0) + 1).fill(0).map((_, optionIndex) => (
-                                                                        <option key={optionIndex} value={optionIndex}>
-                                                                            {optionIndex}
-                                                                        </option>
-                                                                    ))
-                                                                }
-                                                            </select>
-                                                        </div>
+                                                                setTotal(newTotal);
+                                                                setGameFormate({
+                                                                    ...gameFormat,
+                                                                    options: { ...gameFormat.options, [`option${index + 1}frequency`]: selectedValue }
+                                                                });
+                                                            }}
+                                                            className="md:ml-2 flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-[100px]"
+                                                            value={gameFormat.options[`option${index + 1}frequency`] || ''}
+                                                        >
+                                                            <option disabled value="">Sélectionner</option>
+                                                            {
+                                                                new Array(total + (gameFormat.options[`option${index + 1}frequency`] || 0) + 1).fill(0).map((_, optionIndex) => (
+                                                                    <option key={optionIndex} value={optionIndex}>
+                                                                        {optionIndex}
+                                                                    </option>
+                                                                ))
+                                                            }
+                                                        </select>
                                                     </div>
-                                                ))
-                                            }
-                                        </div>
+                                                </div>
+                                            ))
+                                        }
                                     </div>
                                 </div>
-                                <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
-                                    <div
-                                        onClick={() => {
-                                            setSelectedRow(2);
-                                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                                        }}
-                                        className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
-                                    >
-                                        <label className="cursor-pointer" >Design</label>
-                                    </div>
+                            </div>
+                            <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
+                                <div
+                                    onClick={() => {
+                                        setSelectedRow(2);
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }}
+                                    className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
+                                >
+                                    <label className="cursor-pointer">Conception</label>
                                 </div>
-
-                            </>
+                            </div>
+                        </>
                         )
                     }
+
 
                     {
                         selectedRow === 2 && (
                             <>
                                 <div className="flex flex-wrap p-5 font-medium text-black bg-white leading-[140%] shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-
-                                    <div className="text-2xl max-md:max-w-full w-full mb-4">Wheel Color</div>
-
+                                    <div className="text-2xl max-md:max-w-full w-full mb-4">Couleur de la Roue</div>
                                     <div className="flex gap-[2vw] flex-wrap">
                                         {/* Color pair components */}
                                         <ColorPair
                                             id={1}
                                             color1="#8497FC"
-                                            label1="Blue"
+                                            label1="Bleu"
                                             color2="#FDFDAF"
-                                            label2="Yellow"
+                                            label2="Jaune"
                                             isSelected={selectedPair === 1}
                                             onClick={handlePairClick}
                                         />
                                         <ColorPair
                                             id={2}
                                             color1="#FFB703"
-                                            label1="Mango"
+                                            label1="Mangue"
                                             color2="#FB8500"
                                             label2="Orange"
                                             isSelected={selectedPair === 2}
@@ -417,25 +447,25 @@ export default function GameManagement() {
                                         <ColorPair
                                             id={3}
                                             color1="#C1121F"
-                                            label1="Ruby"
+                                            label1="Rubis"
                                             color2="#FDF0D5"
-                                            label2="Coffee cream"
+                                            label2="Crème de café"
                                             isSelected={selectedPair === 3}
                                             onClick={handlePairClick}
                                         />
                                         <ColorPair
                                             id={4}
                                             color1="#386641"
-                                            label1="Hunter green"
+                                            label1="Vert chasseur"
                                             color2="#A7C957"
-                                            label2="Sweet midori"
+                                            label2="Vert doux"
                                             isSelected={selectedPair === 4}
                                             onClick={handlePairClick}
                                         />
                                         <ColorPair
                                             id={5}
                                             color1="#E3F2FD"
-                                            label1="Alice blue"
+                                            label1="Bleu Alice"
                                             color2="#DB5461"
                                             label2="Mandy"
                                             isSelected={selectedPair === 5}
@@ -444,9 +474,9 @@ export default function GameManagement() {
                                         <ColorPair
                                             id={6}
                                             color1="#5D2E8C"
-                                            label1="Purple"
+                                            label1="Violet"
                                             color2="#CCFF66"
-                                            label2="Canary"
+                                            label2="Canari"
                                             isSelected={selectedPair === 6}
                                             onClick={handlePairClick}
                                         />
@@ -455,64 +485,56 @@ export default function GameManagement() {
                                             color1="#C80036"
                                             label1="Monza"
                                             color2="#FDFDAF"
-                                            label2="Yellow"
+                                            label2="Jaune"
                                             isSelected={selectedPair === 7}
                                             onClick={handlePairClick}
                                         />
                                     </div>
-
                                 </div>
 
                                 <div className="flex flex-wrap p-5 font-medium text-black bg-white leading-[140%] shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] mt-7">
-
-                                    <div className="text-2xl max-md:max-w-full mb-4">Button Color</div>
+                                    <div className="text-2xl max-md:max-w-full mb-4">Couleur du Bouton</div>
                                     <div className="flex gap-[2vw] flex-wrap">
                                         {/* ButtonColor components */}
                                         <ButtonColor
                                             id={1}
                                             color1="#8497FC"
-                                            label1="Blue"
-
+                                            label1="Bleu"
                                             isSelected={selectedButtonColor === 1}
                                             onClick={handleButtonColorClick}
                                         />
                                         <ButtonColor
                                             id={2}
                                             color1="#FFB703"
-                                            label1="Mango"
-
+                                            label1="Mangue"
                                             isSelected={selectedButtonColor === 2}
                                             onClick={handleButtonColorClick}
                                         />
                                         <ButtonColor
                                             id={3}
                                             color1="#C1121F"
-                                            label1="Ruby"
-
+                                            label1="Rubis"
                                             isSelected={selectedButtonColor === 3}
                                             onClick={handleButtonColorClick}
                                         />
                                         <ButtonColor
                                             id={4}
                                             color1="#386641"
-                                            label1="Hunter green"
-
+                                            label1="Vert chasseur"
                                             isSelected={selectedButtonColor === 4}
                                             onClick={handleButtonColorClick}
                                         />
                                         <ButtonColor
                                             id={5}
                                             color1="#E3F2FD"
-                                            label1="Alice blue"
-
+                                            label1="Bleu Alice"
                                             isSelected={selectedButtonColor === 5}
                                             onClick={handleButtonColorClick}
                                         />
                                         <ButtonColor
                                             id={6}
                                             color1="#5D2E8C"
-                                            label1="Purple"
-
+                                            label1="Violet"
                                             isSelected={selectedButtonColor === 6}
                                             onClick={handleButtonColorClick}
                                         />
@@ -520,12 +542,10 @@ export default function GameManagement() {
                                             id={7}
                                             color1="#C80036"
                                             label1="Monza"
-
                                             isSelected={selectedButtonColor === 7}
                                             onClick={handleButtonColorClick}
                                         />
                                     </div>
-
                                 </div>
 
                                 <div className="flex flex-col items-center mt-20 pt-8 pb-4 bg-white leading-[140%] shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
@@ -540,13 +560,13 @@ export default function GameManagement() {
                                         }}
                                         className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
                                     >
-                                        <label className="cursor-pointer" >Social Media links</label>
+                                        <label className="cursor-pointer">Liens Médias Sociaux</label>
                                     </div>
                                 </div>
-
                             </>
                         )
                     }
+
 
                     {
                         selectedRow === 3 && (
@@ -554,7 +574,7 @@ export default function GameManagement() {
                                 <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
                                     <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                         <div className="text-2xl font-medium leading-8 text-black max-md:max-w-full">
-                                            Links of Social Media Platform
+                                            Liens des plateformes de médias sociaux
                                         </div>
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
@@ -589,11 +609,10 @@ export default function GameManagement() {
                                     </div>
                                 </div>
 
-
                                 <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
                                     <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                         <div className="text-2xl font-medium leading-8 text-black max-md:max-w-full">
-                                            Get Follow or Review
+                                            Obtenez un suivi ou un avis
                                         </div>
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
@@ -606,7 +625,7 @@ export default function GameManagement() {
                                                         checked={gameFormat.followOrReview === 'instagram'}
                                                         onChange={(e) => setGameFormate({ ...gameFormat, followOrReview: e.target.value })}
                                                     />
-                                                    Instagram Follow
+                                                    Suivi Instagram
                                                 </label>
                                                 <label className="flex items-center mt-3">
                                                     <input
@@ -617,32 +636,49 @@ export default function GameManagement() {
                                                         checked={gameFormat.followOrReview === 'google'}
                                                         onChange={(e) => setGameFormate({ ...gameFormat, followOrReview: e.target.value })}
                                                     />
-                                                    Google Review
+                                                    Avis Google
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-
                                 <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
                                     <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                         <div className="text-2xl font-medium leading-8 text-black max-md:max-w-full">
-                                            Email Content
+                                            Contenu de l'email
                                         </div>
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
-                                                Content
-                                                <textarea onChange={(e) => setGameFormate({ ...gameFormat, content: e.target.value })} rows="6" cols="30" className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter content`} value={`Bravo, vous avez gagné ${gameFormat.resturantName}!
-Pour bénéficier pleinement de votre cadeau, nous vous invitons à vous rendre à l'adresse suivante, à la date de votre choix, et de présenter ce mail: 
-
-${gameFormat.resturantName}
-${gameFormat.resturantAddress}
-
-Attention, votre cadeau n'est disponible que pendant une durée limitée de 10 days jours à partir de demain ! Ne laissez pas cette occasion exceptionnelle vous échapper, saisissez-la dès maintenant et profitez-en au maximum! 
-Un minimum d’achat de 10 € est requis pour récupérer le cadeau.
-
-This is an automated message, please do not reply.`} />
+                                                Contenu
+                                                <p className="justify-center px-3.5 py-2.5 mt-3 text-base bg-white shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text">
+                                                    Bravo, vous avez gagné {gameFormat.resturantName} !
+                                                    Pour bénéficier pleinement de votre cadeau, nous vous invitons à vous rendre à l'adresse suivante, à la date de votre choix, et de présenter ce mail :
+                                                    <span>
+                                                        <br />
+                                                        <br />
+                                                    </span>
+                                                    {gameFormat.resturantName}
+                                                    <span>
+                                                        <br />
+                                                    </span>
+                                                    {gameFormat.resturantAddress}
+                                                    <span>
+                                                        <br />
+                                                        <br />
+                                                    </span>
+                                                    Attention, votre cadeau n'est disponible que pendant une durée limitée de 10 jours à partir de demain ! Ne laissez pas cette occasion exceptionnelle vous échapper, saisissez-la dès maintenant et profitez-en au maximum !
+                                                    Un minimum d’achat de 10 € est requis pour récupérer le cadeau.
+                                                    <span>
+                                                        <br />
+                                                        <br />
+                                                    </span>
+                                                    <span>
+                                                        <strong>
+                                                            Ceci est un message automatisé, veuillez ne pas répondre.
+                                                        </strong>
+                                                    </span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -652,12 +688,13 @@ This is an automated message, please do not reply.`} />
                                         onClick={createLandingPage}
                                         className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
                                     >
-                                        <label className="cursor-pointer" >{`${id ? 'Update Landing Page' : 'Create Landing Page'}`}</label>
+                                        <label className="cursor-pointer" >{`${id ? 'Mettre à jour page' : 'Créer page destination'}`}</label>
                                     </div>
                                 </div>
                             </>
                         )
                     }
+
 
 
                 </div>

@@ -34,15 +34,15 @@ const Index = () => {
             <AsideHeader />
             <div className="flex w-full flex-col items-center mt-4 max-md:mt-10 max-md:max-w-full">
                 <div className="justify-center text-center self-start p-2.5 mt-6 text-lg font-medium tracking-wide leading-6 text-blue-950">
-                    Customer Reviews
+                    Avis des clients
                 </div>
                 <div className="flex flex-col w-full max-w-4xl mt-10 text-base font-medium leading-6 text-black">
                     <div className="min-w-0 flex gap-5 mt-10 mb-5 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto">
-                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Name</div>
-                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Rating</div>
-                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Submission Date</div>
-                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Submission Time</div>
-                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Review</div>
+                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Nom</div>
+                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Notation</div>
+                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Date soumission</div>
+                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Soumission heure</div>
+                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Avis</div>
                     </div>
                     <div className="flex flex-col gap-5 w-full bg-white shadow-sm max-md:flex-wrap">
                         {
@@ -57,11 +57,11 @@ const Index = () => {
                             ))
                         }
                     </div>
-                    {/* Repeat this structure for other reviews */}
                 </div>
             </div>
         </div>
-    )
+    );
+    
 }
 
 export default Index

@@ -61,12 +61,12 @@ export default function SpinDesign({ gameFormat }) {
 
             <div className='flex justify-center mt-4'>
                 {
-                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-2xl italic'>{gameFormat.brandName || 'Brand Name'}</h1>
+                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-2xl italic'>{gameFormat.brandName || 'Nom de marque'}</h1>
                 }
             </div>
 
             <div className="flex justify-center font-bold text-xl text-center mt-4" style={{ color: gameFormat.buttonColor }}>
-                {gameFormat.text1 || "Engage, Review, and Unlock Rewards!"}
+                {gameFormat.text1 || "Participez, Évaluez et Déverrouillez des Récompenses !"}
             </div>
             <div className='flex flex-col justify-center items-center'>
                 {/* <div className='grid grid-col justify-between mx-auto items-center'>
@@ -108,7 +108,7 @@ export default function SpinDesign({ gameFormat }) {
             <div className="grid grid-cols-2 justify-end max-md:mt-4">
 
                 <div className="flex justify-center mt-4 ml-4 font-bold text-xl text-center" style={{ color: gameFormat.buttonColor, width: '80%' }}>
-                    {gameFormat.text2 || "“Share your experience and help us grow”"}
+                    {gameFormat.text2 || "“Partagez votre expérience et aidez-nous à grandir”"}
                 </div>
 
                 <div className='flex flex-col justify-end items-center mb-8'>

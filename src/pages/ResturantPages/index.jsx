@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
 function Index() {
-    // Sample data object with row names and corresponding values
-    const Naviagate = useNavigate();
+    const Navigate = useNavigate();
     const [data, setData] = useState([]);
     useEffect(() => {
         try {
@@ -16,7 +15,6 @@ function Index() {
                     'Content-Type': 'application/json'
                 },
             }).then((res) => {
-                // console.log(res);
                 const updatedData = res.data?.map((Item) => {
                     return { resturantName: Item.resturantName, ownerName: Item.ownerName, visitedMembers: Item.visitedMembers, reviews: Item.reviews, ownerId: Item.ownerId }
                 })
@@ -28,10 +26,10 @@ function Index() {
     }, [])
 
     const columns = [
-        "Resturant Name",
-        "Owner Name",
-        "Total Visits",
-        "Total Reviews",
+        "Nom du restaurant",
+        "Nom du propriétaire",
+        "Visites totales",
+        "Avis totaux",
     ];
 
     return (
@@ -40,7 +38,7 @@ function Index() {
             <div className="w-full mt-6 mx-5">
                 <div className="flex items-end justify-between">
                     <div className="justify-center self-start p-2.5 mt-6 text-lg font-medium tracking-wide leading-6 text-blue-950">
-                        Analytics
+                        Analytique
                     </div>
                 </div>
                 <div className="min-w-0 flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto">
@@ -56,8 +54,8 @@ function Index() {
                         <div className="w-[110px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.ownerName}</div>
                         <div className="w-[40px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.visitedMembers || '-'}</div>
                         <div className="w-[10px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.reviews || '-'}</div>
-                        <button onClick={() => { Naviagate(`/dashboard/${row.ownerId}`) }} className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl border-2 border-indigo-400 border-solid">
-                            View Details
+                        <button onClick={() => { Navigate(`/dashboard/${row.ownerId}`) }} className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl border-2 border-indigo-400 border-solid">
+                            Voir les détails
                         </button>
                     </div>
                 ))}

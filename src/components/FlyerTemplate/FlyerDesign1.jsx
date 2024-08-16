@@ -60,12 +60,12 @@ export default function FlyerDesign1({ gameFormat }) {
 
             <div className='flex justify-center mt-4'>
                 {
-                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-xl italic'>{gameFormat.brandName || 'Brand Name'}</h1>
+                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-xl italic'>{gameFormat.brandName || 'Nom de marque'}</h1>
                 }
             </div>
 
             <div className="flex justify-center mt-4 font-bold text-xl text-center" style={{ color: gameFormat.buttonColor }}>
-                {gameFormat.text1 || "“Share your experience and help us grow”"}
+                {gameFormat.text1 || "“Partagez votre expérience et aidez-nous à grandir”"}
             </div>
 
 

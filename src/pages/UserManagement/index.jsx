@@ -24,7 +24,7 @@ function Index() {
                 setCheckedStates(updatedData.map(item => item.isToggle));
             })
         } catch (error) {
-            console.error("Error fetching data:", error);
+            console.error("Erreur lors de la récupération des données :", error);
         }
     }, [fetchUser]);
 
@@ -37,7 +37,7 @@ function Index() {
             });
             setFetchUser(prev => !prev);
         } catch (error) {
-            console.error("Error managing user:", error);
+            console.error("Erreur lors de la gestion de l'utilisateur :", error);
         }
     };
 
@@ -50,7 +50,7 @@ function Index() {
             });
             setFetchUser(prev => !prev);
         } catch (error) {
-            console.error("Error managing user:", error);
+            console.error("Erreur lors de la gestion de l'utilisateur :", error);
         }
     };
 
@@ -62,11 +62,11 @@ function Index() {
     };
 
     const columns = [
-        "Name",
-        "Email Address",
-        "Phone Number",
-        "Access Level",
-        "Restaurant Pages"
+        "Nom",
+        "Adresse e-mail",
+        "Numéro de téléphone",
+        "Niveau d'accès",
+        "Pages du restaurant"
     ];
 
     return (
@@ -75,7 +75,7 @@ function Index() {
             <div className="w-full mt-6 mx-5">
                 <div className="flex items-end justify-between">
                     <div className="justify-center self-start p-2.5 mt-6 text-lg font-medium tracking-wide leading-6 text-blue-950">
-                        User Management
+                        Gestion des utilisateurs
                     </div>
                 </div>
                 <div className="grid grid-cols-6 gap-5 mt-10 p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
@@ -95,15 +95,15 @@ function Index() {
                             <Switch 
                                 checked={checkedStates[index]}
                                 onChange={() => handleChange(index, row._id)}
-                                inputProps={{ 'aria-label': 'controlled' }}
+                                inputProps={{ 'aria-label': 'contrôlé' }}
                             />
                             {row.blocked ? (
                                 <button onClick={() => blockAndUnblockUser(row._id, 'unblock')} className="p-2.5 font-semibold text-white bg-indigo-400 border-2 border-indigo-400 rounded-xl">
-                                    Unblock
+                                    Débloquer
                                 </button>
                             ) : (
                                 <button onClick={() => blockAndUnblockUser(row._id, 'block')} className="p-2.5 font-semibold text-black border-2 border-indigo-400 bg-white rounded-xl">
-                                    Block
+                                    Bloquer
                                 </button>
                             )}
                         </div>

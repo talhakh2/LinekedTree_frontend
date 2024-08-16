@@ -122,7 +122,7 @@ const User = () => {
                 <div>
                     <div className="flex w-full flex-col items-center mt-4 max-md:mt-10">
                         <div className="justify-center text-center self-start p-2.5 mt-6 font-medium tracking-wide leading-6 text-blue-950 text-3xl md:text-lg">
-                            Dashboard
+                            Tableau de bord
                         </div>
                         <div className='flex flex-row m-10 gap-10 flex-wrap md:flex-nowrap justify-center '>
                             <div className="flex flex-col items-center justify-center p-4 h-[220px] w-[200px] max-md:flex-col shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] max-md:gap-0">
@@ -198,6 +198,7 @@ const User = () => {
             </div>
         </div>
     )
+    
 }
 
 export default User

@@ -100,13 +100,13 @@ const AdminDashboard = () => {
                 <div>
                     <div className="flex flex-col gap-5 px-7 py-6 bg-white shadow-sm max-w-[356px]">
                         <div className="justify-center text-center self-start p-2.5 mt-6 text-lg font-medium tracking-wide leading-6 text-blue-950">
-                            Dashboard
+                            Tableau de bord
                         </div>
                         <div className='flex flex-wrap md:flex-nowrap gap-5'>
                             <div className='flex justify-center shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] p-3 rounded-md w-[500px]'>
                                 <div className="w-[130px] flex flex-col justify-center items-center flex-1">
                                     <div className="justify-center text-xl font-medium leading-6 text-black">
-                                        Active Users
+                                        Utilisateurs Actifs
                                     </div>
                                     <div className="flex flex-col mt-7 whitespace-nowrap">
                                         <div className="justify-center text-3xl font-bold tracking-tighter leading-8 text-zinc-900">
@@ -126,7 +126,7 @@ const AdminDashboard = () => {
                             <div className='flex justify-center shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] p-3 rounded-md'>
                                 <div className="w-[130px] flex flex-col justify-center items-center flex-1">
                                     <div className="justify-center text-xl font-medium leading-6 text-black">
-                                        Revenue
+                                        Revenus
                                     </div>
                                     <div className="flex flex-col mt-7 whitespace-nowrap">
                                         <div className="justify-center text-3xl font-bold tracking-tighter leading-8 text-zinc-900">
@@ -146,7 +146,7 @@ const AdminDashboard = () => {
                             <div className='flex justify-center shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] p-3 rounded-md'>
                                 <div className="w-[130px] flex flex-col justify-center items-center flex-1">
                                     <div className="justify-center text-xl font-medium leading-6 text-black">
-                                        Total Clients
+                                    Nombre total de clients
                                     </div>
                                     <div className="flex flex-col mt-7 whitespace-nowrap">
                                         <div className="justify-center text-3xl font-bold tracking-tighter leading-8 text-zinc-900">
@@ -165,25 +165,25 @@ const AdminDashboard = () => {
                             </div>
                         </div>
                     </div>
+                    {
+                        !loading &&
+                        <SpreadGraph data={{
+                            labels,
+                            datasets: [
+                                {
+                                    label: 'Valeur',
+                                    data: dateRecord,
+                                    fill: false,
+                                    backgroundColor: 'rgba(75,192,192,0.2)',
+                                    borderColor: 'rgba(75,192,192,1)',
+                                    borderWidth: 2,
+                                    pointRadius: 5,
+                                    pointHoverRadius: 8,
+                                },
+                            ],
+                        }} />
+                    }
                 </div>
-                {
-                    !loading &&
-                    <SpreadGraph data={{
-                        labels,
-                        datasets: [
-                            {
-                                label: 'Value',
-                                data: dateRecord,
-                                fill: false,
-                                backgroundColor: 'rgba(75,192,192,0.2)',
-                                borderColor: 'rgba(75,192,192,1)',
-                                borderWidth: 2,
-                                pointRadius: 5,
-                                pointHoverRadius: 8,
-                            },
-                        ],
-                    }} />
-                }
             </div>
         </div>
     );

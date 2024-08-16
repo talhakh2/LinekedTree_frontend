@@ -32,7 +32,7 @@ const SpinGame = () => {
     const [messageModal, setMessageModal] = useState("");
 
     const [link, setLink] = useState("");
-    const [buttonText, setbuttonText] = useState("Okay");
+    const [buttonText, setbuttonText] = useState(`D'accord`);
 
     useEffect(() => {
         if (id) {
@@ -52,14 +52,20 @@ const SpinGame = () => {
                     const currentDate = new Date();
                     const expiryDate = new Date(res.data.expiryDate);
 
-                    if (expiryDate < currentDate) {
-                        setMessageModal("Page is expired!")
-                        setbuttonText("Home Page")
+                    if (!res.data.toggle) {
+                        setMessageModal('La page est désactivée !')
+                        setLink('/')
+                        setbuttonText("Page d'accueil")
+                        setOpenMessage(true)
+                    } else if (expiryDate < currentDate) {
+                        setMessageModal("La page est expirée !")
+                        setbuttonText("Page d'accueil")
                         setLink("/")
                         setOpenMessage(true)
                     } else {
                         setRender(true)
                     }
+                    
                 });
             } catch (error) {
                 console.log(error);
@@ -157,7 +163,7 @@ const SpinGame = () => {
             {
 
                 !render ? (
-                    <div>Loading...</div>
+                    <div>Chargement...</div>
                 ) : (
 
                     <div>
@@ -172,13 +178,13 @@ const SpinGame = () => {
                                 <div className="spinBtn" onClick={() => spinedClick(gameFormat)}></div>
                                 <div className="wheel">
                                     <div className="number" style={{ '--i': 1, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
-                                        <span className=' text-white'>try again</span>
+                                        <span className=' text-white'>Réessayez</span>
                                     </div>
                                     <div className="number" style={{ '--i': 2, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
                                         <span>{gameFormat?.options?.option1 || 'option 1'}</span>
                                     </div>
                                     <div className="number" style={{ '--i': 3, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
-                                        <span className=' text-white'>try again</span>
+                                        <span className=' text-white'>Réessayez</span>
                                     </div>
                                     <div className="number" style={{ '--i': 4, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
                                         <span>{gameFormat?.options?.option2 || 'option 2'}</span>
@@ -187,7 +193,7 @@ const SpinGame = () => {
                                         <span>{gameFormat?.options?.option3 || 'option 3'}</span>
                                     </div>
                                     <div className="number" style={{ '--i': 6, '--clr': gameFormat?.wheelColorPair?.color2 ? gameFormat?.wheelColorPair?.color2 : '#FDFDAF' }}>
-                                        <span className=' text-white'>try again</span>
+                                        <span className=' text-white'>Réessayez</span>
                                     </div>
                                     <div className="number" style={{ '--i': 7, '--clr': gameFormat?.wheelColorPair?.color1 ? gameFormat?.wheelColorPair?.color1 : '#8497FC' }}>
                                         <span>{gameFormat?.options?.option4 || 'option 4'}</span>
@@ -199,13 +205,13 @@ const SpinGame = () => {
                             </div>
                             <div className="flex flex-col font-medium text-black leading-[140%] max-w-[454px]">
                                 <div className="w-full text-3xl font-bold text-center">
-                                    Try Your Luck for a Reward!
+                                    Tentez votre chance pour une récompense!
                                 </div>
                                 <div className="mt-8 w-full text-xl text-center">
-                                    Get Spinning: Drop Your Email!
+                                    Tournez la roue: Entrez votre email!
                                 </div>
                                 <div className="mt-8 w-full text-sm leading-5">Email</div>
-                                <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder='Enter your email' className="justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400" value={email} />
+                                <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder='Entrez votre email' className="justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400" value={email} />
                                 <div onClick={() => {
                                     if (email && reviewModel) {
                                         console.log("mail");
@@ -214,26 +220,18 @@ const SpinGame = () => {
                                         if (isSpined) {
                                             setReviewModel(true)
                                         } else {
-                                            setMessageModal('Spin the wheel first.')
+                                            setMessageModal('Tournez la roue dabord.')
                                             setOpenMessage(true)
                                         }
                                     }
                                 }} className={`justify-center cursor-pointer items-center px-3 py-2.5 mt-8 w-full text-base font-semibold leading-6 ${textColor} whitespace-nowrap text-center rounded-lg shadow-sm`}
                                     style={{ backgroundColor: gameFormat?.buttonColor ? gameFormat?.buttonColor : '#4F46E5' }}>
-                                    Confirm
+                                    Confirmer
                                 </div>
                                 <div className="mt-8 w-full text-xl text-center">
-                                    Note: One Spin per Participant Only
+                                    Remarque : Une seule rotation par participant
                                 </div>
                             </div>
-                        </div>
-                        <div className='flex justify-center items-center mt-28'>
-                            <img src={ego}
-                                alt="logo"
-                                width={'7%'}
-                                onClick={() => { Navigate('/') }}
-                                className='cursor-pointer'
-                            />
                         </div>
                         <div className="flex gap-4 justify-center">
                             <a onClick={() => {
@@ -273,9 +271,19 @@ const SpinGame = () => {
                                     className="shrink-0 aspect-square w-[25px]"
                                 /></a>
                         </div>
-                        <div className="flex justify-center mt-2 text-sm text-slate-800 mb-5">
-                            © 2024 {gameFormat.brandName} . All rights reserved.
+                        <div className='flex flex-col justify-center items-center mt-28'>
+                            <img src={ego}
+                                alt="logo"
+                                width={'8%'}
+                                height={'8%'}
+                                onClick={() => { Navigate('/') }}
+                                className='cursor-pointer'
+                            />
+                            <div className="flex justify-center text-sm text-slate-800 mb-5">
+                                © 2024 Ego. Tous droits réservés.
+                            </div>
                         </div>
+
 
                         <ReviewModel open={reviewModel} setOpen={setReviewModel} gameFormat={gameFormat} sendEmail={sendEmail} />
                         <ReviewModel2 reviewModel2={reviewModel2} setReviewModel2={setReviewModel2} url={url} followOrReview={gameFormat.followOrReview} />
@@ -286,6 +294,7 @@ const SpinGame = () => {
             {openMessage && <MessageModal open={openMessage} setOpen={setOpenMessage} message={messageModal} ButtonText={buttonText} link={link} />}
         </>
     );
+
 };
 
 export default SpinGame;

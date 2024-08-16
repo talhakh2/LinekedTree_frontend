@@ -31,6 +31,7 @@ function PaymentHistory() {
                 });
 
                 setisTrialVerified(res.data.registrationData.isTrialVerified)
+                console.log(res.data);
 
                 const currentDate = new Date(); // Get the current date
 
@@ -71,13 +72,14 @@ function PaymentHistory() {
     }, [userId]);
 
     const columns = [
-        "Subscription Plan",
-        "Amount",
-        "Landing Pages",
-        "Expiry Date",
-        "Payment Method",
-        "Status",
+        "Plan d'Abonnement",
+        "Montant",
+        "Pages de Destination",
+        "Date d'Expiration",
+        "Méthode de Paiement",
+        "Statut",
     ];
+    
 
     const handleRenew = () => {
         // Handle renew logic here, using planId or other identifiers if necessary
@@ -94,7 +96,7 @@ function PaymentHistory() {
             <div className="w-full mt-6 mx-5">
                 <div className="flex items-end justify-between">
                     <div className="justify-center self-start p-2.5 mt-6 text-lg font-medium tracking-wide leading-6 text-blue-950">
-                        Payment History
+                        Historique des Paiements
                     </div>
                 </div>
                 <div className="w-[900px] m-auto">
@@ -102,13 +104,13 @@ function PaymentHistory() {
                         <div className="flex justify-end">
                             <button
                                 className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 mt-7 rounded-xl border-2 border-indigo-400 border-solid hover:opacity-65 transition-all "
-                                onClick={() => handleRenew()} // Pass a unique identifier if necessary
+                                onClick={() => handleRenew()} // Passez un identifiant unique si nécessaire
                             >
-                                Subscribe Plan
+                                Abonner Plan
                             </button>
                         </div>
                     )}
-
+    
                     <div className="min-w-0 flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto">
                         {columns.map((column, idx) => (
                             <div
@@ -119,14 +121,14 @@ function PaymentHistory() {
                             </div>
                         ))}
                     </div>
-
+    
                     {data.length === 0 ? (
                         <div className="flex justify-between items-center p-5 mt-5 bg-white max-md:flex-wrap shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                             
                             <div className="w-[80px] md:w-[50px] flex-shrink-0 whitespace-nowrap text-ellipsis mr-14">
-                                Trial
+                                Essai
                             </div>
-
+    
                             <div className="w-[80px] md:w-[40px] flex-shrink-0 whitespace-nowrap text-ellipsis">
                                 -
                             </div>
@@ -140,7 +142,7 @@ function PaymentHistory() {
                                 -
                             </div>
                             <div className="w-[80px] md:w-[70px] flex-shrink-0 whitespace-nowrap text-ellipsis mr-4">
-                                {IsTrialVerified ? "Verified": "Not Verified"}
+                                {IsTrialVerified ? "Vérifié" : "Non Vérifié"}
                             </div>
                             
                         </div>
@@ -172,6 +174,7 @@ function PaymentHistory() {
             {openMessage && <MessageModal open={openMessage} setOpen={setOpenMessage} message={messageModal} ButtonText={buttonText} link={link} />}
         </div>
     );
+    
 }
 
 export default PaymentHistory;

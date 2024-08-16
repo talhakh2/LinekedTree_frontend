@@ -11,16 +11,17 @@ import EditPlan from './EditPlan';
 //  	Number of restaurants : 1 restaurant = 49 € , 2 to 4 = 44€ per restaurant (cross out the original price) and 
 //      5+ = 39€ per restaurant (cross out the original price)
 
-export default function PricingPlan({userId}) {
+export default function PricingPlan({ userId }) {
 
     // const { userId } = useParams();
-    
+
     const Navigate = useNavigate();
     const isAdmin = useSelector(state => state.authentication.isAdmin);
 
     const [number, setNumber] = useState(1);
     const [yearNumber, setYearNumber] = useState(1);
     const [priceData, setPriceData] = useState({});
+
     const [originalPriceData, setOriginalPriceData] = useState({});
     const [originalAmount, setOriginalAmount] = useState();
     const [originalAmountYearly, setOriginalAmountYearly] = useState();
@@ -42,7 +43,7 @@ export default function PricingPlan({userId}) {
                 headers: { 'Content-Type': 'application/json' },
             });
             console.log(res.data[0]);
-            
+
             setPriceData(res.data[0]);
 
             setDiscountMonthly(res.data[0].monthlyPlan.discount)
@@ -50,13 +51,16 @@ export default function PricingPlan({userId}) {
 
 
             setOriginalPriceData(res.data[0]);
+
+            setOriginalAmount(res.data[0].monthlyPlan.price)
+            setOriginalAmountYearly(res.data[0].yearlyPlan.price)
         } catch (error) {
             console.error("Error fetching price data");
         }
     }
 
     function calculateAmount(plan, quantity) {
-    
+
         if (quantity === 1) {
             return plan.price * quantity;
         } else if (quantity >= 2 && quantity <= 4) {
@@ -65,7 +69,7 @@ export default function PricingPlan({userId}) {
             return plan.for_5_Plus * quantity;
         }
     }
-    
+
 
     function updateMonthAmount(quantity) {
         setOriginalAmount(originalPriceData.monthlyPlan.price * quantity);
@@ -135,46 +139,46 @@ export default function PricingPlan({userId}) {
     const handleMonthClick = async () => {
         const amount = priceData.monthlyPlan.price * (100 - discountMonthly) / 100;
         const landingPages = number;
-    
+
         if (userId) {
             console.log(userId);
-          try {
-            const res = await axios.get(
-              `${process.env.REACT_APP_BACKEND_PORT}/checkout/monthly?userId=${userId}&amount=${amount}&landingPages=${landingPages}`
-              
-            );
-            window.open(res.data.session.url);
-          } catch (error) {
-            console.error("Error initiating checkout:", error);
-          }
-        } else {
-          Navigate('/login', {
-            state: { paymentType: 'Monthly', amount, landingPages },
-          });
-        }
-      };
+            try {
+                const res = await axios.get(
+                    `${process.env.REACT_APP_BACKEND_PORT}/checkout/monthly?userId=${userId}&amount=${amount}&landingPages=${landingPages}`
 
-      const handleYearClick = async () => {
+                );
+                window.open(res.data.session.url);
+            } catch (error) {
+                console.error("Error initiating checkout:", error);
+            }
+        } else {
+            Navigate('/login', {
+                state: { paymentType: 'Monthly', amount, landingPages },
+            });
+        }
+    };
+
+    const handleYearClick = async () => {
         const amount = priceData.yearlyPlan.price * (100 - discountYearly) / 100;
         const landingPages = yearNumber;
-    
+
         if (userId) {
             console.log(userId);
-          try {
-            const res = await axios.get(
-              `${process.env.REACT_APP_BACKEND_PORT}/checkout/yearly?userId=${userId}&amount=${amount}&landingPages=${landingPages}`
-              
-            );
-            window.open(res.data.session.url);
-          } catch (error) {
-            console.error("Error initiating checkout:", error);
-          }
+            try {
+                const res = await axios.get(
+                    `${process.env.REACT_APP_BACKEND_PORT}/checkout/yearly?userId=${userId}&amount=${amount}&landingPages=${landingPages}`
+
+                );
+                window.open(res.data.session.url);
+            } catch (error) {
+                console.error("Error initiating checkout:", error);
+            }
         } else {
-          Navigate('/login', {
-            state: { paymentType: 'Yearly', amount, landingPages },
-          });
+            Navigate('/login', {
+                state: { paymentType: 'Yearly', amount, landingPages },
+            });
         }
-      };
+    };
 
 
     return (
@@ -188,7 +192,7 @@ export default function PricingPlan({userId}) {
                                 <div className="self-center text-center">{priceData.monthlyPlan.planName}</div>
 
                                 <div className="flex flex-col mx-4 mt-9 text-lg text-black max-md:mx-2.5">
-                                    <div className="text-2xl text-neutral-400">What You’ll Get</div>
+                                    <div className="text-2xl text-neutral-400">Ce que vous obtenez :</div>
                                     {priceData.monthlyPlan.features.feature1 &&
                                         <div className="flex gap-2 mt-6">
                                             <img
@@ -196,7 +200,7 @@ export default function PricingPlan({userId}) {
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/82b10c657ed950499012f5a3695971d358963b11e5373fb5f9427dd1b936135e?apiKey=cf358c329e0d49a792d02d32277323ef&"
                                                 className="shrink-0 w-6 aspect-square"
                                             />
-                                            <div>Monitoring and Support</div>
+                                            <div>Surveillance et support</div>
                                         </div>
                                     }
 
@@ -207,7 +211,7 @@ export default function PricingPlan({userId}) {
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/f797e714413771ecdc998d3a7a71d9bafb99061f2626ac3cee8a4c7708336bfd?apiKey=cf358c329e0d49a792d02d32277323ef&"
                                                 className="shrink-0 w-6 aspect-square"
                                             />
-                                            <div>Access to Application </div>
+                                            <div>Accès à l'application </div>
                                         </div>
                                     }
 
@@ -219,8 +223,8 @@ export default function PricingPlan({userId}) {
                                                 className="shrink-0 w-6 aspect-square"
                                             />
                                             <div>
-                                                <span className="">Data</span>{" "}
-                                                <span className="">gathering</span>
+                                                <span className="">Collecte de données</span>
+                                                
                                             </div>
                                         </div>
                                     }
@@ -232,7 +236,7 @@ export default function PricingPlan({userId}) {
                                                 className="shrink-0 w-6 aspect-square"
                                             />
                                             <div>
-                                                <span className="">Dashboard</span>{" "}
+                                                <span className="">Tableau de bord</span>{" "}
                                             </div>
                                         </div>
                                     }
@@ -243,7 +247,7 @@ export default function PricingPlan({userId}) {
                                             className="shrink-0 w-6 aspect-square"
                                         />
                                         <div className="flex items-center space-x-2">
-                                            <span className='mr-3'>Landing page</span>
+                                            <span className='mr-3'>Page destination</span>
 
                                             <button
                                                 onClick={decrement}
@@ -277,28 +281,28 @@ export default function PricingPlan({userId}) {
                                         </span>
                                     )}
                                     <span className=""> €{priceData.monthlyPlan.price * (100 - discountMonthly) / 100}</span>
-                                    <span className="text-lg  text-gray-950">/month</span>
+                                    <span className="text-lg  text-gray-950">/mois</span>
 
                                 </div>
 
-                                {
-                                    discountMonthly !== 0 && (
-                                        <span className="text-lg text-center text-green-400">{discountMonthly}% Off</span>
-                                    )
-                                }
+                                {(100 - ((priceData.monthlyPlan.price * (100 - discountMonthly)) / 100 / originalAmount * 100)).toFixed(1) !== '0.0' && (
+                                    <span className="text-lg text-center text-green-400">
+                                        {(100 - ((priceData.monthlyPlan.price * (100 - discountMonthly)) / 100 / originalAmount * 100)).toFixed(1)}% de réduction
+                                    </span>
+                                )}
 
                                 {isAdmin ? (
                                     <button onClick={() => { handleEditClick('Monthly') }} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
-                                        Edit
+                                        Modifier
                                     </button>
                                 ) : (
                                     // <button onClick={() => Navigate('/login', { state: { paymentType: 'Monthly', amount: priceData.monthlyPlan.price, landingPages: number } })} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
-                                    //     Subscribe Now
+                                    //     S'abonner maintenant
                                     // </button>
                                     <button onClick={handleMonthClick} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
-                                        Subscribe Now
+                                        S'abonner
                                     </button>
-                                    
+
                                 )}
 
 
@@ -310,7 +314,7 @@ export default function PricingPlan({userId}) {
                                 <div className="self-center text-center">{priceData.yearlyPlan.planName}</div>
 
                                 <div className="flex flex-col mx-4 mt-9 text-lg text-black max-md:mx-2.5">
-                                    <div className="text-2xl text-neutral-400">What You’ll Get</div>
+                                    <div className="text-2xl text-neutral-400">Ce que vous obtenez :</div>
                                     {priceData.yearlyPlan.features.feature1 &&
                                         <div className="flex gap-2 mt-6">
                                             <img
@@ -318,7 +322,7 @@ export default function PricingPlan({userId}) {
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/82b10c657ed950499012f5a3695971d358963b11e5373fb5f9427dd1b936135e?apiKey=cf358c329e0d49a792d02d32277323ef&"
                                                 className="shrink-0 w-6 aspect-square"
                                             />
-                                            <div>Monitoring and Support</div>
+                                            <div>Surveillance et support</div>
                                         </div>
                                     }
 
@@ -329,7 +333,7 @@ export default function PricingPlan({userId}) {
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/f797e714413771ecdc998d3a7a71d9bafb99061f2626ac3cee8a4c7708336bfd?apiKey=cf358c329e0d49a792d02d32277323ef&"
                                                 className="shrink-0 w-6 aspect-square"
                                             />
-                                            <div>Access to Application </div>
+                                            <div>Accès à l'application </div>
                                         </div>
                                     }
 
@@ -341,8 +345,8 @@ export default function PricingPlan({userId}) {
                                                 className="shrink-0 w-6 aspect-square"
                                             />
                                             <div>
-                                                <span className="">Data</span>{" "}
-                                                <span className="">gathering</span>
+                                                <span className="">Collecte de données</span>
+                                                
                                             </div>
                                         </div>
                                     }
@@ -354,7 +358,7 @@ export default function PricingPlan({userId}) {
                                                 className="shrink-0 w-6 aspect-square"
                                             />
                                             <div>
-                                                <span className="">Dashboard</span>{" "}
+                                                <span className="">Tableau de bord</span>{" "}
                                             </div>
                                         </div>
                                     }
@@ -365,7 +369,7 @@ export default function PricingPlan({userId}) {
                                             className="shrink-0 w-6 aspect-square"
                                         />
                                         <div className="flex items-center space-x-2">
-                                            <span className='mr-3'>Landing page</span>
+                                            <span className='mr-3'>Page destination</span>
 
                                             <button
                                                 onClick={decrementYear}
@@ -399,25 +403,26 @@ export default function PricingPlan({userId}) {
                                         </span>
                                     )}
                                     <span className=""> €{priceData.yearlyPlan.price * (100 - discountYearly) / 100}</span>
-                                    <span className="text-lg  text-gray-950">/year</span>
+                                    <span className="text-lg  text-gray-950">/an</span>
                                 </div>
 
                                 {
-                                    discountYearly !== 0 && (
-                                        <span className="text-lg text-center text-green-400">{discountYearly}% Off</span>
-                                    )
+                                    (100 - ((priceData.yearlyPlan.price * (100 - discountYearly)) / 100 / originalAmountYearly * 100)).toFixed(1) !== '0.0' && (
+                                        <span className="text-lg text-center text-green-400">
+                                            {(100 - ((priceData.yearlyPlan.price * (100 - discountYearly)) / 100 / originalAmountYearly * 100)).toFixed(1)}% de réduction
+                                        </span>)
                                 }
 
                                 {isAdmin ? (
                                     <button onClick={() => { handleEditClick('Yearly') }} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
-                                        Edit
+                                        Modifier
                                     </button>
                                 ) : (
                                     // <button onClick={() => Navigate('/login', { state: { paymentType: 'Yearly', amount: priceData.yearlyPlan.price, landingPages: yearNumber } })} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
-                                    //     Subscribe Now
+                                    //     S'abonner maintenant
                                     // </button>
-                                    <button onClick={handleYearClick}  className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
-                                        Subscribe Now
+                                    <button onClick={handleYearClick} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
+                                        S'abonner
                                     </button>
 
                                 )}
@@ -435,7 +440,7 @@ export default function PricingPlan({userId}) {
                     setPriceData={setPriceData}
                     fetchPriceData={fetchPriceData}
                     update='monthly'
-                    priceData={priceData.monthlyPlan}
+                    priceData={originalPriceData.monthlyPlan}
                 />
             }
 
@@ -445,7 +450,7 @@ export default function PricingPlan({userId}) {
                     setShowMonthEditPlan={setShowMonthEditPlan}
                     setPriceData={setPriceData}
                     update='yearly'
-                    priceData={priceData.yearlyPlan}
+                    priceData={originalPriceData.yearlyPlan}
                 />
             }
 

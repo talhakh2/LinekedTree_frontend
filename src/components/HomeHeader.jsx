@@ -34,24 +34,25 @@ export default function Header({open, setOpen}) {
                 </div>
                 <div className={`${open ? 'flex flex-col mt-10 pt-6' : 'hidden'} gap-10 justify-between items-center text-xl font-normal leading-8 text-zinc-800 max-md:flex-wrap max-md:max-w-full md:flex`}>
                     <div className="md:ml-4">
-                        <Link to='/'>Home</Link>
+                        <Link to='/'>Maison</Link>
                     </div>
                     <div>
-                        <Link to='/pricing'>Pricing</Link>
+                        <Link to='/pricing'>Prix</Link>
                     </div>
                     <div>
-                        <Link to='/about'>About</Link>
+                        <Link to='/about'>À propos</Link>
                     </div>
-                    <Link to='/faqs'>FAQs</Link>
+                    <Link to='/faqs'>FAQ</Link>
                 </div>
             </div>
             <div className={`${open ? 'flex flex-col mt-10' : 'hidden'} md:flex gap-5 justify-between items-center md:px-5 text-xl font-medium leading-8`}>
-                <a href="/login" className="my-auto text-zinc-800">Login</a>
-                <a href="/register" className="my-auto text-zinc-800">Register</a>
+                <a href="/login" className="my-auto text-zinc-800">Connexion</a>
+                <a href="/register" className="my-auto text-zinc-800">Registre</a>
                 <a href="/demo" className="justify-center px-6 py-1 text-center text-white bg-indigo-400 rounded-2xl max-md:px-5 h-[40px] w-[180px]">
-                    Book a Demo
+                    Réservez une démo
                 </a>
             </div>
         </div>
     );
+    
 }

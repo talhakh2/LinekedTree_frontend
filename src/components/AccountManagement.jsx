@@ -12,11 +12,11 @@ function AccountManagement() {
     const [row, setRow] = useState({});
 
     const columns = [
-        "Name",
-        "Email Address",
-        "Subscription Plan",
-        "Account Status",
-        "Last Login Date"
+        "Nom",
+        "Adresse e-mail",
+        "Plan d'abonnement",
+        "Statut du compte",
+        "Dernière connexion"
     ]
 
     const fetchData = async () => {
@@ -69,16 +69,19 @@ function AccountManagement() {
             <div className="w-full mt-6 mx-5">
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between">
                     <div className="self-start p-2.5 mt-6 text-lg font-medium tracking-wide leading-6 text-blue-950">
-                        Sub-Account Management
+
+                        Gestion des sous-comptes
+
                     </div>
                     <div
                         onClick={() => {
                             setRow({});
                             setOpen(!open);
                         }}
-                        className="cursor-pointer flex gap-px p-2.5 text-base font-bold tracking-tight text-white bg-indigo-400 rounded-md h-[46px] w-[200px] mt-5 md:mt-0 text-center justify-center"
+                        className="cursor-pointer flex gap-px p-2.5 text-base font-bold tracking-tight text-white bg-indigo-400 rounded-md w-[200px] mt-5 md:mt-0 text-center justify-center"
                     >
-                        Add new account
+
+                        Ajouter un nouveau compte
                     </div>
                 </div>
                 <div className="grid grid-cols-6 gap-5 mt-10 p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">

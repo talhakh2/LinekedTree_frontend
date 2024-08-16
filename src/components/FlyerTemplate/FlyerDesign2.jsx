@@ -55,7 +55,7 @@ export default function FlyerDesign2({ gameFormat }) {
     return (
         <>
             <div className="flex justify-center mt-4 mb-4 font-bold text-xl text-center" style={{ color: gameFormat.buttonColor }}>
-                {gameFormat.text1 || "“Share your experience and help us grow”"}
+                {gameFormat.text1 || "“Partagez votre expérience et aidez-nous à grandir”"}
             </div>
 
             <div class="circle flex items-center justify-center text-white" style={{ background: gameFormat.buttonColor }}>
@@ -72,12 +72,12 @@ export default function FlyerDesign2({ gameFormat }) {
 
             <div className='flex justify-center mt-5'>
                 {
-                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-2xl italic'>{gameFormat.brandName || 'Brand Name'}</h1>
+                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-2xl italic'>{gameFormat.brandName || 'Nom de marque'}</h1>
                 }
             </div>
 
             <div className="flex justify-center mt-4 mb-4 font-bold text-xl text-center" style={{ color: gameFormat.buttonColor }}>
-                {gameFormat.text2 || "Engage, Review, and Unlock Rewards!"}
+                {gameFormat.text2 || "Participez, Évaluez et Déverrouillez des Récompenses !"}
             </div>
 
             <div className="flex flex-cols-2 w-full max-md:mt-8 justify-end">

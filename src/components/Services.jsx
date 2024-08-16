@@ -4,7 +4,7 @@ export default function Services() {
     return (
         <div className="flex flex-col justify-center mt-10">
             <div className="mt-10 font-serif text-3xl text-center font-bold text-black leading-2 max-md:mt-10">
-                Our Services
+                Nos Services
             </div>
             <div className="px-5 mt-10 w-full max-w-[1216px] max-md:mt-10 max-md:max-w-full mx-auto">
                 <div className="grid grid-cols-3 gap-5 max-md:flex max-md:flex-col max-md:gap-0">
@@ -17,11 +17,10 @@ export default function Services() {
                             />
                             <div className="flex flex-col">
                                 <div className="text-2xl font-bold leading-8">
-                                    Elevate your business
+                                    Élevez votre entreprise
                                 </div>
                                 <div className="self-center mt-4 text-base font-medium leading-6">
-                                    Unlock rewards for reviews, followers, and connections. Stand
-                                    out and create lasting memories
+                                    Déverrouillez des récompenses pour les avis, les abonnés et les connexions. Démarquez-vous et créez des souvenirs durables
                                 </div>
                             </div>
                         </div>
@@ -35,11 +34,10 @@ export default function Services() {
                             />
                             <div className="flex flex-col">
                                 <div className="text-2xl font-bold leading-9">
-                                    Reignite customer engagement
+                                    Rallumez l'engagement des clients
                                 </div>
                                 <div className="self-center mt-4 text-base font-medium leading-6">
-                                    Capture your customers' attention with interactive games and
-                                    complement them with automated follow-up strategies
+                                    Capturez l'attention de vos clients avec des jeux interactifs et complétez-les avec des stratégies de suivi automatisées
                                 </div>
                             </div>
                         </div>
@@ -48,16 +46,15 @@ export default function Services() {
                         <div className="flex flex-col justify-center p-5 w-full text-center text-black bg-white rounded-3xl shadow-sm max-md:mt-10">
                             <img
                                 loading="lazy"
-                                srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/59cd4d63b412082cd2fbf73185bcaafea0e3784215ba87c4feef3a794313810f?apiKey=cf358c329e0d49a792d02d32277323ef&width=1600 1600w"
                                 className="self-center max-w-full aspect-[0.96] w-[211px]"
                             />
                             <div className="flex flex-col">
                                 <div className="text-2xl font-bold leading-8">
-                                    Increase your following
+                                    Augmentez votre nombre d'abonnés
                                 </div>
                                 <div className="self-center mt-4 text-base font-medium leading-6">
-                                    Engage with your customers and invite them to join your social
-                                    networks for deeper connections
+                                    Engagez-vous avec vos clients et invitez-les à rejoindre vos réseaux sociaux pour des connexions plus profondes
                                 </div>
                             </div>
                         </div>

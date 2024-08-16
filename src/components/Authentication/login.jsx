@@ -163,10 +163,10 @@ export default function Login() {
                     <div className="flex flex-col px-6 pt-6 w-full bg-white">
                         <div className="flex flex-col">
                             <div className="text-lg font-semibold leading-7 text-gray-900">
-                                Sign in to your account
+                                Connectez-vous à votre compte
                             </div>
                             <div className="mt-1 text-sm leading-5 text-slate-600">
-                                Welcome back! Please enter your details.
+                                Bon retour ! Veuillez entrer vos coordonnées.
                             </div>
                         </div>
                     </div>
@@ -180,14 +180,14 @@ export default function Login() {
                                     <div className="text-sm font-medium leading-5 text-black">
                                         Email*
                                     </div>
-                                    <input className="flex flex-col justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm" type="email" placeholder="Enter your email" ref={emailRef} />
+                                    <input className="flex flex-col justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm" type="email" placeholder="Entrez votre email" ref={emailRef} />
                                     {emailError && <span className="text-red-500 text-sm">{emailError}</span>}
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center mt-4 whitespace-nowrap">
                                 <div className="flex flex-col">
                                     <div className="text-sm font-medium leading-5 text-black">
-                                        Password
+                                        Mot de passe
                                     </div>
                                     <input className="flex flex-col justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm" type="password" placeholder="••••••••" ref={passwordRef} />
                                     {passwordError && <span className="text-red-500 text-sm">{passwordError}</span>}
@@ -203,23 +203,23 @@ export default function Login() {
                                 checked={rememberMe}
                                 onChange={() => setRememberMe(!rememberMe)} // Update state on change
                             />
-                            <div className="flex-auto my-auto">Remember me</div>
+                            <div className="flex-auto my-auto">Se souvenir de moi</div>
                         </div>
                         <div onClick={() => { Navigate('/forgot') }} className="cursor-pointer justify-end font-semibold text-indigo-400">
-                            Forgot password?
+                            Mot de passe oublié ?
                         </div>
                     </div>
-                    <div className="flex gap-0 pr-2 mt-6 text-sm leading-5 justify-between items-center text-gray-600" >
-                        <p>Not have an account <span className="text-blue-500 cursor-pointer" onClick={() => { Navigate('/register') }}>Register Now</span>.</p>
+                    <div className="flex gap-0 pr-2 mt-6 text-sm leading-5 justify-between items-center text-gray-600">
+                        <p>Pas encore de compte ? <span className="text-blue-500 cursor-pointer" onClick={() => { Navigate('/register') }}>Inscrivez-vous maintenant</span>.</p>
                     </div>
                 </div>
                 <div className="flex flex-col pt-8 w-full text-base font-semibold leading-6 whitespace-nowrap">
                     <div className="flex flex-col px-6 pb-6 w-full bg-white">
                         <button onClick={handleSubmit} className="justify-center text-center items-center px-5 py-2.5 text-white bg-indigo-400 rounded-lg shadow-sm cursor-pointer">
-                            Confirm
+                            Confirmer
                         </button>
                         <div onClick={() => { Navigate('/') }} className="justify-center text-center items-center px-5 py-2.5 mt-3 text-black bg-white rounded-lg cursor-pointer border border-gray-300 border-solid shadow-sm">
-                            Cancel
+                            Annuler
                         </div>
                     </div>
                 </div>
@@ -228,4 +228,5 @@ export default function Login() {
             <BlockedPopup open={openBlocked} setOpen={setOpenBlocked} email={emailRef?.current?.value} />
         </div>
     );
+    
 }

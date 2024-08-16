@@ -54,12 +54,12 @@ export default function SpinDesign({ gameFormat }) {
 
             <div className='flex justify-center mt-4'>
                 {
-                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-xl italic'>{gameFormat.brandName || 'Brand Name'}</h1>
+                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-xl italic'>{gameFormat.brandName || 'Nom de marque'}</h1>
                 }
             </div>
 
             <div className="flex justify-center font-bold text-xl text-center mt-4" style={{ color: gameFormat.buttonColor }}>
-                {gameFormat.text1 || "“Share your experience and help us grow”"}
+                {gameFormat.text1 || "“Partagez votre expérience et aidez-nous à grandir”"}
             </div>
 
             <div className='flex flex-row overflow-hidden items-center justify-center' style={{marginTop: '-60px'}}>
@@ -70,7 +70,7 @@ export default function SpinDesign({ gameFormat }) {
 
                 <div className='flex flex-col gap-7 items-start'>
                     <div className="flex mt-4 font-bold text-xl text-center" style={{ color: gameFormat.buttonColor, width: '40%' }}>
-                        {gameFormat.text2 || "Engage, Review, and Unlock Rewards!"}
+                        {gameFormat.text2 || "Participez, Évaluez et Déverrouillez des Récompenses !"}
                     </div>
                     <div className="flex flex-col gap-2">
                         <QRCode

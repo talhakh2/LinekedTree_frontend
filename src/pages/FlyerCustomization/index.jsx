@@ -230,59 +230,62 @@ export default function GameManagement() {
                         selectedRow === 1 && (
                             <>
                                 <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                    <div className="text-2xl max-md:max-w-full">Brand Name</div>
+                                    <div className="text-2xl max-md:max-w-full">Nom de la Marque</div>
                                     <div className="flex flex-col items-start pr-20 mt-3.5 text-base max-md:pr-5 max-md:max-w-full ">
                                         <div onClick={() => { setUploadLogo(true); setGameFormate({ ...gameFormat, logo: '', brandName: '' }) }} className="flex gap-3 justify-center">
                                             <input type='radio' className="w-[20px] ml-1" id="uploadLogo" name="selection" checked={uploadLogo} />
-                                            <label htmlFor="uploadLogo" id="uploadLogo" className="my-auto">Upload logo</label>
+                                            <label htmlFor="uploadLogo" id="uploadLogo" className="my-auto">Charger le logo</label>
                                         </div>
                                         <div onClick={() => { setUploadLogo(false); setGameFormate({ ...gameFormat, logo: '', brandName: '' }) }} className="flex gap-3 justify-center mt-1.5">
                                             <input type='radio' className="w-[20px] ml-1" id="enterBrandName" name="selection" checked={!uploadLogo} />
-                                            <label htmlFor="enterBrandName" id="enterBrandName" className="my-auto">Enter brand name</label>
+                                            <label htmlFor="enterBrandName" id="enterBrandName" className="my-auto">Entrer le nom de la marque</label>
                                         </div>
                                     </div>
                                 </div>
 
                                 {
-                                    uploadLogo ? (<div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
-                                        <div className="flex flex-row md:flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                            <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                                                {
-                                                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <div className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" />
-                                                }
-                                                <div className="flex flex-row ml-5 w-[16%] max-md:ml-0 max-md:w-full">
-                                                    <div className="justify-center self-stretch px-0.5 py-2.5 my-auto w-full text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 hover:bg-indigo-500 cursor-pointer rounded-xl max-md:mt-10">
-                                                        <input onChange={ImageUpload} type="file" id="uploadFileInput" style={{ display: "none" }} />
-                                                        <label htmlFor="uploadFileInput" className="cursor-pointer">Upload</label>
+                                    uploadLogo ? (
+                                        <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
+                                            <div className="flex flex-row md:flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
+                                                <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                                                    {
+                                                        gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <div className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" />
+                                                    }
+                                                    <div className="flex flex-row ml-5 w-[16%] max-md:ml-0 max-md:w-full">
+                                                        <div className="justify-center self-stretch px-0.5 py-2.5 my-auto w-full text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 hover:bg-indigo-500 cursor-pointer rounded-xl max-md:mt-10">
+                                                            <input onChange={ImageUpload} type="file" id="uploadFileInput" style={{ display: "none" }} />
+                                                            <label htmlFor="uploadFileInput" className="cursor-pointer">Charger</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>) : (<div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
-                                        <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                            <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                                                <div className="mt-4 text-base font-medium leading-5 text-black w-full">
-                                                    Brand Name
-                                                    <input onChange={(e) => { setGameFormate({ ...gameFormat, brandName: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter your Brand Name`} value={gameFormat.brandName} />
+                                    ) : (
+                                        <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
+                                            <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
+                                                <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                                                    <div className="mt-4 text-base font-medium leading-5 text-black w-full">
+                                                        Nom de la Marque
+                                                        <input onChange={(e) => { setGameFormate({ ...gameFormat, brandName: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Entrez le nom de votre marque`} value={gameFormat.brandName} />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>)
-
+                                    )
                                 }
                                 <div className="flex flex-col my-5 w-full max-w-[1050px] max-md:max-w-full">
                                     <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                        <div className="text-2xl max-md:max-w-full">Text Content for the Flyer</div>
+                                        <div className="text-2xl max-md:max-w-full">Contenu du Flyer</div>
                                         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                                             <div className="mt-4 text-base font-medium leading-5 text-black w-full">
-                                                Text 1
-                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, text1: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter your text`} value={gameFormat.text1} required />
+                                                Texte 1
+                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, text1: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Entrez votre texte`} value={gameFormat.text1} required />
                                             </div>
                                         </div>
                                         <div className="flex mt-4 gap-5 max-md:flex-col max-md:gap-0">
                                             <div className="mt-4 text-base font-medium leading-5 text-black w-full">
-                                                Text 2
-                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, text2: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter your text`} value={gameFormat.text2} />
+                                                Texte 2
+                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, text2: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Entrez votre texte`} value={gameFormat.text2} />
                                             </div>
                                         </div>
                                     </div>
@@ -298,7 +301,7 @@ export default function GameManagement() {
                                         }}
                                         className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
                                     >
-                                        <label className="cursor-pointer" >Social Media links</label>
+                                        <label className="cursor-pointer" >Liens Médias Sociaux</label>
                                     </div>
                                 </div>
 
@@ -306,42 +309,43 @@ export default function GameManagement() {
                         )
                     }
 
+
                     {
                         selectedRow === 2 && (
                             <>
                                 <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
                                     <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                         <div className="text-2xl font-medium leading-8 text-black max-md:max-w-full">
-                                            Links of Social Media Platform
+                                            Liens des Médias Sociaux
                                         </div>
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
                                                 Instagram
-                                                <input onChange={(e) => setGameFormate({ ...gameFormat, instagram: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter link`} value={gameFormat.instagram} />
+                                                <input onChange={(e) => setGameFormate({ ...gameFormat, instagram: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Entrez le lien`} value={gameFormat.instagram} />
                                             </div>
                                         </div>
                                         {/* <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
                                                 TikTok
-                                                <input onChange={(e) => setGameFormate({ ...gameFormat, tiktok: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter link`} value={gameFormat.tiktok} />
+                                                <input onChange={(e) => setGameFormate({ ...gameFormat, tiktok: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Entrez le lien`} value={gameFormat.tiktok} />
                                             </div>
                                         </div> */}
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
                                                 Facebook
-                                                <input onChange={(e) => setGameFormate({ ...gameFormat, facebook: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter link`} value={gameFormat.facebook} />
+                                                <input onChange={(e) => setGameFormate({ ...gameFormat, facebook: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Entrez le lien`} value={gameFormat.facebook} />
                                             </div>
                                         </div>
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
                                                 Google Maps
-                                                <input onChange={(e) => setGameFormate({ ...gameFormat, googleMaps: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter link`} value={gameFormat.googleMaps} />
+                                                <input onChange={(e) => setGameFormate({ ...gameFormat, googleMaps: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Entrez le lien`} value={gameFormat.googleMaps} />
                                             </div>
                                         </div>
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
                                                 Twitter
-                                                <input onChange={(e) => setGameFormate({ ...gameFormat, twitter: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter link`} value={gameFormat.twitter} />
+                                                <input onChange={(e) => setGameFormate({ ...gameFormat, twitter: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Entrez le lien`} value={gameFormat.twitter} />
                                             </div>
                                         </div>
                                     </div>
@@ -350,42 +354,16 @@ export default function GameManagement() {
                                 <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
                                     <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                         <div className="text-2xl font-medium leading-8 text-black max-md:max-w-full">
-                                            Unique URL for Landing Page
+                                            URL Unique pour la Page de Destination
                                         </div>
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
-                                                Landing Page URL
-                                                <input onChange={(e) => setGameFormate({ ...gameFormat, url: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter link`} />
+                                                URL de la Page de Destination
+                                                <input onChange={(e) => setGameFormate({ ...gameFormat, url: e.target.value })} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Entrez le lien`} />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
-
-                                <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
-                                    <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                        <div className="text-2xl font-medium leading-8 text-black max-md:max-w-full">
-                                            Email Content
-                                        </div>
-                                        <div className="flex flex-col mt-3.5 max-md:max-w-full">
-                                            <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
-                                                Content
-                                                <textarea onChange={(e) => setGameFormate({ ...gameFormat, content: e.target.value })} rows="6" cols="30" className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter content`} value={`Bravo, vous avez gagné ${gameFormat.resturantName}!
-Pour bénéficier pleinement de votre cadeau, nous vous invitons à vous rendre à l'adresse suivante, à la date de votre choix, et de présenter ce mail: 
-
-${gameFormat.resturantName}
-${gameFormat.resturantAddress}
-
-Attention, votre cadeau n'est disponible que pendant une durée limitée de <strong>10 days</strong> jours à partir de demain ! Ne laissez pas cette occasion exceptionnelle vous échapper, saisissez-la dès maintenant et profitez-en au maximum! 
-Un minimum d’achat de 10 € est requis pour récupérer le cadeau.
-
-This is an automated message, please do not reply.`} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
 
                                 <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
                                     <div
@@ -395,33 +373,35 @@ This is an automated message, please do not reply.`} />
                                         }}
                                         className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
                                     >
-                                        <label className="cursor-pointer" >Templates</label>
+                                        <label className="cursor-pointer" >Modèles</label>
                                     </div>
                                 </div>
                             </>
                         )
                     }
+
+
                     {
                         selectedRow === 3 && (
                             <>
                                 <div className="flex flex-wrap p-5 font-medium text-black bg-white leading-[140%] shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
 
-                                    <div className="text-2xl max-md:max-w-full w-full mb-4">Wheel Color</div>
+                                    <div className="text-2xl max-md:max-w-full w-full mb-4">Couleur de la Roue</div>
                                     <div className="flex gap-[2vw] flex-wrap">
-                                        {/* Color pair components */}
+                                        {/* Composants de paire de couleurs */}
                                         <ColorPair
                                             id={1}
                                             color1="#8497FC"
-                                            label1="Blue"
+                                            label1="Bleu"
                                             color2="#FDFDAF"
-                                            label2="Yellow"
+                                            label2="Jaune"
                                             isSelected={selectedPair === 1}
                                             onClick={handlePairClick}
                                         />
                                         <ColorPair
                                             id={2}
                                             color1="#FFB703"
-                                            label1="Mango"
+                                            label1="Mangue"
                                             color2="#FB8500"
                                             label2="Orange"
                                             isSelected={selectedPair === 2}
@@ -430,25 +410,25 @@ This is an automated message, please do not reply.`} />
                                         <ColorPair
                                             id={3}
                                             color1="#C1121F"
-                                            label1="Ruby"
+                                            label1="Rubis"
                                             color2="#FDF0D5"
-                                            label2="Coffee cream"
+                                            label2="Crème au café"
                                             isSelected={selectedPair === 3}
                                             onClick={handlePairClick}
                                         />
                                         <ColorPair
                                             id={4}
                                             color1="#386641"
-                                            label1="Hunter green"
+                                            label1="Vert chasseur"
                                             color2="#A7C957"
-                                            label2="Sweet midori"
+                                            label2="Midori sucré"
                                             isSelected={selectedPair === 4}
                                             onClick={handlePairClick}
                                         />
                                         <ColorPair
                                             id={5}
                                             color1="#E3F2FD"
-                                            label1="Alice blue"
+                                            label1="Bleu Alice"
                                             color2="#DB5461"
                                             label2="Mandy"
                                             isSelected={selectedPair === 5}
@@ -457,9 +437,9 @@ This is an automated message, please do not reply.`} />
                                         <ColorPair
                                             id={6}
                                             color1="#5D2E8C"
-                                            label1="Purple"
+                                            label1="Violet"
                                             color2="#CCFF66"
-                                            label2="Canary"
+                                            label2="Canari"
                                             isSelected={selectedPair === 6}
                                             onClick={handlePairClick}
                                         />
@@ -468,7 +448,7 @@ This is an automated message, please do not reply.`} />
                                             color1="#C80036"
                                             label1="Monza"
                                             color2="#FDFDAF"
-                                            label2="Yellow"
+                                            label2="Jaune"
                                             isSelected={selectedPair === 7}
                                             onClick={handlePairClick}
                                         />
@@ -478,38 +458,34 @@ This is an automated message, please do not reply.`} />
 
                                 <div className="flex flex-wrap p-5 font-medium text-black bg-white leading-[140%] shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] mt-7">
 
-                                    <div className="text-2xl max-md:max-w-full mb-4">Sentence Color</div>
+                                    <div className="text-2xl max-md:max-w-full mb-4">Couleur de la Phrase</div>
                                     <div className="flex gap-[2vw] flex-wrap">
-                                        {/* ButtonColor components */}
+                                        {/* Composants ButtonColor */}
                                         <ButtonColor
                                             id={1}
                                             color1="#8497FC"
-                                            label1="Blue"
-
+                                            label1="Bleu"
                                             isSelected={selectedButtonColor === 1}
                                             onClick={handleButtonColorClick}
                                         />
                                         <ButtonColor
                                             id={2}
                                             color1="#FFB703"
-                                            label1="Mango"
-
+                                            label1="Mangue"
                                             isSelected={selectedButtonColor === 2}
                                             onClick={handleButtonColorClick}
                                         />
                                         <ButtonColor
                                             id={3}
                                             color1="#C1121F"
-                                            label1="Ruby"
-
+                                            label1="Rubis"
                                             isSelected={selectedButtonColor === 3}
                                             onClick={handleButtonColorClick}
                                         />
                                         <ButtonColor
                                             id={4}
                                             color1="#386641"
-                                            label1="Hunter green"
-
+                                            label1="Vert chasseur"
                                             isSelected={selectedButtonColor === 4}
                                             onClick={handleButtonColorClick}
                                         />
@@ -517,15 +493,13 @@ This is an automated message, please do not reply.`} />
                                             id={5}
                                             color1="#DB5461"
                                             label1="Mandy"
-
                                             isSelected={selectedButtonColor === 5}
                                             onClick={handleButtonColorClick}
                                         />
                                         <ButtonColor
                                             id={6}
                                             color1="#5D2E8C"
-                                            label1="Purple"
-
+                                            label1="Violet"
                                             isSelected={selectedButtonColor === 6}
                                             onClick={handleButtonColorClick}
                                         />
@@ -533,7 +507,6 @@ This is an automated message, please do not reply.`} />
                                             id={7}
                                             color1="#C80036"
                                             label1="Monza"
-
                                             isSelected={selectedButtonColor === 7}
                                             onClick={handleButtonColorClick}
                                         />
@@ -582,20 +555,20 @@ This is an automated message, please do not reply.`} />
                                     </div>
                                 </div>
 
-
                                 <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
                                     <div
                                         onClick={handleDownload}
                                         className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl hover:bg-indigo-500 max-md:mt-10 cursor-pointer"
                                         style={{ background: gameFormat.buttonColor }}
                                     >
-                                        <label className="cursor-pointer" >Download Flyer</label>
+                                        <label className="cursor-pointer" >Télécharger Flyer</label>
                                     </div>
                                 </div>
 
                             </>
                         )
                     }
+
 
 
                 </div>

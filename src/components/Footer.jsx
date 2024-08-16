@@ -9,17 +9,12 @@ export default function Footer() {
       <div className="max-md:mr-1 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col max-md:mt-10">
+            <div className="flex flex-col justify-start max-md:mt-10">
               <div className="text-3xl font-semibold text-black">
-                <img src={ego}
-                  alt=""
-                  width={'20%'}
-                />
+                <img src={ego} alt="" width={'35%'} />
               </div>
-              <div className="mt-10 text-sm text-neutral-600 max-md:mt-10">
-                Lorem ipsum dolor sit amet consectetur. Mi nibh venenatis in
-                suscipit turpis enim cursus vulputate amet. Lobortis mi platea
-                aliquam senectus tempus mauris neque.
+              <div className="mt-5 text-sm text-neutral-600">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat rem optio recusandae reprehenderit ea, saepe incidunt, veritatis qui voluptatibus esse asperiores est consectetur. Illo doloribus ex odio distinctio voluptas accusamus!
               </div>
               <div className="flex gap-3.5 justify-center pr-20 mt-5 max-md:pr-5">
                 <img
@@ -56,34 +51,34 @@ export default function Footer() {
                 <div className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
                   <div className="flex flex-col grow text-base font-medium leading-5 text-neutral-600 max-md:mt-10">
                     <div className="text-xl font-semibold text-stone-900">
-                      Website Links
+                      Liens du site web
                     </div>
-                    <div className="mt-1">Home</div>
-                    <div className="mt-1">Pricing</div>
-                    <div className="mt-1">About</div>
-                    <div className="mt-1">FAQs</div>
+                    <div className="mt-1">Accueil</div>
+                    <div className="mt-1">Tarifs</div>
+                    <div className="mt-1">À propos</div>
+                    <div className="mt-1">FAQ</div>
                   </div>
                 </div>
                 <div className="flex flex-col ml-5 w-[37%] max-md:ml-0 max-md:w-full">
                   <div className="flex flex-col grow text-base font-medium leading-5 text-neutral-600 max-md:mt-10">
                     <div className="text-xl font-semibold text-stone-900">
-                      Social Platforms
+                      Plateformes sociales
                     </div>
                     <div className="mt-1">Instagram</div>
                     <div className="mt-1">Facebook</div>
-                    <div className="mt-1">Tiktok</div>
+                    <div className="mt-1">TikTok</div>
                     <div className="mt-1">Twitter</div>
                   </div>
                 </div>
                 <div className="flex flex-col ml-5 w-[37%] max-md:ml-0 max-md:w-full">
                   <div className="flex flex-col text-sm whitespace-nowrap max-md:mt-10">
                     <div className="text-xl font-semibold text-stone-900">
-                      Languages
+                      Langues
                     </div>
                     <div className="justify-center px-4 py-3.5 mt-4 text-white bg-indigo-400">
-                      English
+                      Anglais
                     </div>
-                    <div className="mt-4 text-neutral-600">French</div>
+                    <div className="mt-4 text-neutral-600">Français</div>
                   </div>
                 </div>
               </div>
@@ -93,9 +88,10 @@ export default function Footer() {
       </div>
       <div className="shrink-0 mt-14 max-w-full h-px border border-solid bg-neutral-200 border-neutral-200 w-[1272px] max-md:mt-10 max-md:mr-1" />
       <div className="self-center mt-7 text-xs leading-5 text-slate-800">
-        © 2024 Company name . All rights reserved.
+        © 2024 Ego. Tous droits réservés.
       </div>
     </div>
   );
+  
 }
 

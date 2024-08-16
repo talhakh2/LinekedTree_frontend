@@ -4,35 +4,37 @@ export default function AboutMission() {
     return (
         <div className="flex flex-col justify-center mt-10">
             <div className="mt-10 font-serif text-3xl text-center font-bold text-black leading-2 max-md:mt-10">
-                Our Mission
+                Notre Mission
             </div>
             <div className="px-5 mt-10 w-full max-w-[1000px] max-md:mt-10 max-md:max-w-full mx-auto">
-                <p className="leading-8 text-center">Our mission at EGO is to empower restaurant owners and administrators with innovative solutions that streamline operations, enhance online presence, and drive success. We are committed to providing user-friendly tools and exceptional support, ensuring our clients thrive in today's competitive landscape. With a focus on efficiency, excellence, and customer satisfaction, we strive to be the leading partner for restaurants looking to elevate their digital presence and exceed their goals.</p>
+                <p className="leading-8 text-center">
+                    Notre mission chez EGO est de donner aux propriétaires et administrateurs de restaurants des solutions innovantes qui rationalisent les opérations, améliorent la présence en ligne et favorisent le succès. Nous nous engageons à fournir des outils conviviaux et un soutien exceptionnel, garantissant que nos clients prospèrent dans le paysage concurrentiel actuel. Avec un accent sur l'efficacité, l'excellence et la satisfaction des clients, nous nous efforçons d'être le partenaire de choix pour les restaurants cherchant à élever leur présence numérique et à dépasser leurs objectifs.
+                </p>
             </div>
             <div className="p-5 mt-16 w-full rounded-3xl bg-[linear-gradient(90deg,#8497FC_100%,#4F5A96_100%)] max-w-[1200px] max-md:mt-10 max-md:max-w-full m-auto">
                 <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                     <div className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col grow text-center text-white whitespace-nowrap max-md:mt-10">
                             <div className="text-3xl font-semibold">2024</div>
-                            <div className="mt-2.5 text-2xl">Founded</div>
+                            <div className="mt-2.5 text-2xl">Fondé</div>
                         </div>
                     </div>
                     <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col grow text-center text-white whitespace-nowrap max-md:mt-10">
                             <div className="text-3xl font-semibold">2.5K</div>
-                            <div className="mt-2.5 text-2xl">Users</div>
+                            <div className="mt-2.5 text-2xl">Utilisateurs</div>
                         </div>
                     </div>
                     <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col grow text-center text-white max-md:mt-10">
                             <div className="text-3xl font-semibold">96%</div>
-                            <div className="mt-2.5 text-2xl">Positive Reviews</div>
+                            <div className="mt-2.5 text-2xl">Avis Positifs</div>
                         </div>
                     </div>
                     <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col grow text-center text-white whitespace-nowrap max-md:mt-10">
                             <div className="text-3xl font-semibold">4+</div>
-                            <div className="mt-2.5 text-2xl">Country</div>
+                            <div className="mt-2.5 text-2xl">Pays</div>
                         </div>
                     </div>
                 </div>
@@ -42,11 +44,11 @@ export default function AboutMission() {
                     <div className="flex flex-col w-[57%] max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col self-stretch px-5 my-auto max-md:mt-10 max-md:max-w-full">
                             <div className="text-4xl leading-10 font-bold text-black max-md:max-w-full max-md:text-4xl">
-                                From <span className="text-indigo-400">Unknown</span><br/> to{" "}
-                                <span className="text-indigo-400">Unforgettable</span>
+                                De <span className="text-indigo-400">Inconnu</span><br/> à{" "}
+                                <span className="text-indigo-400">Inoubliable</span>
                             </div>
                             <div className="mt-9 text-xl text-black max-md:max-w-full">
-                            Our aim is to provide a platform that equips individuals with the tools, resources, and guidance they need to overcome challenges, expand their horizons, and become unforgettable in their pursuits. Through a comprehensive range of educational content, interactive learning experiences, and a supportive community, we empower individuals to discover their passions, enhance their skills, and unlock their true potential.
+                                Notre objectif est de fournir une plateforme qui équipe les individus avec les outils, les ressources et les conseils dont ils ont besoin pour surmonter les défis, élargir leurs horizons et devenir inoubliables dans leurs pursuits. Grâce à une gamme complète de contenu éducatif, d'expériences d'apprentissage interactives et d'une communauté de soutien, nous permettons aux individus de découvrir leurs passions, d'améliorer leurs compétences et de libérer leur véritable potentiel.
                             </div>
                         </div>
                     </div>
@@ -59,7 +61,6 @@ export default function AboutMission() {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }

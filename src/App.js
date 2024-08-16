@@ -1,6 +1,8 @@
-import ReactRoutes from './routes/HomeRoutes'
+import React, { useEffect } from 'react';
+import ReactRoutes from './routes/HomeRoutes';
 
 function App() {
+
   return (
     <main>
       <ReactRoutes/>

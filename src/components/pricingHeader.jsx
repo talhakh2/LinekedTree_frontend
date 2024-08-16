@@ -20,20 +20,21 @@ export default function PricingHeader() {
                             srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/9140dc000217fca1b41cba0834bdae83c473b09d1b9a987d32d64140fe94d070?apiKey=cf358c329e0d49a792d02d32277323ef&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/9140dc000217fca1b41cba0834bdae83c473b09d1b9a987d32d64140fe94d070?apiKey=cf358c329e0d49a792d02d32277323ef&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/9140dc000217fca1b41cba0834bdae83c473b09d1b9a987d32d64140fe94d070?apiKey=cf358c329e0d49a792d02d32277323ef&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/9140dc000217fca1b41cba0834bdae83c473b09d1b9a987d32d64140fe94d070?apiKey=cf358c329e0d49a792d02d32277323ef&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/9140dc000217fca1b41cba0834bdae83c473b09d1b9a987d32d64140fe94d070?apiKey=cf358c329e0d49a792d02d32277323ef&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/9140dc000217fca1b41cba0834bdae83c473b09d1b9a987d32d64140fe94d070?apiKey=cf358c329e0d49a792d02d32277323ef&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/9140dc000217fca1b41cba0834bdae83c473b09d1b9a987d32d64140fe94d070?apiKey=cf358c329e0d49a792d02d32277323ef&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/9140dc000217fca1b41cba0834bdae83c473b09d1b9a987d32d64140fe94d070?apiKey=cf358c329e0d49a792d02d32277323ef&"
                             className="w-full aspect-[2.13] max-w-[891px] absolute top-[30px]"
                         />
-
                     </div>
                     <div className="flex flex-col w-[44%] max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col self-stretch my-auto text-white max-md:mt-10 max-md:max-w-full">
                             <div className="text-3xl font-bold leading-2 max-md:max-w-full max-md:text-4xl mb-4">
-                                Subscription Options
+                                Options d'abonnement
                             </div>
                             <div className="mt-3.5 text-lg font-medium leading-2 max-md:max-w-full">
-                                Explore Flexible Monthly and Yearly Plans Tailored to Your Needs              </div>
+                                Découvrez des plans mensuels et annuels flexibles adaptés à vos besoins
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     );
+    
 }
 

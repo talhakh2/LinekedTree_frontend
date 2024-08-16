@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
 export default function SpinDesign({ gameFormat }) {
-    
+
     const [textColor, setTextColor] = useState('text-white')
-    
+
     useEffect(() => {
-        if(gameFormat.buttonColor === '#E3F2FD')
+        if (gameFormat.buttonColor === '#E3F2FD')
             setTextColor('text-black')
         else
             setTextColor('text-white')
@@ -15,23 +15,29 @@ export default function SpinDesign({ gameFormat }) {
         <>
             <div className='flex justify-center mt-3'>
                 {
-                    gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-2xl italic'>{gameFormat.brandName}</h1>
+                    gameFormat.logo ?
+                        <img
+                            src={gameFormat.logo}
+                            alt="logo"
+                            className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10"
+                        />
+                        :
+                        <h1 className='font-bold font-sans text-2xl italic'>{gameFormat.brandName}</h1>
                 }
             </div>
             <div className=''>
-
                 <div className='flex flex-col md:flex-row max-w-[800px] justify-between mx-auto items-center mt-9'>
                     <div className="container mt-10 mr-10 mb-10 md:mb-0">
                         <div className="spinBtn"></div>
                         <div className="wheel">
                             <div className="number" style={{ '--i': 1, '--clr': gameFormat.wheelColorPair.color1 }}>
-                                <span className=' text-white'>try again</span>
+                                <span className=' text-white'>réessayer</span>
                             </div>
                             <div className="number" style={{ '--i': 2, '--clr': gameFormat.wheelColorPair.color2 }}>
                                 <span>{gameFormat.options.option1 || 'option 2'}</span>
                             </div>
                             <div className="number" style={{ '--i': 3, '--clr': gameFormat.wheelColorPair.color1 }}>
-                                <span className=' text-white'>try again</span>  
+                                <span className=' text-white'>réessayer</span>
                             </div>
                             <div className="number" style={{ '--i': 4, '--clr': gameFormat.wheelColorPair.color2 }}>
                                 <span>{gameFormat.options.option2 || 'option 4'}</span>
@@ -40,7 +46,7 @@ export default function SpinDesign({ gameFormat }) {
                                 <span>{gameFormat.options.option3 || 'option 5'}</span>
                             </div>
                             <div className="number" style={{ '--i': 6, '--clr': gameFormat.wheelColorPair.color2 }}>
-                                <span className=' text-white'>try again</span>
+                                <span className=' text-white'>réessayer</span>
                             </div>
                             <div className="number" style={{ '--i': 7, '--clr': gameFormat.wheelColorPair.color1 }}>
                                 <span>{gameFormat.options.option4 || 'option 7'}</span>
@@ -50,23 +56,27 @@ export default function SpinDesign({ gameFormat }) {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col font-medium text-black leading-[140%] ml-11">
-                        <div className="w-full text-xl font-bold text-center">
-                            Try Your Luck for a Reward!
+                    <div className="flex flex-col font-medium text-black max-w-min leading-[140%] ml-11">
+                        <div className="w-full text-lg font-bold text-center">
+                            Essayez votre chance pour une récompense !
                         </div>
                         <div className="mt-8 w-full text-lg text-center">
-                            Get Spinning: Drop Your Email!
+                            Laissez-nous votre email !
                         </div>
                         <div className="mt-8 w-full text-sm leading-5">Email</div>
-                        <input type="email" disabled placeholder='Enter your email' className="justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400" />
-                        <div className={`justify-center cursor-pointer items-center px-3 py-2.5 mt-8 w-full text-base font-semibold leading-6 ${textColor} whitespace-nowrap text-center rounded-lg shadow-sm`}
+                        <input
+                            type="email"
+                            disabled
+                            placeholder='Entrez votre email'
+                            className="justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400"
+                        />
+                        <div
+                            className={`justify-center cursor-pointer items-center px-3 py-2.5 mt-8 w-full text-base font-semibold leading-6 ${textColor} whitespace-nowrap text-center rounded-lg shadow-sm`}
                             style={{ backgroundColor: gameFormat.buttonColor ? gameFormat.buttonColor : '#4F46E5' }}>
-                            Confirm
+                            Confirmer
                         </div>
-
-
                         <div className="mt-8 w-full text-sm text-center">
-                            Note: One Spin per Participant Only
+                            Remarque : Un tirage au sort par participant uniquement
                         </div>
                     </div>
                 </div>
@@ -98,8 +108,10 @@ export default function SpinDesign({ gameFormat }) {
                 />
             </div>
             <div className="mt-3.5 ml-12 text-xs leading-3 text-slate-800">
-                © 2024 Company name . All rights reserved.
+                © 2024 Ego. Tous droits réservés.
             </div>
         </>
     )
+
+
 }
